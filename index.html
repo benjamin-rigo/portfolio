@@ -1106,14 +1106,15 @@
           `Connecting a first agent means installing it, editing a config file, restarting a service, and enrolling it. The old flow broke apart across those steps, and many users got stuck before a single log arrived.`,
           `One guided path from an empty agent list to the first enrolled agent.`
         ),
-        visual(`First agent onboarding screens from the Figma file (section "First agent onboarding"): the empty state with the three steps, OS selection, detection, and the success screen, composed like the other images.`),
+        image('images/nxlog/08.png', 'The wizard opens from Add new agent with all five steps laid out (left), then walks through download and install one numbered action at a time (right).'),
         cards([
-          ['An empty state that starts the journey', `An empty agent list opens with "Let us help get you started" and the three steps ahead: download and install, configure, restart. Users can return any time through Add New Agent.`],
-          ['Instructions for the right OS', `Users pick their operating system first, so every step after it shows the right installer, file path, and commands, down to where managed.conf lives.`],
-          ['Detection instead of guesswork', `After the restart, the platform detects the agent on its own. If it doesn't connect, there's a clear way out, and when several agents show up, users pick the right one.`],
-          ['Ending on the next step', `The success screen confirms the setup and points straight to setting up an event destination, so the flow ends with logs moving, not a dead end.`]
+          ['The whole path up front', `The first screen shows all five steps, Select OS, Download & Install, Configure, Restart Service, Enroll, and spotlights the Add new agent button, so users know how to come back later.`],
+          ['One action at a time', `Each step is a short numbered list with one primary button. The step that's easiest to miss, copying the installer to the target machine, is highlighted.`],
+          ['Detection, not guesswork', `After the restart, the platform finds the agent itself and shows it with its name, IP, and device name. If it's the wrong machine, a link right below offers a way out.`],
+          ['Confirmation in context', `On success, the agent turns OK both in the wizard and in the agent list behind it, so users see the result where they'll manage it from now on.`]
         ]),
-        result(`The redesigned enrollment wizard shipped, following the same path: choose the OS, download, configure, detect, enroll.`),
+        image('images/nxlog/09.png', 'The detected agent waiting for enrollment (left), and the successful setup with the agent already OK in the list behind (right).'),
+        result(`The redesigned enrollment wizard shipped, following the same five steps.`),
         h2(`Log search that doesn't assume you know your schema`, '02 / 05'),
         brief(
           `Log sources vary wildly in structure, and users often don't know which fields exist before they search. The old search assumed a fixed schema, while Splunk, Elastic, and Cribl all offered something more usable.`,
