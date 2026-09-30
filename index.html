@@ -433,7 +433,7 @@
     letter-spacing: -0.01em;
     color: var(--ink);
     max-width: 22ch;
-    margin: 120px 0 24px 0;
+    margin: 144px 0 28px 0;
   }
 
   .cs-kicker {
@@ -489,7 +489,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(max(260px, calc(50% - 6px)), 1fr));
     gap: 12px;
-    margin: 28px 0 36px 0;
+    margin: 40px 0 48px 0;
   }
 
   .cs-card {
@@ -526,15 +526,30 @@
     color: var(--ink);
   }
 
-  /* Only Problem sits on a card; Goal stays on the page ground so the
-     pair reads as a starting point and a quieter target. */
-  .cs-brief .cs-card:last-child { background: none; }
+  /* Problem drops to pure black so it reads as the starting point;
+     Goal keeps the standard card. */
+  .cs-brief .cs-card:first-child { background: #000; }
+
+  .cs-split {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: 40px;
+    align-items: start;
+    margin: 40px 0 48px 0;
+  }
+
+  .cs-split .cs-image,
+  .cs-split .cs-list { margin: 0; }
+
+  @media (max-width: 900px) {
+    .cs-split { grid-template-columns: 1fr; gap: 24px; }
+  }
 
   .cs-callout {
     border-left: 2px solid var(--ink);
     padding: 4px 0 4px 22px;
     max-width: 68ch;
-    margin: 36px 0;
+    margin: 48px 0;
   }
 
   .cs-callout p {
@@ -568,7 +583,7 @@
   }
 
   .cs-image {
-    margin: 28px 0 36px 0;
+    margin: 40px 0 48px 0;
   }
 
   .cs-image img {
@@ -826,7 +841,7 @@
 
     .cs-lede { font-size: 17px; }
 
-    .cs-h2 { font-size: 22px; margin: 72px 0 16px 0; }
+    .cs-h2 { font-size: 22px; margin: 88px 0 20px 0; }
     .cs-callout p { font-size: 17px; }
     .cs-h3 { font-size: 17px; }
 
@@ -1046,6 +1061,7 @@
   function h2(text, kicker) { return { t: 'h2', text: text, kicker: kicker }; }
   function brief(problem, goal) { return { t: 'brief', items: [['Problem', problem], ['Goal', goal]] }; }
   function cards(items) { return { t: 'cards', items: items }; }
+  function split(blocks, media) { return { t: 'split', blocks: blocks, media: media }; }
   function result(text) { return { t: 'callout', label: 'Result', text: text }; }
   function h3(text) { return { t: 'h3', text: text }; }
   function p(text) { return { t: 'p', text: text }; }
@@ -1079,13 +1095,14 @@
           ['Configuration builder', `Couldn't show plan tiers or multi-step SIEM integrations.`]
         ]),
         h2('My role and how we worked'),
-        list([
-          `Led design across all four areas, with two mid-level designers working under me.`,
-          `Scoped each feature from NXLog's own customer research. Their product team documented customer conversations and requirements in Confluence in great detail.`,
-          `Took every direction through the product team's design reviews, and checked each screen for feasibility with engineering.`,
-          `Set up a custom Material Design system in Figma with engineering early on, so every redesign after it started from shared components instead of from scratch.`
-        ]),
-        image('images/nxlog/02.png', 'The custom Material Design system in Figma, with light and dark tokens shared with engineering.'),
+        split([
+          list([
+            `Led design across all four areas, with two mid-level designers working under me.`,
+            `Scoped each feature from NXLog's own customer research. Their product team documented customer conversations and requirements in Confluence in great detail.`,
+            `Took every direction through the product team's design reviews, and checked each screen for feasibility with engineering.`,
+            `Set up a custom Material Design system in Figma with engineering early on, so every redesign after it started from shared components instead of from scratch.`
+          ])
+        ], image('images/nxlog/02.png', 'The custom Material Design system in Figma, with light and dark tokens shared with engineering.')),
         h2(`Log search that doesn't assume you know your schema`, '01 / 04'),
         brief(
           `Log sources vary wildly in structure, and users often don't know which fields exist before they search. The old search assumed a fixed schema, while Splunk, Elastic, and Cribl all offered something more usable.`,
@@ -1401,6 +1418,16 @@
           grid.appendChild(card);
         });
         container.appendChild(grid);
+      } else if (b.t === 'split') {
+        var sp = document.createElement('div');
+        sp.className = 'cs-split';
+        var spText = document.createElement('div');
+        renderBlocks(spText, b.blocks);
+        var spMedia = document.createElement('div');
+        renderBlocks(spMedia, [b.media]);
+        sp.appendChild(spText);
+        sp.appendChild(spMedia);
+        container.appendChild(sp);
       } else if (b.t === 'callout') {
         var co = document.createElement('div');
         co.className = 'cs-callout';
