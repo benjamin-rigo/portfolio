@@ -526,6 +526,30 @@
     color: var(--ink);
   }
 
+  /* Goal inverts to ink-on-light, the same way tags do, so the pair
+     reads as "from this, to that" at a glance. */
+  .cs-brief .cs-card:last-child { background: var(--ink); }
+  .cs-brief .cs-card:last-child .cs-card-label { color: #555; }
+  .cs-brief .cs-card:last-child .cs-card-text { color: var(--bg); }
+
+  /* Text beside its image: 5/7 split, stacking on narrow screens. */
+  .cs-split {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 32px;
+    align-items: center;
+    margin: 28px 0 36px 0;
+  }
+
+  .cs-split .cs-grid { grid-template-columns: 1fr; margin: 0; }
+  .cs-split .cs-image { margin: 0; }
+  .cs-split .cs-list { margin: 0; }
+  .cs-split .cs-list li:last-child { margin-bottom: 0; }
+
+  @media (max-width: 900px) {
+    .cs-split { grid-template-columns: 1fr; gap: 20px; }
+  }
+
   .cs-callout {
     border-left: 2px solid var(--ink);
     padding: 4px 0 4px 22px;
@@ -1042,6 +1066,7 @@
   function h2(text, kicker) { return { t: 'h2', text: text, kicker: kicker }; }
   function brief(problem, goal) { return { t: 'brief', items: [['Problem', problem], ['Goal', goal]] }; }
   function cards(items) { return { t: 'cards', items: items }; }
+  function split(blocks, media) { return { t: 'split', blocks: blocks, media: media }; }
   function result(text) { return { t: 'callout', label: 'Result', text: text }; }
   function h3(text) { return { t: 'h3', text: text }; }
   function p(text) { return { t: 'p', text: text }; }
@@ -1075,19 +1100,21 @@
           ['Configuration builder', `Couldn't show plan tiers or multi-step SIEM integrations.`]
         ]),
         h2('My role and how we worked'),
-        list([
-          `Led design across all four areas, with two mid-level designers working under me.`,
-          `Scoped each feature from NXLog's own customer research. Their product team documented customer conversations and requirements in Confluence in great detail.`,
-          `Took every direction through the product team's design reviews, and checked each screen for feasibility with engineering.`,
-          `Set up a custom Material Design system in Figma with engineering early on, so every redesign after it started from shared components instead of from scratch.`
-        ]),
-        image('images/nxlog/02.png', 'The custom Material Design system in Figma, with light and dark tokens shared with engineering.'),
+        split([
+          list([
+            `Led design across all four areas, with two mid-level designers working under me.`,
+            `Scoped each feature from NXLog's own customer research. Their product team documented customer conversations and requirements in Confluence in great detail.`,
+            `Took every direction through the product team's design reviews, and checked each screen for feasibility with engineering.`,
+            `Set up a custom Material Design system in Figma with engineering early on, so every redesign after it started from shared components instead of from scratch.`
+          ])
+        ], image('images/nxlog/02.png', 'The custom Material Design system in Figma, with light and dark tokens shared with engineering.')),
         h2(`Log search that doesn't assume you know your schema`, '01 / 04'),
-        brief(
-          `Log sources vary wildly in structure, and users often don't know which fields exist before they search. The old search assumed a fixed schema, while Splunk, Elastic, and Cribl all offered something more usable.`,
-          `Let anyone find logs without knowing the schema, from a quick text lookup to a precise multi-condition query.`
-        ),
-        image('images/nxlog/03.png', 'The previous log discovery screen (left) and the redesigned Log Search (right).'),
+        split([
+          brief(
+            `Log sources vary wildly in structure, and users often don't know which fields exist before they search. The old search assumed a fixed schema, while Splunk, Elastic, and Cribl all offered something more usable.`,
+            `Let anyone find logs without knowing the schema, from a quick text lookup to a precise multi-condition query.`
+          )
+        ], image('images/nxlog/03.png', 'The previous log discovery screen (left) and the redesigned Log Search (right).')),
         cards([
           ['Field discovery that adapts to the data', `The sidebar lists the fields that exist in the current results, with live counts. Preview a field on hover, add it as a column in one click. Exploring the schema becomes part of searching.`],
           ['A search bar that scales from simple to expert', `Free text, raw SQL, and a visual AND/OR query builder sit side by side. The timezone picker lives in the search bar, and saved searches and shareable links support shift handoffs.`],
@@ -1096,11 +1123,12 @@
         ]),
         result(`Validated with prospects and benchmarked against Cribl, Elastic, and Splunk. NXLog's product team cited the redesign as a factor in closing an enterprise deal.`),
         h2('Templates that stack, agents that scale', '02 / 04'),
-        brief(
-          `A real host often needs several templates at once, but the old model allowed roughly one per agent. With thousands of agents and dozens of templates, this was the most complex screen in the product, and a wrong model could silently change production agents.`,
-          `Make many-to-many assignment safe and fast, from either direction, at scale.`
-        ),
-        image('images/nxlog/04.png', 'Two entry points into the same assignment: templates onto selected agents (left), and agents onto a template (right).'),
+        split([
+          brief(
+            `A real host often needs several templates at once, but the old model allowed roughly one per agent. With thousands of agents and dozens of templates, this was the most complex screen in the product, and a wrong model could silently change production agents.`,
+            `Make many-to-many assignment safe and fast, from either direction, at scale.`
+          )
+        ], image('images/nxlog/04.png', 'Two entry points into the same assignment: templates onto selected agents (left), and agents onto a template (right).')),
         cards([
           ['Two entry points, one logic', `Users ask both "what does this host need?" and "which hosts need this?". Each question got its own flow, running on the same assignment logic and pre-filled from wherever you start.`],
           ['Designing for mixed state', `Selected agents are rarely uniform. The picker shows a partial state for templates on only some of them, with assign to all, clear from all, or leave as-is. The hardest problem in the feature: a wrong default touches agents the user never meant to change.`],
@@ -1109,11 +1137,12 @@
         ]),
         image('images/nxlog/05.png', 'The agent list with assigned templates on every row (left), and the control planes list (right).'),
         h2('Making the pipeline visible', '03 / 04'),
-        brief(
-          `An agent's pipeline, collectors feeding relays feeding destinations, only existed as config text. Nobody could see its shape, spot a bottleneck, or quickly learn an environment's topology.`,
-          `Show the pipeline as an architecture users can build by dragging and watch live.`
-        ),
-        image('images/nxlog/06.png', 'The Log Flow editor: the Architecture view for building the pipeline (left), and the EPS view for monitoring live throughput (right).'),
+        split([
+          brief(
+            `An agent's pipeline, collectors feeding relays feeding destinations, only existed as config text. Nobody could see its shape, spot a bottleneck, or quickly learn an environment's topology.`,
+            `Show the pipeline as an architecture users can build by dragging and watch live.`
+          )
+        ], image('images/nxlog/06.png', 'The Log Flow editor: the Architecture view for building the pipeline (left), and the EPS view for monitoring live throughput (right).')),
         cards([
           ['Built from real configurations', `Existing configurations appear as draggable cards with their agent and connection counts. Users arrange what already runs, so the diagram always matches reality.`],
           ['Wiring like a network diagram', `Nodes connect by dragging a cable, the way engineers already sketch topology. Multi-protocol nodes (TCP, HTTP, HTTP/3, UDP) show each protocol as its own labeled connection point.`],
@@ -1121,11 +1150,12 @@
           ['A guided start instead of a blank canvas', `An empty state leads into three steps: arrange, connect, check. It says plainly that the flow view doesn't alter configurations, so users feel safe to experiment.`]
         ]),
         h2('Configuration without the syntax barrier', '04 / 04'),
-        brief(
-          `NXLog Agent configs use a powerful but hard-to-learn Apache-style syntax. Plan tiers limited which modules users could pick, and SIEM integrations like Google Chronicle needed setup on the SIEM side that the product didn't represent.`,
-          `Build a working configuration visually, see plan limits before hitting them, and get guided through integrations.`
-        ),
-        image('images/nxlog/07.png', 'The configuration builder with plan badges in the picker (left), and the guided Google Chronicle setup (right).'),
+        split([
+          brief(
+            `NXLog Agent configs use a powerful but hard-to-learn Apache-style syntax. Plan tiers limited which modules users could pick, and SIEM integrations like Google Chronicle needed setup on the SIEM side that the product didn't represent.`,
+            `Build a working configuration visually, see plan limits before hitting them, and get guided through integrations.`
+          )
+        ], image('images/nxlog/07.png', 'The configuration builder with plan badges in the picker (left), and the guided Google Chronicle setup (right).')),
         cards([
           ['A layout that mirrors the real model', `Collect, Actions, Send to: input, processing, output, exactly as NXLog Agent runs a route. Every dragged block is a real config block, and a text toggle shows the same route as raw config.`],
           ['Plan limits at the point of choice', `Every template and module carries a Basic or Premium badge, and "Show only free" narrows the list for trial users. People see what their plan includes while choosing.`],
@@ -1397,6 +1427,17 @@
           grid.appendChild(card);
         });
         container.appendChild(grid);
+      } else if (b.t === 'split') {
+        var sp = document.createElement('div');
+        sp.className = 'cs-split';
+        var spText = document.createElement('div');
+        spText.className = 'cs-split-text';
+        renderBlocks(spText, b.blocks);
+        var spMedia = document.createElement('div');
+        renderBlocks(spMedia, [b.media]);
+        sp.appendChild(spText);
+        sp.appendChild(spMedia);
+        container.appendChild(sp);
       } else if (b.t === 'callout') {
         var co = document.createElement('div');
         co.className = 'cs-callout';
