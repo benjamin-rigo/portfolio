@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>Benjamin Rigó — Work</title>
 <style>
   /* Three colors, total: a near-black ground, a near-white ink, and one
@@ -451,6 +452,22 @@
     margin: 0 0 16px 0;
   }
 
+  .cs-list {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink-dim);
+    margin: 0 0 16px 0;
+    padding-left: 18px;
+  }
+
+  .cs-list li { margin-bottom: 8px; }
+
+  .cs-p strong,
+  .cs-list strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
   .cs-placeholder {
     margin: 28px 0 32px 0;
     padding: 18px 20px;
@@ -775,8 +792,8 @@
         <div class="work-list">
           <h2 class="section-title">Case Studies</h2>
           <div class="filmstrip">
-            <a class="col" href="#work/nxlog-platform" aria-label="UX Support &amp; Module Design for Enterprise Log Management. Tags: Log Management, Enterprise SaaS">
-              <div class="title" aria-hidden="true">UX Support &amp; Module Design for Enterprise Log Management</div>
+            <a class="col" href="#work/nxlog-platform" aria-label="Redesigning the Core Workflows of an Enterprise Log Management Platform. Tags: Log Management, Enterprise SaaS">
+              <div class="title" aria-hidden="true">Redesigning the Core Workflows of an Enterprise Log Management Platform</div>
               <div class="tags" aria-hidden="true"><span>Log Management</span><span>Enterprise SaaS</span></div>
             </a>
             <a class="col" href="#work/enlight" aria-label="FinTech Engagement Platform Concept &amp; AI Prototyping. Tags: Fintech, Gamification">
@@ -787,8 +804,8 @@
               <div class="title" aria-hidden="true">Public Transport Ticketing Evaluation &amp; Redesign</div>
               <div class="tags" aria-hidden="true"><span>Public Transport</span><span>Service Design</span></div>
             </a>
-            <a class="col" href="#work/skytree" aria-label="Multirole CO2 capture monitoring system design. Tags: Hardware, Data Visualization">
-              <div class="title" aria-hidden="true">Multirole CO2 capture monitoring system design</div>
+            <a class="col" href="#work/skytree" aria-label="Multi-Role CO2 Capture Monitoring System Design. Tags: Hardware, Data Visualization">
+              <div class="title" aria-hidden="true">Multi-Role CO2 Capture Monitoring System Design</div>
               <div class="tags" aria-hidden="true"><span>Hardware</span><span>Data Visualization</span></div>
             </a>
           </div>
@@ -951,6 +968,8 @@
   function h2(text) { return { t: 'h2', text: text }; }
   function h3(text) { return { t: 'h3', text: text }; }
   function p(text) { return { t: 'p', text: text }; }
+  function lead(label, text) { return { t: 'p', lead: label, text: text }; }
+  function list(items) { return { t: 'list', items: items }; }
   function note(text) { return { t: 'note', text: text }; }
   function visual(text) { return { t: 'placeholder', label: 'Visual placeholder', text: text }; }
   function pending(text) { return { t: 'placeholder', label: 'Pending', text: text }; }
@@ -959,83 +978,90 @@
 
   var PROJECTS = {
     'nxlog-platform': {
-      title: 'UX Support & Module Design for Enterprise Log Management',
+      title: 'Redesigning the Core Workflows of an Enterprise Log Management Platform',
       tags: ['Log Management', 'Enterprise SaaS'],
       meta: [
         { label: 'Duration', value: '2024–2025' },
-        { label: 'Role', value: 'Lead Product Designer' },
-        { label: 'Scope', value: 'Log search & visualization, agent-template assignment system, pipeline visual editor, configuration builder; leading two mid-level designers' }
+        { label: 'Role', value: 'Lead Product Designer, Atlas, Rise!' },
+        { label: 'Team', value: '2 mid-level designers, NXLog product and engineering' },
+        { label: 'Outcome', value: 'Log search redesign cited by NXLog as a factor in closing an enterprise deal' }
       ],
-      lede: `I led product design across four core feature areas of NXLog Platform, an on-premises log management tool for security and IT teams, as an Atlas, Rise! engagement, leading two mid-level designers through architecture revision and redesign work grounded in real, ongoing product requests rather than internal assumptions.`,
+      lede: `NXLog Platform helps security and IT teams collect and analyze logs at scale. I led the redesign of four core workflows that had outgrown their original design: log search, template assignment, pipeline visualization, and configuration.`,
       blocks: [
-        image('images/nxlog/01.png', 'Log Flow Editor, configuration builder, log search, and template assignment — the four core areas covered below.'),
-        h2('Challenge'),
-        p(`NXLog Platform is an on-premises solution for centralized log management, used by security and IT teams to collect, process, and analyze log data at scale, and by the time I joined several of its core surfaces had grown past what their original design could support: search assumed a schema the underlying data didn't actually have, agent-to-template assignment had outgrown a one-to-one model, pipeline configuration only existed as text, and the configuration builder needed to represent both plan tiers and multi-step SIEM integrations it was never built for. I led the redesign across all four areas, together with two mid-level designers working under me.`),
-        h2('Approach'),
-        p(`NXLog's own product team held the direct relationship with its customers and prospects, and requests were grounded in that real, ongoing contact rather than internal assumptions, their Confluence documentation of customer conversations and requirements was genuinely thorough and made scoping each feature far easier than starting from a blank page. Every proposed direction went through regular design reviews inside the product team's meetings before moving forward, and every screen got checked for feasibility with engineering directly, keeping decisions grounded in what could actually ship rather than isolated design opinion. Early in the engagement I also led a move to a custom Material Design system in Figma, built in agreement with engineering, giving both teams a shared, reusable foundation. Once that was in place, each of the four redesigns below moved noticeably faster than solving a feature's UI from scratch. Only the log search work has confirmed, customer-facing outcome data attached to it below; the other three shipped into the product's ongoing cycle without that same kind of tracking in place.`),
-        visual(`A shot of the Material Design system in Figma, or a before/after of one component moving from the old ad-hoc styling to the new system, to make "shared foundation" concrete.`),
+        image('images/nxlog/01.png', 'Log Flow editor, configuration builder, log search, and template assignment: the four areas covered below.'),
+        h2('Context'),
+        p(`NXLog Platform is an on-premises log management tool. Security and IT teams use it to collect, process, and analyze log data from thousands of agents. By the time I joined, four core areas had outgrown what their original design could support:`),
+        list([
+          ['Log search', `assumed a fixed schema the data didn't have.`],
+          ['Template assignment', `tied each agent to one configuration, while real hosts need several.`],
+          ['Pipelines', `only existed as config text, with no way to see their shape.`],
+          ['The configuration builder', `couldn't show plan tiers or multi-step SIEM integrations.`]
+        ]),
+        h2('My role and how we worked'),
+        list([
+          `Led design across all four areas, with two mid-level designers working under me.`,
+          `Scoped each feature from NXLog's own customer research. Their product team documented customer conversations and requirements in Confluence in great detail.`,
+          `Took every direction through the product team's design reviews, and checked each screen for feasibility with engineering.`,
+          `Set up a custom Material Design system in Figma with engineering early on, so every redesign after it started from shared components instead of from scratch.`
+        ]),
+        image('images/nxlog/02.png', 'The custom Material Design system in Figma, with light and dark tokens shared with engineering.'),
         h2(`Log search that doesn't assume you know your schema`),
-        p(`As NXLog Platform moved into the broader log management market, its existing search experience assumed a fixed schema the underlying data didn't actually have. Log sources vary wildly in structure, and users often don't know which fields exist before they start looking. Competitors like Splunk, Elastic, and Cribl offered a noticeably more usable search and log-display experience, and closing that gap mattered for being credible in the market at all. What people needed cut across all of that: finding logs by a simple text string or a structured query without knowing the schema upfront, scanning structured data in a table while still seeing complete, unaligned log lines for sources that don't fit one, discovering which fields exist and how their values distribute within the current search, reasoning across time zones without doing the math by hand, and exporting results to people without platform access. The real difficulty wasn't any single screen, it was organizing the field discovery sidebar and the search experience itself so an unpredictable, schemaless dataset didn't turn into a wall of noise, and making sure that structure held up whether someone was typing a quick text lookup or building a precise multi-condition query.`),
-        visual(`The full Log Search screen — search bar, results table, sidebar, timeline together — as the establishing shot for this section.`),
+        lead('Problem.', `Log sources vary wildly in structure, and users often don't know which fields exist before they start searching. The old search assumed a fixed schema. Splunk, Elastic, and Cribl all offered a more usable search, and closing that gap was key to being credible in the market.`),
+        lead('Goal.', `Let anyone find logs without knowing the schema, from a quick text lookup to a precise multi-condition query.`),
+        image('images/nxlog/03.png', 'The previous log discovery screen (left) and the redesigned Log Search (right).'),
         h3('Field discovery that adapts to the data'),
-        p(`Instead of asking users to know their schema upfront, I designed the sidebar to surface available fields dynamically based on the current search, with live counts, hover-to-preview, and one-click add or remove as columns, turning schema exploration into part of the search flow itself instead of something users needed to know going in.`),
-        visual(`The field discovery sidebar mid-use, showing live counts and a hovered field preview.`),
+        p(`The sidebar lists the fields that exist in the current results, with live counts. Users can preview a field on hover and add it as a column in one click. Exploring the schema becomes part of searching, not a prerequisite for it.`),
         h3('A search bar that scales from simple to expert'),
-        p(`I laid free-text search and a raw SQL field alongside a visual query builder for constructing grouped AND/OR conditions without writing SQL by hand. Timezone selection lives directly in the search bar, addressing a specific real scenario: an analyst investigating an incident that happened in a different time zone, without doing the time-shift math themselves. Saved searches and one-click link sharing support handoff between analysts and shift changes.`),
-        visual(`The search bar with the visual query builder open, plus the timezone selector, to show the range from simple text search to expert query.`),
+        p(`Free text, raw SQL, and a visual query builder for grouped AND/OR conditions sit side by side. The timezone picker lives in the search bar, so an analyst investigating an incident in another region doesn't convert times by hand. Saved searches and shareable links support shift handoffs.`),
         h3('A results table built for unpredictable data'),
-        p(`Rows load progressively with clear loading states rather than blocking on the full result set. Expanding a row reveals the full event as structured, collapsible JSON, with inline actions, copy JSON, copy link, expand or collapse arrays, that appear on hover rather than cluttering the row by default. Only one row can be expanded at a time, keeping the table scannable during fast-moving investigations.`),
-        visual(`The results table with one row expanded to show the structured JSON view.`),
+        p(`Rows load progressively instead of blocking on the full result set. Expanding a row shows the full event as collapsible JSON, with copy and expand actions that appear on hover. Only one row opens at a time, so the table stays scannable during an investigation.`),
         h3('A timeline that doubles as a filter'),
-        p(`I built the timeline as a histogram of log volume over time that sits above or beside the table; dragging across a range zooms the table to that window automatically, with browser back-navigation working to undo the selection. It adapts to side, bottom, or collapsed placement depending on the workflow, and hovering any bar surfaces the exact count and time range.`),
-        visual(`The timeline mid-drag, selecting a range, with the table below already reflecting the zoomed window. A short GIF of the drag-to-zoom interaction would sell this well.`),
-        p(`The redesign was scoped and validated directly against named prospects evaluating NXLog specifically for its log management capability, benchmarked against Cribl, Elastic, and Splunk rather than judged in the abstract, and NXLog's product team flagged it as a factor in at least one enterprise deal that closed during the engagement, the one piece of this work with a confirmed downstream result attached to it.`),
+        p(`A histogram of log volume sits next to the table. Dragging across a range zooms the results to that window, and the browser's back button undoes it. The timeline can dock to the side or the bottom, or collapse.`),
+        lead('Result.', `The redesign was validated with prospects evaluating NXLog for log management, and benchmarked against Cribl, Elastic, and Splunk. NXLog's product team cited it as a factor in closing an enterprise deal during the engagement.`),
         h2('Templates that stack, agents that scale'),
-        p(`Agents in NXLog Platform are configured through templates, reusable definitions of what to collect and where to send it, but the original model tied one agent to effectively one configuration at a time, which didn't match reality: a single host often needs several capabilities running at once, Windows event collection and a relay function and internal diagnostics, for instance, and a single template needs to roll out across large, overlapping groups of agents rather than one at a time. Internally this was flagged as the most complex screen in the product, a genuine many-to-many relationship at a scale of thousands of agents and dozens of templates, where getting the interaction model wrong would make bulk operations error-prone in a security-critical tool. People needed to stack several templates on one agent, see from the agent list how many templates were assigned and expand to see exactly which, work from either direction, which hosts need this capability, or what does this host need, know if a new template conflicted with what was already there, push a change to every assigned agent or a specific subset, and manage control planes, the mechanism agents connect through, as their own entity.`),
-        visual(`The agent list with the templates-assigned column expanded to show which templates are on a given agent.`),
-        h3('Two entry points into the same relationship'),
-        p(`Because users think about assignment from both directions, I designed two parallel flows: agents to templates, starting from the agent list, selecting agents, then choosing which templates to assign, and templates to agents, starting from a template and selecting which agents should receive it. Both converge on the same underlying assignment logic, so the system stays consistent regardless of which direction a user starts from, and whichever screen the flow is entered from pre-populates that side of the selection automatically.`),
-        visual(`Both entry flows side by side, or a short GIF of one flow, agent list → select agents → assign templates.`),
-        h3('Designing for partial, not just all-or-nothing, state'),
-        p(`At scale, a batch of selected agents is rarely uniform, some already carry a given template, some don't. Rather than forcing a binary toggle, I designed the assignment UI to distinguish assign to all, clear from all, and leave as-is, and to visually differentiate a template that's on every selected agent from one that's on only some of them. This was one of the harder interaction problems in the whole feature, since getting it wrong risks silently changing configuration on agents the user didn't intend to touch.`),
-        visual(`The assignment UI showing the three-state distinction on a mixed batch of agents — this is the clearest single shot of the hardest interaction problem in the feature.`),
+        lead('Problem.', `Templates define what an agent collects and where it sends it. The old model allowed roughly one template per agent, but a real host often needs several at once, for example Windows event collection, a relay, and internal diagnostics. With thousands of agents and dozens of templates, this was flagged internally as the most complex screen in the product. A wrong interaction model here could silently change configuration on production agents.`),
+        lead('Goal.', `Make many-to-many assignment safe and fast, from either direction, at scale.`),
+        image('images/nxlog/04.png', 'Two entry points into the same assignment: templates onto selected agents (left), and agents onto a template (right).'),
+        h3('Two entry points, one logic'),
+        p(`Users think about assignment from both sides: "what does this host need?" and "which hosts need this?". I designed a flow for each. Both run on the same assignment logic, and whichever screen you start from pre-fills that side of the selection.`),
+        h3('Designing for mixed state'),
+        p(`A batch of selected agents is rarely uniform: some already have a template, some don't. Instead of an on/off toggle, the picker shows a partial state for templates that are on only some of the selected agents, and lets users assign to all, clear from all, or leave as-is. This was the hardest interaction problem in the feature, because a wrong default would change agents the user never meant to touch.`),
         h3('Separating authoring from deployment'),
-        p(`Editing a template supports Save, Save As, branching a variant instead of overwriting the original, and Save as Draft for a route that isn't complete yet, distinct from the separate action of actually assigning or pushing the change to agents. This gives users room to iterate on a definition without every keystroke being live on production agents.`),
-        h3('Control planes as a first-class, separate concern'),
-        p(`Rather than folding control-plane management into the general config flow, it got its own space: a list of control planes with one protected default, and an explicit assignment step for putting agents on a non-default control plane. The agent list surfaces which control plane an agent belongs to as its own column, so that context isn't hidden behind a click.`),
-        visual(`The control planes list with the protected default marked, plus the agent list showing the control-plane column.`),
+        p(`Save, Save As (to branch a variant), and Save as Draft are separate from pushing a change to agents. Users can iterate on a template without every edit going live.`),
+        h3('Control planes as their own space'),
+        p(`Control planes, the mechanism agents connect through, got their own list with one protected default, plus an explicit step for moving agents to another one. The agent list shows each agent's templates and control plane as columns, so that context never hides behind a click.`),
+        image('images/nxlog/05.png', 'The agent list with assigned templates on every row (left), and the control planes list (right).'),
         h2('Making the pipeline visible'),
-        p(`An agent's log pipeline, collectors feeding relays feeding destinations, previously only existed as text configuration. There was no way to see the shape of that pipeline at a glance, which made it hard to reason about the overall architecture, spot where a bottleneck or failure was happening, or onboard someone unfamiliar with a given environment's topology. People needed to see the full pipeline as a visual architecture instead of inferring it from config text, build and rearrange it by dragging and connecting pieces rather than hand-editing routing definitions, monitor live throughput per node to catch bottlenecks before they became incidents, see health at a glance across the whole environment, handle nodes that fan out to multiple protocols without the diagram turning to clutter, and get started without a blank-canvas problem. Here too, the real challenge sat underneath any single interaction: organizing how the different node and connection types were represented, and keeping the canvas legible once a real pipeline had more than a handful of nodes on it.`),
-        visual(`The full Log Flow Editor canvas with several connected nodes, as the establishing shot.`),
-        h3('Auto-synced cards, not manual re-entry'),
-        p(`I turned existing configurations automatically into draggable cards showing their live agent and connection counts, so users place and wire together configs that already exist in the system rather than redefining them on the canvas, which keeps the diagram truthful to what's actually running.`),
-        h3('Cable-based connections that mirror a network diagram'),
-        p(`I connected nodes by dragging a cable from one connection point to another, with a delete action surfacing on hover. The intent was to echo how security and network engineers already think about topology, wiring boxes together, rather than introducing a novel interaction model for the same idea.`),
-        visual(`Two nodes mid-connection, cable being dragged between them.`),
+        lead('Problem.', `An agent's pipeline, collectors feeding relays feeding destinations, only existed as config text. Nobody could see its shape at a glance, spot a bottleneck, or quickly get a new teammate up to speed on an environment's topology.`),
+        lead('Goal.', `Show the pipeline as an architecture users can build by dragging and watch live.`),
+        image('images/nxlog/06.png', 'The Log Flow editor: the Architecture view for building the pipeline (left), and the EPS view for monitoring live throughput (right).'),
+        h3('Built from real configurations'),
+        p(`Existing configurations appear automatically as draggable cards with their agent and connection counts. Users arrange what already runs instead of redefining it, so the diagram always matches reality.`),
+        h3('Wiring like a network diagram'),
+        p(`Users connect nodes by dragging a cable between connection points, the way security and network engineers already sketch topology. A node that sends over several protocols (TCP, HTTP, HTTP/3, UDP) shows each one as its own labeled connection point, because the wrong protocol on the wrong route has real operational consequences.`),
         h3('Two modes: designing vs. watching'),
-        p(`The canvas has an Architecture view for building and rearranging the pipeline, and a separate EPS, events-per-second, view for live monitoring, each node shows input and output throughput over time in that mode. Keeping these separate meant the editing experience didn't get cluttered with live data, and the monitoring view didn't get weighed down with edit controls.`),
-        visual(`The same pipeline shown in both Architecture and EPS mode, side by side, to make the split concrete.`),
-        h3('Multi-protocol nodes stay legible'),
-        p(`A node that fans out across several protocols or destinations, TCP, HTTP, HTTP/3, UDP, shows each as its own labeled connection point instead of collapsing them into one ambiguous link, important in a tool where getting the wrong protocol on the wrong route has real operational consequences.`),
-        h3('A guided path out of the blank canvas'),
-        p(`First-time use starts from an explicit empty state, "You don't have any flows yet," rather than a bare grid, leading into a short three-step walkthrough, arrange configs, connect configs, check the flow, with an explicit reassurance that changes in the flow view don't alter the underlying configurations. That reassurance mattered: without it, users hesitate to experiment on something that looks like it controls live infrastructure.`),
-        visual(`The empty state and the three-step walkthrough, to show the onboarding sequence.`),
+        p(`The Architecture view is for building. The EPS (events per second) view shows each node's input and output throughput over time, with agent health across the environment at the top. Keeping them apart means editing isn't cluttered with live data, and monitoring isn't cluttered with edit controls.`),
+        h3('A guided start instead of a blank canvas'),
+        p(`First use opens on an empty state and a three-step walkthrough: arrange configs, connect them, check the flow. It also says plainly that changes here don't alter the underlying configurations. Without that reassurance, users would hesitate to experiment with something that looks like it controls live infrastructure.`),
         h2('Configuration without the syntax barrier'),
-        p(`NXLog Agent configurations are written in an Apache-style syntax of nested blocks and directives, powerful, but a real barrier for anyone who isn't already fluent in it. Plan tiering, Free, Basic, Premium, meant certain modules and templates weren't available to every user, and integrating with a third-party SIEM like Google Chronicle or QRadar was never just "add a template," it also meant setting things up on the SIEM side, which the product hadn't previously represented as its own step. People needed to build a working configuration without hand-writing the syntax while still being able to see and edit it as text for full control, start from ready-made templates instead of assembling everything from primitive modules every time, know upfront which templates their plan actually included rather than hitting a paywall mid-build, get real help completing integrations that needed more than an agent-side change, and leave a configuration unfinished without losing work. The real challenge was organizing the underlying type system, matching what the builder let people configure to how NXLog Agent actually models a route, and keeping the visualization clean once modules and options started stacking up, more than any single interaction on its own.`),
-        visual(`The configuration builder's Collect / Actions / Send to columns, populated with a real route, as the establishing shot.`),
-        h3('A visual structure that mirrors the real configuration model'),
-        p(`I organized the builder into Collect, Actions, and Send to columns that map directly to how NXLog Agent actually processes data, input, processing, output, within routes, so what users drag and drop corresponds one-to-one with real configuration blocks rather than an abstraction layered on top that could drift from what's actually deployed. A "view as configuration text" toggle sits next to the builder at all times, so the visual and text representations are always the same document, not two different sources of truth.`),
-        visual(`The builder with the text-view toggle active, showing the same route as both diagram and raw config side by side.`),
-        h3('Plan tier shown at the point of choice'),
-        p(`Every template and module in the picker carries an inline Basic or Premium badge, and a "show only free" filter lets trial or free-plan users scope the picker to what they can actually use. This moved plan awareness from a wall people hit after building something to information available while they're choosing.`),
-        visual(`The module picker with the Basic/Premium badges visible and the "show only free" filter toggled.`),
-        h3('Multi-step setup for integrations that are more than a config'),
-        p(`For destinations like Google Chronicle, the flow doesn't pretend a template alone finishes the job, it walks through configuring the agent side, connecting to the SIEM, API keys, region, customer ID, credentials file, downloading and installing SIEM-side components, and importing detection rules where relevant. Representing this as a short guided sequence, rather than one form, matches the real shape of the work instead of hiding it.`),
-        visual(`One or two steps of the Google Chronicle multi-step setup flow.`),
-        h3('Consistent save states across the builder'),
-        p(`In line with the same principle from the templates work, Save, Save Draft for an incomplete route, and Save Configuration are distinct actions, so a user can safely leave a configuration mid-way without either losing it or accidentally deploying an incomplete route.`),
+        lead('Problem.', `NXLog Agent configs use an Apache-style syntax of nested blocks and directives: powerful, but a barrier for anyone not fluent in it. Plan tiers (Free, Basic, Premium) also limited which modules users could pick, and SIEM integrations like Google Chronicle or QRadar needed setup on the SIEM side too, which the product didn't represent at all.`),
+        lead('Goal.', `Let people build a working configuration visually, see plan limits before they hit them, and get guided through integrations that need more than a template.`),
+        image('images/nxlog/07.png', 'The configuration builder with plan badges in the picker (left), and the guided Google Chronicle setup (right).'),
+        h3('A layout that mirrors the real model'),
+        p(`The builder follows how NXLog Agent processes data within a route: Collect, Actions, Send to, which is input, processing, output. Every block users drag maps one-to-one to a real configuration block. A "View as configuration text" toggle shows the same route as raw config, so there's only ever one source of truth.`),
+        h3('Plan limits shown at the point of choice'),
+        p(`Every template and module in the picker carries a Basic or Premium badge, and a "Show only free" filter narrows the list for trial users. People learn what their plan includes while they choose, not after they've built something.`),
+        h3('Integrations as a guided sequence'),
+        p(`For destinations like Google Chronicle, a short wizard covers the whole job: connecting to the SIEM (API keys, region, customer ID, credentials file), downloading and installing SIEM-side components, importing detection rules, and configuring the agent. It matches the real shape of the work instead of hiding it behind a single form.`),
+        h3('Consistent save states'),
+        p(`As with templates, Save, Save draft, and Save configuration are separate actions. Users can leave an incomplete route without losing it or deploying it by accident.`),
         h2('Lessons'),
-        p(`Getting this deep into a single company's domain was one of the more valuable parts of the engagement. Log management wasn't something I knew going in, and building that domain knowledge properly, not just enough to ship a screen, shaped every one of these four redesigns. What stood out most was how continuous the engineering involvement stayed throughout, checked on every direction rather than at a few fixed points, and NXLog's own product team having already gathered real customer documentation meant each feature could start from that material instead of from nothing.`)
+        list([
+          ['Domain depth pays off.', `I didn't know log management going in. Learning it properly, not just enough to ship a screen, shaped all four redesigns.`],
+          ['Engineering belongs in every step, not at checkpoints.', `Checking each direction with engineering as we went kept every decision grounded in what could ship.`],
+          ['Existing research is a head start.', `NXLog's documented customer conversations meant each feature started from real needs, not a blank page.`],
+          ['Design system first, features second.', `Once the shared system was in place, each redesign moved noticeably faster.`]
+        ])
       ]
     },
     'enlight': {
@@ -1043,46 +1069,57 @@
       tags: ['Fintech', 'Gamification'],
       meta: [
         { label: 'Duration', value: '2025–ongoing' },
-        { label: 'Role', value: 'Lead Product Designer' },
-        { label: 'Scope', value: 'Strategy canvas workshop facilitation, product definition, UX/UI design, design system adaptation, point and rewards system design' }
+        { label: 'Role', value: 'Lead Product Designer, Atlas, Rise!' },
+        { label: 'Team', value: '1 mid-level designer, client stakeholders' },
+        { label: 'Status', value: 'Pitch stage, not yet launched by a bank' }
       ],
-      lede: `I've been leading the design of a gamification and financial-education module that banks embed into their own apps, from the strategy canvas workshop that shaped what the product actually is through to an experience that's still evolving as the client pitches it to new stakeholders.`,
+      lede: `A gamification and financial-education module that banks embed in their own apps. I led it from the strategy workshop that defined the product to a design that keeps evolving as the client pitches it to new stakeholders.`,
       blocks: [
         note(`NDA project. The product name and specific partner or client identities are generalized or omitted.`),
         visual(`Hero shot here — the Level/points overview screen (Level, points-to-level-up bar, streak) is the most recognizable single screen to lead with.`),
-        h2('Challenge'),
-        p(`Financial education inside a banking app usually fails for one of two reasons: it's generic and disconnected from anything the user is actually doing, or it's positioned as a chore with no real payoff. The client brought Atlas, Rise! an idea for something different, a module banks could embed in their own apps that made financial engagement feel less like an obligation and more like something people would return to, but the idea itself wasn't yet a product. Working alongside a mid-level designer, I led a strategy canvas workshop to pull an actual product out of that idea: what it would do, what it would look like, and what value propositions it would need for the specific stakeholders the client wanted to pitch it to.`),
+        h2('Context'),
+        p(`Financial education in banking apps usually fails in one of two ways: it's generic and disconnected from what the user is doing, or it feels like a chore with no payoff. The client came to Atlas, Rise! with an idea for a module banks could embed to make financial engagement something people return to. It was an idea, not yet a product.`),
+        h2('My role'),
+        list([
+          `Facilitated a strategy canvas workshop, together with a mid-level designer, to define what the product does, how it looks, and its value proposition for each stakeholder the client wanted to pitch to.`,
+          `Designed the flows, the learning experience, the two activity formats, the points and leveling system, and how personalized offers surface.`,
+          `Built the design system on shadcn, customized for the module's own components.`
+        ]),
+        lead('Status.', `The project has been active since 2025 and is at pitch stage: no bank has launched it to real users yet. A CMS for content and partner-benefit weighting is planned but not yet scoped.`),
         visual(`The strategy canvas board or an early flow sketch from that first stage, to show where the design actually started.`),
-        h2('Approach'),
-        p(`From the workshop I built out the flow and the design system on shadcn, customized for the module's own components, and designed the resulting experience, the learning flow, the two activity formats, the point and leveling system, and how personalized offers surface within it, with a mid-level designer supporting specific pieces of that build. The project has stayed active since 2025 as the client continues pitching it to new stakeholders. It's still at pitch stage, no bank has launched it to real users yet, and a CMS to manage the content and the partner-benefit weighting is planned as part of the same effort but hasn't been scoped.`),
-        h2('Rebuilding the flow between pitches'),
-        p(`Every time the client pitched the module to a new stakeholder, new requirements and new perspectives came back with it, and flows that had felt settled needed rebuilding again. Reworking a fully designed flow by hand each time that happened got heavy, so partway through I moved prototyping onto AI tools, starting with Figma Make, mainly to keep pace with how often things were changing. It also turned into a useful, if accidental, test of how dependent a process like this can become on tools like that: how much time an iterative project like this actually eats, and what that ends up costing. Iteration did get faster, but the speed created its own problem. Once anything can be requested and built quickly, the client starts expecting everything to work that way, and in practice that usually ends up costing more than scoping and designing it properly the first time would have. Useful to have learned that firsthand, but not a tradeoff I'd let happen by default again without putting it on the table with the client up front.`),
-        visual(`A couple of the AI-prototyped (Figma Make) screens, or a before/after of one flow that got rebuilt after a pitch, if you kept either — this is the strongest "real obstacle" visual in the case study.`),
         h2(`From a bank's goal to a single quiz`),
-        p(`None of this exists as gamification for its own sake, every piece traces back to what the bank actually wants to achieve. A bank's marketing strategy sets the priorities for a given period, building security awareness, encouraging saving behavior, cross-promoting a partner offer, and that choice cascades all the way down: it decides which topics the quizzes explain and which real-world tasks the missions ask for, both of which award points once completed. What a bank does with those points afterward is its own decision too. It can close the loop, a savings quest unlocking a savings-related benefit and reinforcing the exact behavior it just rewarded, or open it up and use points earned on one topic to promote something else entirely, a partner benefit that has nothing to do with what the user just learned. I designed the system to support both, since which one made sense depended on what a given bank was actually trying to do, not on a fixed idea of how gamification should work.`),
+        p(`Every piece traces back to what the bank wants to achieve. A bank's marketing priorities for a period, such as security awareness, saving habits, or a partner offer, decide which topics the quizzes cover and which real-world tasks the missions ask for. Both award points.`),
+        p(`What a bank does with those points is its own call. It can close the loop, with a savings quest unlocking a savings benefit, or use points from one topic to promote something unrelated, like a partner offer. I designed the system to support both, because the right choice depends on the bank's goal, not on a fixed idea of gamification.`),
         visual(`A simple diagram of this chain, marketing goal → topic → quiz/mission → points → benefit, would do more here than any single screenshot; a Rewards or Special-offers screen showing an earned benefit works as a substitute if a diagram isn't available.`),
         h2('Two ways to engage'),
-        p(`Two activity types carry the actual content. Quizzes are short, multiple-choice prompts, spotting a phishing attempt, an everyday budgeting habit, that award a handful of points. Missions are longer, time-boxed real-world tasks, setting aside a set amount in savings, that award more points, and some also unlock partner benefits directly. Both sit on the same shallow, linear path, a single entry point into a Learning hub, then a course, a module, and a short quiz on its content, ending in feedback and a claimable reward, since financial content already carries enough friction on its own without an unfamiliar interaction model piled on top.`),
+        p(`Quizzes are short multiple-choice prompts, like spotting a phishing attempt or an everyday budgeting habit, worth a few points. Missions are longer, time-boxed real-world tasks, like setting aside a set amount, worth more points and sometimes a partner benefit.`),
+        p(`Both sit on the same shallow path: Learning hub, course, module, a short quiz, then feedback and a reward to claim. Financial content already has enough friction without an unfamiliar interaction model on top.`),
         visual(`The Activities screen with the All / Security / Banking / Survey / Done filter chips and a mixed list of quizzes and missions, to show both formats living side by side.`),
-        h3('Choosing how fast to chase the bonus'),
-        p(`Accepting a mission means choosing a pace first: Sprint (24 hours, +50% bonus), Jog (3 days, standard), or Walk (1 week, –20%). That turns acceptance from a single binary tap into a small commitment decision, so someone can chase the bonus if their schedule allows it instead of everyone being pushed onto the same fixed deadline.`),
+        h3('Choosing your pace'),
+        p(`Accepting a mission starts with picking a pace: Sprint (24 hours, +50% bonus), Jog (3 days, standard), or Walk (1 week, –20%). Acceptance becomes a small commitment decision, so users who have the time can chase the bonus instead of everyone getting the same deadline.`),
         visual(`The "Accept Mission" screen with the Sprint / Jog / Walk options — a clean, self-explanatory visual, use as-is.`),
         h2('Progress that means something day to day'),
-        p(`A single, persistent point balance sits at the top, next to the user's level and streak, but two separate progress mechanics sit underneath it: points to level up (e.g. 1,495 of 1,500), giving a concrete sense of proximity rather than just a running total, and a shorter activity-completion tracker (e.g. 3 of 4) for time-bound sets, kept distinct from the level bar so day-to-day or campaign engagement stays legible on its own. Keeping early levels rewarding without the numbers flattening out later is something I've had to reason through without live usage data to check it against, since the product hasn't launched to real users yet, so it's a balance I expect to keep revisiting once it does.`),
+        p(`The point balance sits at the top with the user's level and streak. Underneath are two separate progress bars: points to the next level (e.g. 1,495 of 1,500), which shows how close you are rather than just a total, and a shorter tracker for time-bound activity sets (e.g. 3 of 4).`),
+        p(`Keeping early levels rewarding without later levels flattening out is something I've reasoned through without usage data, since the product hasn't launched. I expect to revisit it once it does.`),
         visual(`The Level overview screen — Level, points-to-level-up progress bar, streak, and the Activities tracker together — the clearest single shot of the whole system.`),
         h2('Making the small stuff legible'),
-        h3('Telling users why an offer showed up'),
-        p(`Special offers split into "Just for you" (personalized) and "Based on your activity" (behavior-triggered), so promotional content in a financial product doesn't read as one undifferentiated feed, users can tell why something is showing up, which matters more for trust here than in most apps. One concept explored for this section, shown in an early pitch deck, is an AI assistant built on the card network's own AI tools, surfacing prompts like "treat yourself" based on activity; that's stayed a pitch-stage concept rather than something built out.`),
+        h3('Why an offer showed up'),
+        p(`Offers split into "Just for you" (personalized) and "Based on your activity" (behavior-triggered). In a financial product, knowing why something appears matters for trust. An AI assistant built on the card network's own AI tools was explored in an early pitch deck, but hasn't been built.`),
         h3('One filter system for two content types'),
-        p(`Quizzes and missions share the same category chips, All, Security, Banking, General, Survey, Done, so a themed campaign, a security push, for example, can surface consistent content across both formats without needing two separate navigation models to maintain.`),
+        p(`Quizzes and missions share the same category chips: All, Security, Banking, General, Survey, Done. A themed campaign, like a security push, shows up consistently across both formats with a single navigation model.`),
         h3(`Showing what's still out of reach`),
-        p(`Higher-tier benefits appear locked, with their level requirement visible, rather than hidden entirely, so the leveling system reads as a path forward instead of a black box, and there's a concrete reason to keep engaging.`),
+        p(`Higher-tier benefits appear locked with their level requirement, instead of hidden. The leveling system reads as a path forward, with a concrete reason to keep going.`),
         visual(`The "Your benefits" row — active tiers next to a locked one with its level requirement shown — and the Special offers section with both "Just for you" and "Based on your activity" visible.`),
+        h2('Rebuilding the flow between pitches'),
+        p(`Each pitch to a new stakeholder brought new requirements, and settled flows had to be rebuilt. Doing that by hand every time got heavy, so I moved prototyping to AI tools, starting with Figma Make.`),
+        p(`Iteration got faster, but the speed created its own problem. Once anything can be built quickly, the client expects everything to work that way, and that usually costs more than scoping and designing properly the first time.`),
+        visual(`A couple of the AI-prototyped (Figma Make) screens, or a before/after of one flow that got rebuilt after a pitch, if you kept either — this is the strongest "real obstacle" visual in the case study.`),
         h2('Lessons'),
-        p(`The benefit-weighting work turned into its own discipline. The module sits on top of a card network's existing loyalty program, and deciding which of those benefits to surface, how to weight them against each other, and which quests should promote which benefit meant reasoning about the partner's incentives as much as the user's. That's still evolving as more of the catalog gets mapped in.`),
-        p(`Running the strategy canvas workshop myself, before any interface work started, changed how I think about scoping a product that doesn't exist yet. It's a different skill from refining an existing flow, and it's made me more comfortable stepping into that earlier, messier stage of a project instead of waiting for someone else to hand me a settled brief.`),
-        p(`Leaning on AI tools out of necessity left me with a clearer read on where that tradeoff actually sits: fast iteration is genuinely useful once a client's requirements are still moving, but it isn't free, and I'd rather put that cost on the table explicitly next time than let speed quietly become the client's new baseline expectation.`),
-        p(`This one's still at pitch stage, not shipped to real users, and that's part of what makes it a different kind of case study for me: most of what's here is design reasoning under an unusually moving target, rather than something I can point to finished numbers for.`)
+        list([
+          ['Benefit weighting is its own discipline.', `The module sits on top of a card network's loyalty program. Deciding which benefits to surface and which quests promote them meant reasoning about the partner's incentives as much as the user's.`],
+          [`Scoping a product that doesn't exist yet is a different skill.`, `Running the strategy workshop myself made me more comfortable in the early, messy stage of a project, instead of waiting for a settled brief.`],
+          [`Fast iteration isn't free.`, `AI prototyping helps when requirements keep moving. Next time I'd put its cost on the table up front, instead of letting speed become the client's new baseline.`]
+        ])
       ]
     },
     'bkk-payandgo': {
@@ -1090,104 +1127,134 @@
       tags: ['Public Transport', 'Service Design'],
       meta: [
         { label: 'Duration', value: '2024' },
-        { label: 'Role', value: 'Lead UX Researcher & Product Designer' },
-        { label: 'Scope', value: 'Heuristic analysis, analytics review, field research, usability testing, terminal and portal redesign, positioning strategy' }
+        { label: 'Role', value: 'Lead UX Researcher & Product Designer, Atlas, Rise!' },
+        { label: 'Team', value: '2 mid-level designers, 1 lead strategist' },
+        { label: 'Methods', value: 'Heuristic analysis, analytics review, 5 days of field research, 16 usability tests' }
       ],
-      lede: `I led the UX research and redesign strategy for BKK's contactless ticketing system, Pay&GO, spanning the physical terminal, the informational subpage on bkk.hu, and the customer portal, running a heuristic audit with two mid-level designers, five days of field research on Budapest's M1 line, and sixteen usability tests before designing the recommendations that came out of it.`,
+      lede: `BKK's Pay&GO lets riders in Budapest pay for transit by tapping a bank card. I led the research and redesign across the terminal, the bkk.hu info page, and the customer portal. The key recommendation wasn't a screen: it was how BKK should describe the product.`,
       blocks: [
         visual(`Hero shot here — the physical terminal in situ at a metro stop is the strongest option, since it's the most tangible, recognizable part of the project at a glance.`),
-        h2('Challenge'),
-        p(`BKK, Budapest's public transport authority, needed to know how riders actually understood, trusted, and used Pay&GO, its contactless tap-to-pay ticketing system, across every touchpoint riders actually went through: the physical terminal, the informational subpage, and the customer portal for managing purchases and complaints. I led this research and the resulting design work for Atlas, Rise!, BKK's design partner on the project, together with two mid-level designers who ran the heuristic analysis under my review and a lead strategist who worked alongside me on the project. The most consequential recommendation to come out of it wasn't a single screen, it was how BKK should talk about the product in the first place.`),
-        h2('Approach'),
-        p(`The project moved through five stages. For the heuristic analysis, the two designers I worked with each independently evaluated the bkk.hu Pay&GO subpage and the customer portal against a checklist of 296 items across 13 categories, based on Nielsen's heuristics; I reviewed and validated their findings with them. A Google Analytics review of both language versions of the subpage added real traffic context (see the numbers under the website and portal below). For field research, the team spent five observation days at stops on the M1 metro line and the +100E route, watching riders actually use the physical terminal and stopping them for short interviews in the moment rather than relying on lab conditions or recall after the fact. From there I ran sixteen usability tests against the redesigned flow and the built prototypes, covering the communication materials, the purchase and inspection process, the subpage, and the portal, iterating the designs as each round of testing surfaced new friction.`),
-        visual(`The heuristic analysis radar chart from the research report — it's already a clean, presentable diagnostic visual, no rebuilding needed. A photo from the field research days works well here too, coordinators or riders at the terminal in situ.`),
-        h2('The terminal'),
-        h3('What the research found'),
-        p(`More taps than intended. The terminal screen stays on and inviting at all times, unlike a vending machine's deliberate "touch to start," so riders often triggered a purchase without meaning to. Unresponsive touchscreens and mismatched timeout durations made this worse, a hardware and firmware problem sitting underneath the interface one: a stray tap that should have done nothing sometimes became a purchase riders didn't notice until they checked their bank statement.`),
-        p(`Help that shouldn't be necessary. Most riders couldn't buy or validate a ticket unaided. In practice, a passenger coordinator ended up doing double duty as purchase confirmation and general education for the service, and wherever no coordinator was present, fewer riders managed to buy or validate on their own, a sign the interface itself needed to carry more of that education.`),
-        p(`A tap that doesn't feel like a tap. Riders rubbed their card against the contactless reader instead of tapping it, mistook the validator for a barcode or QR scanner, and sometimes looked for a BudapestGO app code on the device instead, none of which the existing interface ever corrected.`),
-        p(`Confirmation that never quite arrives. Riders expected some confirmation after paying, an on-terminal message, a bank notification, a transaction history entry, a paper receipt, or confirmation inside the BudapestGO app, but the terminal's own audio and visual feedback was inconsistent (the audio cue, for instance, only fired for purchases of one or two tickets). Several riders also assumed Pay&GO was directly tied to the separate BudapestGO app and looked for their ticket there instead of on the physical device.`),
-        p(`Distrust at inspection. Riders didn't understand how their ticket would actually be checked, and were uneasy about a bank card serving as their proof of travel, a discomfort made worse by inspections themselves sometimes failing when an inspector couldn't get a rider's card or phone to activate.`),
-        p(`A ticket that starts before you think it does. The most structural finding: riders don't realize a Pay&GO ticket is valid immediately and tied to a specific direction of travel, so some deliberately over-purchase, assuming they can use extra taps later. Several coordinators also pointed out that the name "Pay&GO" itself doesn't clearly separate this ticket type from a standard paper single ticket in riders' minds.`),
-        visual(`A photo or screen capture of one of the actual observed behaviors — riders rubbing a card against the reader, or a terminal with a stray notification/purchase mid-screen — makes these findings concrete rather than abstract.`),
-        h3('Redesigning the terminal flow'),
-        p(`I designed the redesigned flow directly from these findings, closing the gaps the research surfaced screen by screen.`),
-        visual(`This is the strongest GIF opportunity in the whole case study — an animated walkthrough of the five screens below in sequence, check tickets → quantity → tap → loading → success, shows the actual flow far better than five static screenshots.`),
-        p(`Checking before buying. I opened the flow on "Van érvényes jegyem? / Check my tickets," addressing the accidental-purchase problem directly: riders can confirm what they already hold before the terminal lets them buy anything new.`),
-        p(`A price you see before you commit. Quantity selection shows a large, unambiguous total price, so the transaction is legible before payment is confirmed, not after.`),
-        p(`Tap, not rub. A single instruction, "Touch card to purchase a Digital Single Ticket," pairs with a clear contactless icon, targeting the observed pattern of riders rubbing their card against the reader instead of tapping it.`),
-        p(`Feedback at every stage. I added an explicit loading state while payment is in progress, since riders expect feedback at every stage, not just at the end.`),
-        p(`What to show at inspection. The success screen I designed tells riders what to do next: present the same bank card on inspection. I built it specifically to close the trust gap the research uncovered, riders who don't understand why their bank card is their proof of travel, and who feel uneasy about that at the point of inspection.`),
-        p(`Bilingual Hungarian and English copy runs throughout the flow, matching BKK's real rider base in a city with heavy tourist and international traffic, and directly answering the finding that riders rarely switch the terminal's language themselves.`),
-        h3('Naming the ticket, or dropping the idea of a ticket'),
-        p(`The redesigned screens above close the moment-to-moment gaps in the flow, but they don't touch the finding underneath the most structural one: that riders don't realize a ticket is valid immediately. That's a naming problem before it's a screen problem. Riders consistently described what they'd bought in different ways, a digital ticket, a virtual ticket, a card-based ticket, each implying a slightly different idea of what Pay&GO actually is. I weighed two directions against a need-to-have/nice-to-have and effort matrix: keep the "digital ticket" framing and clean up the language around it, low effort, but only a nice-to-have improvement over what riders already partially understood, or drop the ticket concept entirely and reposition Pay&GO as a pay-as-you-go travel fare, communicating it as paying for the ride itself rather than buying a ticket for it. The second direction meant touching more communication materials and rethinking messaging across every touchpoint, but it addressed the actual misunderstanding at its root instead of polishing language around a concept riders were already misreading, so that's what I recommended.`),
-        visual(`The need-to-have/nice-to-have × effort matrix from the research deck, showing both options plotted against each other — this is a genuinely strong, self-explanatory visual for exactly this kind of reasoning, use it directly.`),
-        h2('The website and portal'),
-        h3('What the research found'),
-        p(`A menu that reads like a table of contents. On the informational subpage, the heuristic analysis and the traffic data pointed at the same problem from two directions: menu items and page titles used visually similar styling, so nothing signaled hierarchy, and submenu listings read as a table of contents rather than a path to click through. Riders looking for one specific answer bounced between the homepage, the subpage, and the ticket vending machine's own info screen before finding it, and the page's hero banner, prominent and well-placed, functioned as decoration instead of doing any of that navigational work.`),
-        p(`Trust, not usability, on the customer portal. The portal scored well on the heuristic checklist, but the usability tests surfaced trust problems the checklist couldn't catch. Riders hesitated to log in at all, and only proceeded once they understood the portal doesn't ask for a CVC code, that hesitation traces directly to how closely the login screen resembles a payment form. Once inside, the masked card number shown for identifying a payment method reads as the rider's actual card number, when it's actually a token, and riders had no way to know that from the interface. Menu naming added to the confusion: the same reporting function was called "Visszajelzés" in the navigation, "bejelentés" in the FAQ, and something else again in a hidden sub-menu, so several riders who did find the report form defaulted to emailing a screenshot to BKK's general inbox instead, the workaround they already trusted.`),
-        visual(`The original subpage's flat menu list next to the portal's login/CVC screen — pairing the two findings in one shot sets up the "before" for the fixes that follow.`),
-        h3('Fixing the subpage and portal'),
-        p(`The subpage and portal already had working content and account structures underneath them, so these fixes are targeted: I went after the specific points where usability testing showed riders getting stuck or hesitant, rather than rebuilding either surface screen by screen.`),
-        p(`A homepage that actually navigates. I restructured the subpage around the actual steps of using Pay&GO, choosing a quantity, tapping to pay, what a successful purchase looks like, what an unsuccessful one looks like, checking a ticket at inspection, instead of a static hero sitting above a flat page list, and gave the hero itself a job: showing those real steps instead of functioning as decoration.`),
-        p(`Removing a security prompt that was never needed. I dropped the CVC field from the portal's card-lookup screen entirely, since Pay&GO never needed it in the first place, and added an inline note explaining why, directly answering the login hesitation the usability tests surfaced.`),
-        p(`A token that doesn't look like your card number. I relabeled the masked card number shown in the portal to make clear it identifies a saved payment method, not the rider's actual card number, closing a piece of confusion the interface had been creating on its own.`),
-        p(`One name for one function. I gave the reporting and feedback function a single consistent name across the navigation, the FAQ, and every sub-menu that referenced it, so riders stop defaulting to emailing a screenshot because they can't find or trust the form built for exactly that.`),
-        visual(`The restructured subpage, before/after against the flat page list from the finding above, is the highest-value visual in this section — a direct side-by-side makes the navigation fix obvious without reading a word.`),
-        h2('Where this stands'),
-        p(`The heuristic analysis and usability testing gave a solid diagnostic baseline rather than proof of impact:`),
+        h2('Context'),
+        p(`BKK, Budapest's public transport authority, wanted to know how riders understand, trust, and use Pay&GO across every touchpoint: the physical terminal, the informational subpage on bkk.hu, and the customer portal for purchases and complaints. Atlas, Rise! was BKK's design partner on the project.`),
+        h2('My role and approach'),
+        p(`I led the research and the design work, with two mid-level designers who ran the heuristic analysis under my review, and a lead strategist alongside me.`),
+        list([
+          ['Heuristic analysis.', `The two designers each evaluated the subpage and the portal against a 296-item checklist in 13 categories, based on Nielsen's heuristics. I reviewed and validated their findings.`],
+          ['Analytics review.', `Google Analytics for both language versions of the subpage added real traffic context.`],
+          ['Field research.', `Five observation days at stops on the M1 metro line and the +100E route, watching riders use the terminal and interviewing them on the spot.`],
+          ['Usability testing.', `Sixteen tests on the redesigned flows and prototypes, covering communication materials, purchase and inspection, the subpage, and the portal. I iterated after each round.`]
+        ]),
         stats([
           { value: '70%', label: 'bkk.hu Pay&GO subpage, heuristic usability score' },
           { value: '85%', label: 'Customer portal, heuristic usability score' },
           { value: '16', label: 'usability tests run across the terminal, subpage, and portal' },
           { value: '3,200+', label: 'monthly subpage visits per language (Google Analytics)' }
         ]),
-        p(`Both interfaces scored above average, and the usability tests came back with clearly positive feedback on the core Pay&GO concept itself. What that told us is that the problems riders ran into were specific and fixable, not concept-level, which is what the work above addresses across all three touchpoints.`),
-        p(`Three findings sit outside any single screen's UI: the terminal's touchscreen responsiveness and timeout tuning, which needed a hardware and firmware fix rather than an interface one; the naming and positioning work above; and clarifying, likely through in-terminal messaging and coordinator scripts, that a ticket is valid immediately and tied to direction of travel. No amount of interface polish alone resolves a rider's mental model of when a ticket actually starts.`),
+        p(`Both interfaces scored above average, and riders responded positively to the Pay&GO concept itself. The problems were specific and fixable, not conceptual.`),
+        visual(`The heuristic analysis radar chart from the research report — it's already a clean, presentable diagnostic visual, no rebuilding needed. A photo from the field research days works well here too, coordinators or riders at the terminal in situ.`),
+        h2('The terminal'),
+        h3('What we found'),
+        list([
+          ['More taps than intended.', `The screen is always on and inviting, unlike a vending machine's "touch to start". Riders triggered purchases by accident, made worse by unresponsive touchscreens and mismatched timeouts. Some only noticed on their bank statement.`],
+          [`Help that shouldn't be necessary.`, `Most riders couldn't buy or validate a ticket unaided. Passenger coordinators ended up confirming purchases and explaining the service, and where none were present, fewer riders succeeded.`],
+          [`A tap that doesn't feel like a tap.`, `Riders rubbed their card against the reader, mistook the validator for a barcode or QR scanner, or looked for a BudapestGO app code. The interface never corrected them.`],
+          ['Confirmation that never quite arrives.', `Riders expected confirmation somewhere: on screen, in a bank notification, on a receipt, or in the BudapestGO app. The terminal's feedback was inconsistent, and the audio cue only played for one or two tickets. Some assumed Pay&GO was part of the BudapestGO app and looked for their ticket there.`],
+          ['Distrust at inspection.', `Riders didn't know how their ticket would be checked, and felt uneasy using a bank card as proof of travel. Inspections that failed to read a card or phone made it worse.`],
+          ['A ticket that starts before you think it does.', `The most structural finding: riders didn't realize a ticket is valid immediately and tied to a direction of travel, so some bought extra, planning to use them later. Coordinators also noted that the name "Pay&GO" doesn't separate it from a paper single ticket.`]
+        ]),
+        visual(`A photo or screen capture of one of the actual observed behaviors — riders rubbing a card against the reader, or a terminal with a stray notification/purchase mid-screen — makes these findings concrete rather than abstract.`),
+        h3('Redesigning the terminal flow'),
+        p(`I redesigned the flow screen by screen to close these gaps.`),
+        visual(`This is the strongest GIF opportunity in the whole case study — an animated walkthrough of the five screens below in sequence, check tickets → quantity → tap → loading → success, shows the actual flow far better than five static screenshots.`),
+        list([
+          ['Check before buying.', `The flow opens on "Van érvényes jegyem? / Check my tickets", so riders see what they already hold before they can buy anything new.`],
+          ['See the price before you commit.', `Quantity selection shows a large, unambiguous total.`],
+          ['Tap, not rub.', `One instruction, "Touch card to purchase a Digital Single Ticket", paired with a clear contactless icon.`],
+          ['Feedback at every stage.', `An explicit loading state while payment is in progress.`],
+          ['Know what to show at inspection.', `The success screen tells riders to present the same bank card on inspection, closing the trust gap directly.`]
+        ]),
+        p(`Hungarian and English copy run side by side throughout, because riders rarely switch the terminal's language themselves, and Budapest has heavy tourist traffic.`),
+        h3('Naming the ticket, or dropping the idea of a ticket'),
+        p(`The new screens fix the moment-to-moment gaps, but not the deepest one: riders don't realize a ticket starts immediately. That's a naming problem before it's a screen problem. Riders described what they'd bought as a digital ticket, a virtual ticket, or a card ticket, each implying something slightly different.`),
+        p(`I compared two directions on a need-to-have/nice-to-have and effort matrix:`),
+        list([
+          ['Keep "digital ticket" and clean up the language.', `Low effort, but only a nice-to-have improvement over what riders already partly understood.`],
+          ['Drop the ticket concept.', `Reposition Pay&GO as a pay-as-you-go fare: paying for the ride, not buying a ticket. More effort across every touchpoint, but it fixes the misunderstanding at its root.`]
+        ]),
+        p(`I recommended the second.`),
+        visual(`The need-to-have/nice-to-have × effort matrix from the research deck, showing both options plotted against each other — this is a genuinely strong, self-explanatory visual for exactly this kind of reasoning, use it directly.`),
+        h2('The website and portal'),
+        h3('What we found'),
+        list([
+          ['A menu that reads like a table of contents.', `On the subpage, menu items and page titles looked alike, so nothing signaled hierarchy. Riders bounced between the homepage, the subpage, and the vending machine's info screen to find one answer, while the prominent hero banner was just decoration.`],
+          ['Trust, not usability, on the portal.', `The portal scored well on the checklist, but testing surfaced trust problems. The login screen looked like a payment form, so riders hesitated until they understood it doesn't ask for a CVC. The masked card number looked like their real card number, though it's a token. And the reporting feature had three different names across the navigation, the FAQ, and a sub-menu, so riders emailed screenshots to BKK's general inbox instead.`]
+        ]),
+        visual(`The original subpage's flat menu list next to the portal's login/CVC screen — pairing the two findings in one shot sets up the "before" for the fixes that follow.`),
+        h3('Fixing the subpage and portal'),
+        p(`Both already had working content and account structures, so the fixes target the exact points where riders got stuck.`),
+        list([
+          ['A homepage that navigates.', `I restructured the subpage around the real steps of using Pay&GO (choose a quantity, tap to pay, success, failure, inspection) and gave the hero the job of showing them.`],
+          ['No CVC where none is needed.', `I removed the CVC field from card lookup, since Pay&GO never needed it, and added a note explaining why.`],
+          [`A token that doesn't look like your card.`, `I relabeled the masked number as an identifier for a saved payment method.`],
+          ['One name for one function.', `The reporting feature got one consistent name across the navigation, the FAQ, and every sub-menu.`]
+        ]),
+        visual(`The restructured subpage, before/after against the flat page list from the finding above, is the highest-value visual in this section — a direct side-by-side makes the navigation fix obvious without reading a word.`),
+        h2('Where this stands'),
+        p(`Three findings need more than interface changes: tuning the terminal's touchscreen and timeouts, which is a hardware and firmware fix; the naming and positioning work above; and making clear, likely through terminal messaging and coordinator scripts, that a ticket is valid immediately and tied to a direction of travel. Interface polish alone won't change a rider's mental model of when a ticket starts.`),
         pending(`Post-launch numbers, once available: adoption of the redesigned flow, or updated usability results after the recommendations ship.`)
       ]
     },
     'skytree': {
-      title: 'Multirole CO2 capture monitoring system design',
+      title: 'Multi-Role CO2 Capture Monitoring System Design',
       tags: ['Hardware', 'Data Visualization'],
       meta: [
         { label: 'Duration', value: '~3 months' },
         { label: 'Role', value: 'Senior Product Designer' },
-        { label: 'Scope', value: 'Design system, UI/UX, dashboard design across 3 user roles' }
+        { label: 'Scope', value: 'Design system and three role-based dashboards, from workshop output to handoff' }
       ],
-      lede: `I designed the core system and three role-based dashboards for a CO2 capture monitoring platform, working from early-stage product discovery to handoff-ready designs in three months.`,
+      lede: `A monitoring platform for CO2 capture units, used by device owners, technicians, and admins. I designed the design system and three role-based dashboards, from workshop output to handoff-ready designs in three months.`,
       blocks: [
         note(`NDA project. Client and customer details are generalized or based on placeholder data from the working files.`),
         visual(`Hero shot here — one strong dashboard screen, or a composite of the three roles' overview screens side by side, to establish scope at a glance before the reader starts reading.`),
-        h2('Challenge'),
-        p(`The client, a startup, was building a monitoring platform for CO2 capture units, and three very different people needed to trust the same system: a device owner checking on their unit, a technician responsible for a whole fleet of them, and an admin managing who gets access to what. The dev team had run discovery workshops to get the client's goals and flows onto paper, but the paper only went so far. I joined to turn that raw output into designs the client could actually react to, fast enough that engineering could commit its time to what was proven to work instead of what sounded right in a workshop.`),
-        h2('Approach'),
-        p(`I wireframed straight from the validated workshop output and built the design system on shadcn, customizing and extending it to cover what the platform actually needed. The client's product team, who were in direct contact with owners, technicians, and admins, was the main channel for user needs, since the timeline didn't leave room for formal usability testing. Every wireframe went back to them and the dev team for a feasibility check before it moved forward, over roughly three months from first sketches to handoff-ready designs.`),
+        h2('Context'),
+        p(`The client, a startup, was building a platform to monitor CO2 capture units. Three very different people needed to trust it: a device owner checking their unit, a technician responsible for a whole fleet, and an admin managing access. The dev team had run discovery workshops, but the output was still on paper. My job was to turn it into designs the client could react to, fast enough that engineering only built what was proven to work.`),
+        h2('My role and approach'),
+        list([
+          `Wireframed directly from the validated workshop output.`,
+          `Built the design system on shadcn, extended with custom components.`,
+          `Worked through the client's product team, who were in direct contact with owners, technicians, and admins. The timeline didn't allow formal usability testing.`,
+          `Checked every wireframe with the client and the dev team for feasibility before moving on.`
+        ]),
         visual(`The workshop board or an early wireframe, to show the raw starting point before it became a screen.`),
-        h2('Design that decides'),
-        p(`The client hadn't fully settled what each role needed, and workshops alone couldn't finish that conversation. Often the only way the team could tell whether a scope was right was to see it laid out on a screen. So a fair amount of the "discovery" happened through iteration rather than before it, which meant designs sometimes got rebuilt once the client saw them and realized they'd asked for the wrong thing. Having the design system already in place is what made that workable: a rejected direction cost a few days, not weeks, so the ambiguity never stalled the project. Looking back, I'd push for more structured facilitation of that discovery up front, before the first wireframe, but the setup itself, iterate fast and let the screens do some of the deciding, wasn't a bad way to handle a client who was still figuring out its own product.`),
+        h2('Letting the screens decide'),
+        p(`The client hadn't settled what each role needed, and workshops alone couldn't finish that conversation. Often the only way to tell if a scope was right was to see it on screen, so part of the discovery happened through iteration, and some designs got rebuilt once the client saw them.`),
+        p(`The design system made that workable: a rejected direction cost days, not weeks. Next time I'd push for more structured discovery before the first wireframe, but fast iteration was a reasonable way to work with a client still defining its product.`),
         visual(`If you kept a before/after of one screen that got rebuilt after the client saw it, this is the place — a concrete example would land this section harder than the text alone.`),
         h2('One design system, three dashboards'),
-        p(`I built the system once, on shadcn, extended with custom components for data tables, status indicators, multi-step forms, and monitoring widgets, and then scoped three separate dashboards out of it: one per role, each cut down to what that role actually needed to act, not everything it could theoretically see. That discipline, cutting features per role instead of showing them "just in case", is what kept a three-role MVP from turning into three bloated ones.`),
+        p(`I built the system once, with custom components for data tables, status indicators, multi-step forms, and monitoring widgets. Then I cut three dashboards from it, each limited to what that role needs to act, not everything it could see. That kept a three-role MVP from turning into three bloated ones.`),
         visual(`A small component-library sheet or a few of the custom shadcn extensions — data table, status indicator, multi-step form — shown as a set, to back up "built the system once."`),
-        h3('A hierarchy admins could actually see'),
-        p(`Admin's real complexity was the hierarchy underneath it: one customer can have several devices and users, each device can carry an assigned technician, and each user's role, client, admin, or support, decides what they're allowed to touch. Instead of sending admins to a separate page for every one of those relationships, I let the customer list expand inline to show its devices and users directly, and gave invite, edit, block, and delete a single shared modal instead of four flows to learn separately.`),
+        h3('Admin: a hierarchy you can see'),
+        p(`A customer can have several devices and users, each device can have an assigned technician, and each user's role (client, admin, or support) decides what they can touch. Instead of a separate page per relationship, the customer list expands inline to show its devices and users. Invite, edit, block, and delete share one modal instead of four separate flows.`),
         visual(`The Company Overview screen with a customer row expanded inline, plus the shared Invite User modal. A short GIF of the row expanding would show the inline-vs-separate-page decision better than a static shot.`),
-        h3('Location first, then the unit'),
-        p(`Technicians work across sites and countries, not one device, so I made navigation location-first: region, then site, then individual unit. Inside a unit, the view is three tiers deep, headline metrics first (CO2 produced, productivity, purity, energy consumption), then live status (tank level, operating state), then the time-series charts underneath, so the most urgent read is always the first thing on screen.`),
+        h3('Technician: location first, then the unit'),
+        p(`Technicians work across sites and countries, so navigation goes region, site, unit. Inside a unit, the view has three tiers: headline metrics (CO2 produced, productivity, purity, energy consumption), then live status (tank level, operating state), then time-series charts. The most urgent information is always read first.`),
         visual(`The System Overview map, then one unit's detail view showing the three tiers stacked — metrics, status, charts.`),
-        h3('Letting technicians ask their own questions'),
-        p(`Technicians needed to ask their own questions of the data, not just read a fixed set of charts, so I built a tool that lets them choose a sensor, the statistic to plot, minimum, maximum, average, or median, and a color. Raw unit logs sit directly in the interface too, not behind an export, so technicians can troubleshoot without waiting on a download.`),
+        h3('Technician: asking their own questions'),
+        p(`A chart tool lets technicians pick a sensor, a statistic (minimum, maximum, average, or median), and a color, so they aren't limited to a fixed set of charts. Raw unit logs sit right in the interface, not behind an export, so troubleshooting doesn't wait on a download.`),
         visual(`The custom chart tool mid-use — sensor and statistic pickers open — plus the raw log view. A GIF of picking a sensor and watching the chart update would sell "ask their own questions" well.`),
-        h3('Only what a single device owner needs'),
-        p(`The User dashboard runs on the same data as the other two, cut down to what someone actually checks about their own device day to day: today's overview, current status, and the production chart, with no multi-site navigation or admin controls anywhere in reach. For that production chart, I tried a continuous line laid over multiple metrics before settling on individual cycles shown as bars: the unit doesn't produce CO2 continuously, it works in absorption, desorption, and release cycles, and a smooth line blurred exactly the structure an owner needs to read at a glance. Bars keep every cycle legible on its own. Anyone with just one device skips device selection entirely and lands straight on its overview, and the layout holds up across desktop, tablet, and mobile.`),
+        h3('Owner: only what matters for one device'),
+        p(`The owner dashboard runs on the same data, cut down to today's overview, current status, and the production chart. No multi-site navigation, no admin controls. Owners with a single device skip device selection and land straight on its overview, and the layout works on desktop, tablet, and mobile.`),
+        p(`For the production chart, I first tried a continuous line across several metrics, then switched to one bar per cycle. The unit doesn't produce CO2 continuously: it runs in absorption, desorption, and release cycles, and a smooth line hid exactly that structure. Bars keep each cycle readable on its own.`),
         visual(`The User overview screen with the per-cycle bar chart. If you still have the rejected line/overlay version, showing both side by side is the single best visual in this case study — it makes the tradeoff argument for you.`),
-        h2('Access and onboarding'),
-        p(`Access is invite-only. A new user gets an email invitation, sets a password, and lands directly on their dashboard, and password reset follows the same shape, an emailed link into a dedicated reset screen.`),
-        visual(`The invite email and the password-set screen, or skip this one if space is tight — it's the lowest-priority visual in the piece.`),
+        h3('Access and onboarding'),
+        p(`Access is invite-only. New users get an email invitation, set a password, and land on their dashboard. Password reset follows the same pattern, with an emailed link to a dedicated reset screen.`),
         h2('Lessons'),
-        p(`The shadcn base I built on was the free tier, which was the right call for the timeline at the time. More capable component libraries exist now, better value for the same kind of build, and that's what I'd reach for today.`),
-        p(`The bigger value of this project was everything around the screens. I got a real look into how a hardware product actually works, which I hadn't designed for before, and I liked working inside a team that treated MVP scoping as an actual discipline rather than a checkbox. One conversation with a hardware engineer, walking through how the unit actually produces and measures CO2, is what let me structure the cycle timeline and the metrics around it accurately instead of guessing at the shape of the data. Working closely with the dev team more broadly taught me a lot about structuring and communicating data efficiently, plus a better sense of what they actually need from a handoff to keep moving. One of the more useful projects I've done for my own growth as a designer, and a genuinely good experience overall.`)
+        list([
+          ['Talk to the hardware engineer early.', `One conversation about how the unit produces and measures CO2 let me structure the cycle timeline and the metrics around it accurately, instead of guessing at the shape of the data.`],
+          ['MVP scoping is a discipline.', `Working with a team that treated it that way showed me how much cutting features per role protects a product.`],
+          ['Handoff is a design problem too.', `Working closely with the dev team taught me how to structure and communicate data so engineering can keep moving.`],
+          ['Tooling moves fast.', `I built on shadcn's free tier, which fit the timeline. Today I'd reach for one of the more capable component libraries now available.`]
+        ])
       ]
     }
   };
@@ -1211,6 +1278,16 @@
     if (e.target && e.target.tagName === 'IMG') e.preventDefault();
   });
 
+  function appendLead(el, label, text) {
+    if (label) {
+      var strong = document.createElement('strong');
+      strong.textContent = label;
+      el.appendChild(strong);
+      el.appendChild(document.createTextNode(' '));
+    }
+    el.appendChild(document.createTextNode(text));
+  }
+
   function renderBlocks(container, blocks) {
     container.innerHTML = '';
     blocks.forEach(function (b) {
@@ -1227,8 +1304,18 @@
       } else if (b.t === 'p') {
         var pEl = document.createElement('p');
         pEl.className = 'cs-p';
-        pEl.textContent = b.text;
+        appendLead(pEl, b.lead, b.text);
         container.appendChild(pEl);
+      } else if (b.t === 'list') {
+        var ul = document.createElement('ul');
+        ul.className = 'cs-list';
+        b.items.forEach(function (it) {
+          var li = document.createElement('li');
+          if (Array.isArray(it)) appendLead(li, it[0], it[1]);
+          else li.textContent = it;
+          ul.appendChild(li);
+        });
+        container.appendChild(ul);
       } else if (b.t === 'note') {
         var nEl = document.createElement('p');
         nEl.className = 'cs-note';
