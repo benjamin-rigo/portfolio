@@ -532,18 +532,15 @@
 
   .cs-split {
     display: grid;
-    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-    gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(max(260px, calc(50% - 6px)), 1fr));
+    gap: 12px;
     align-items: start;
     margin: 40px 0 48px 0;
   }
 
   .cs-split .cs-image,
   .cs-split .cs-list { margin: 0; }
-
-  @media (max-width: 900px) {
-    .cs-split { grid-template-columns: 1fr; gap: 24px; }
-  }
+  .cs-split .cs-list { padding-right: 28px; }
 
   .cs-callout {
     border-left: 2px solid var(--ink);
