@@ -543,6 +543,8 @@
 
   .cs-split .cs-image,
   .cs-split .cs-list { margin: 0; }
+  .cs-split .cs-h2 { margin-top: 0; }
+  .cs-split > div > :last-child { margin-bottom: 0; }
   .cs-split .cs-list { padding-right: 28px; }
 
   .cs-callout {
@@ -1062,6 +1064,7 @@
   function brief(problem, goal) { return { t: 'brief', items: [['Problem', problem], ['Goal', goal]] }; }
   function cards(items) { return { t: 'cards', items: items }; }
   function split(blocks, media) { return { t: 'split', blocks: blocks, media: media }; }
+  function cols(left, right) { return { t: 'split', blocks: left, right: right }; }
   function reflect(text) { return { t: 'callout', label: 'Looking back', text: text }; }
   function h3(text) { return { t: 'h3', text: text }; }
   function p(text) { return { t: 'p', text: text }; }
@@ -1086,16 +1089,22 @@
       lede: `As the senior designer in a three-person design team, I worked on NXLog Platform, an on-premises log management tool, focusing on log search, pipeline visualization, agent configuration and onboarding.`,
       blocks: [
         image('images/nxlog/01.png', 'Log Flow, the configuration builder, log search and template assignment.'),
-        h2('Challenge'),
-        p(`NXLog Platform collects logs from thousands of devices, such as servers, firewalls and network equipment, so security and IT teams can store, search and analyze them in one place. The product grew out of tools built for specialists, and much of its interface reflected the underlying technical structure rather than the tasks people needed to do.`),
-        p(`As it expanded further into log management, these core workflows needed to become approachable for new users while keeping the depth experts rely on.`),
-        h2('Approach'),
-        p(`The domain was new to me, so each feature started with learning how the system actually works: from the product team's documentation, from conversations with engineers, and from real data such as log samples and existing configurations.`),
-        p(`Once the underlying structure was clear, the design could follow it closely, simplifying what users see without hiding what they need. Directions were reviewed regularly with the product team and checked with engineering.`),
+        cols([
+          h2('Challenge'),
+          p(`NXLog Platform collects logs from thousands of devices, such as servers, firewalls and network equipment, so security and IT teams can store, search and analyze them in one place. The product grew out of tools built for specialists, and much of its interface reflected the underlying technical structure rather than the tasks people needed to do.`),
+          p(`As it expanded further into log management, these core workflows needed to become approachable for new users while keeping the depth experts rely on.`)
+        ], [
+          h2('Approach'),
+          p(`The domain was new to me, so each feature started with learning how the system actually works: from the product team's documentation, from conversations with engineers, and from real data such as log samples and existing configurations.`),
+          p(`Once the underlying structure was clear, the design could follow it closely, simplifying what users see without hiding what they need. Directions were reviewed regularly with the product team and checked with engineering.`)
+        ]),
 
         h2('Searching data that has no fixed shape', '01 / 05'),
-        p(`NXLog Platform collects logs from many kinds of sources, and each source structures its data differently. The existing search assumed a fixed schema: it showed a predefined set of columns and filters, which didn't hold up once the data varied. As NXLog moved further into log management, search needed to be on par with established tools like Splunk, Elastic and Cribl.`),
-        p(`I started by working with real log samples rather than idealized data: router syslog, nested MQTT messages and mixed Windows events. This made the core tension clear. A table works well for structured security logs, where events share the same fields. For operational logs, where fields differ from event to event, people need to see the complete original line.`),
+        cols([
+          p(`NXLog Platform collects logs from many kinds of sources, and each source structures its data differently. The existing search assumed a fixed schema: it showed a predefined set of columns and filters, which didn't hold up once the data varied. As NXLog moved further into log management, search needed to be on par with established tools like Splunk, Elastic and Cribl.`)
+        ], [
+          p(`I started by working with real log samples rather than idealized data: router syslog, nested MQTT messages and mixed Windows events. This made the core tension clear. A table works well for structured security logs, where events share the same fields. For operational logs, where fields differ from event to event, people need to see the complete original line.`)
+        ]),
         image('images/nxlog/10.png', 'The previous log search with its main issues marked (left), and the redesign (right).'),
         cards([
           ['One table, two ways of reading', `Logs appear in a table with structured columns, and any row can be expanded to show the full event as formatted JSON. The same view supports both consistent and irregular data, without switching modes.`],
@@ -1107,21 +1116,30 @@
         reflect(`I would involve developers in the design process much earlier. Several solutions had to be reworked late for technical feasibility, which extended the project, and neither design nor product had planned for that. Next time I'd review the riskiest parts with engineering before refining the details.`),
 
         h2('Making the log pipeline visible', '02 / 05'),
-        p(`Logs travel a long way before anyone reads them. They are collected by agents, passed through relays, and delivered to destinations such as on-premises storage or a SIEM. In NXLog Platform, this path existed only as configuration text. When data stopped arriving somewhere, finding the point where it broke meant reading through configuration files. The task was to design an end-to-end view of the log flow that helps users troubleshoot these problems.`),
-        p(`The first question was what a single building block in the diagram should be. Showing every agent individually would quickly mean thousands of nodes. Instead, I grouped agents by the configuration they run, so each card represents one configuration together with the agents and connections behind it. This keeps the diagram readable at scale and matches how users already manage their setup.`),
+        cols([
+          p(`Logs travel a long way before anyone reads them. They are collected by agents, passed through relays, and delivered to destinations such as on-premises storage or a SIEM. In NXLog Platform, this path existed only as configuration text. When data stopped arriving somewhere, finding the point where it broke meant reading through configuration files. The task was to design an end-to-end view of the log flow that helps users troubleshoot these problems.`)
+        ], [
+          p(`The first question was what a single building block in the diagram should be. Showing every agent individually would quickly mean thousands of nodes. Instead, I grouped agents by the configuration they run, so each card represents one configuration together with the agents and connections behind it. This keeps the diagram readable at scale and matches how users already manage their setup.`)
+        ]),
         image('images/nxlog/06.png', 'The Architecture view for building the flow (left), and the EPS view for watching it live (right).'),
         cards([
           ['Building and watching as two separate views', `The Architecture view is a workspace with three columns: available configurations, the architecture itself, and destinations. The EPS view (events per second) shows the same flow live, with current throughput on every connection and recent history on every card.`],
           ['Problems that surface on their own', `Each card summarizes the health of its agents, so a card with warning or error agents stands out from the rest of the diagram. Users can see where to look before opening anything.`],
           ['A short introduction instead of an empty canvas', `First-time users get a three-step guide: arrange configurations, connect them, check the flow. It also explains that the diagram doesn't change the underlying configurations, so experimenting is safe.`]
         ]),
-        p(`The concept was tested in five usability sessions with senior cybersecurity professionals, all experienced with log management and visualization tools. They found the live view concise and valued the throughput graphs most. Grouping by configuration felt unusual at first, but they found it useful once they worked with it. They were less confident about connecting the right configurations manually, and asked for filtered views, for example showing only the flows that arrive at one destination.`),
-        p(`Our part covered the concept and its validation. The development team carried the card-based design forward into implementation from there.`),
+        cols([
+          p(`The concept was tested in five usability sessions with senior cybersecurity professionals, all experienced with log management and visualization tools. They found the live view concise and valued the throughput graphs most. Grouping by configuration felt unusual at first, but they found it useful once they worked with it. They were less confident about connecting the right configurations manually, and asked for filtered views, for example showing only the flows that arrive at one destination.`)
+        ], [
+          p(`Our part covered the concept and its validation. The development team carried the card-based design forward into implementation from there.`)
+        ]),
         reflect(`Users were least confident when connecting configurations by hand. Since each configuration already defines where its data goes, I'd now explore suggesting these connections automatically. I'd also test earlier, with rough sketches rather than a refined design, and put more care into handing the findings over in a form the development team can act on directly.`),
 
         h2('Building configurations without writing them', '03 / 05'),
-        p(`NXLog agents are configured in a text format of nested blocks and directives. It's precise, but hard to approach without prior experience. The configuration builder lets users assemble the same configuration visually, by dragging modules into a route: what to collect, what to do with it, and where to send it. Our task had two parts: understand how people actually use the builder, and make the differences between plans clear and consistent across the product and its documentation.`),
-        p(`The builder was tested with three experienced engineers: one new to NXLog, one who had worked with another log management tool for years, and one familiar with Splunk. They understood the drag-and-drop model quickly, but several details slowed them down. It wasn't obvious which module belonged in which part of the route, and the section names mixed nouns and verbs. Ready-made packages were opaque. Plan tags were helpful, but felt like noise to someone not planning to upgrade. Integration instructions assumed familiarity with the third-party system.`),
+        cols([
+          p(`NXLog agents are configured in a text format of nested blocks and directives. It's precise, but hard to approach without prior experience. The configuration builder lets users assemble the same configuration visually, by dragging modules into a route: what to collect, what to do with it, and where to send it. Our task had two parts: understand how people actually use the builder, and make the differences between plans clear and consistent across the product and its documentation.`)
+        ], [
+          p(`The builder was tested with three experienced engineers: one new to NXLog, one who had worked with another log management tool for years, and one familiar with Splunk. They understood the drag-and-drop model quickly, but several details slowed them down. It wasn't obvious which module belonged in which part of the route, and the section names mixed nouns and verbs. Ready-made packages were opaque. Plan tags were helpful, but felt like noise to someone not planning to upgrade. Integration instructions assumed familiarity with the third-party system.`)
+        ]),
         image('images/nxlog/07.png', 'The configuration builder with plan badges in the module list (left), and the guided Google Chronicle setup (right).'),
         cards([
           ['Lists that match the canvas', `The module list mirrors the builder: Collect from, Actions, Send to, each with an icon that matches its place in the route. Ready-made packages were renamed from "Solution packs" to "Templates" and moved to the top, since they're the fastest way to start.`],
@@ -1132,8 +1150,11 @@
         reflect(`The integration instructions remained mostly text, and testing showed they assumed familiarity with the third-party system. Next time I'd include visual guidance in the first version and test it with someone who doesn't know that system.`),
 
         h2('Assigning templates at scale', '04 / 05'),
-        p(`A configuration template defines what an agent collects and where it sends the data. Originally, each agent could run only one template, which didn't match how customers work. A company might run 100 Windows machines that all need the same basic event collection, while ten of them are also domain controllers that need an additional set of events. Supporting this meant moving from one template per agent to a many-to-many relationship, across thousands of agents.`),
-        p(`The product manager handed the feature over with a first sketch of the flows and an open question: how should the assignment screen behave when the selected agents already run different templates? Before designing any interface, we mapped the structure: how users arrive at assignment, which decisions they make along the way, and where things can go wrong. We also reviewed how other products handle similar settings. Only once the flows held up did we move on to the UI, with weekly check-ins along the way.`),
+        cols([
+          p(`A configuration template defines what an agent collects and where it sends the data. Originally, each agent could run only one template, which didn't match how customers work. A company might run 100 Windows machines that all need the same basic event collection, while ten of them are also domain controllers that need an additional set of events. Supporting this meant moving from one template per agent to a many-to-many relationship, across thousands of agents.`)
+        ], [
+          p(`The product manager handed the feature over with a first sketch of the flows and an open question: how should the assignment screen behave when the selected agents already run different templates? Before designing any interface, we mapped the structure: how users arrive at assignment, which decisions they make along the way, and where things can go wrong. We also reviewed how other products handle similar settings. Only once the flows held up did we move on to the UI, with weekly check-ins along the way.`)
+        ]),
         image('images/nxlog/04.png', 'Assigning templates to selected agents (left), and agents to a template (right).'),
         cards([
           ['Two ways in, one assignment logic', `Some users create a template first and let enrollment rules pick up matching agents. Others add an agent first and then attach templates to it. Both paths lead to the same assignment screen, and whichever side the user starts from is filled in automatically.`],
@@ -1145,8 +1166,11 @@
         reflect(`The product manager suggested testing several options for the mixed-selection problem. I'd do exactly that today: put two or three variants in front of real users early, before committing to one and refining it.`),
 
         h2('Getting the first agent connected', '05 / 05'),
-        p(`Before anything else works, an agent has to be installed on a machine, configured and enrolled in the platform. These steps were spread across separate places, and many users got stuck before their first logs arrived.`),
-        p(`The redesigned flow is a single guided sequence with five steps: select the operating system, download and install, configure, restart the service, and enroll. Each step contains one short set of instructions. The platform detects the new agent automatically and shows it for confirmation before enrollment.`),
+        cols([
+          p(`Before anything else works, an agent has to be installed on a machine, configured and enrolled in the platform. These steps were spread across separate places, and many users got stuck before their first logs arrived.`)
+        ], [
+          p(`The redesigned flow is a single guided sequence with five steps: select the operating system, download and install, configure, restart the service, and enroll. Each step contains one short set of instructions. The platform detects the new agent automatically and shows it for confirmation before enrollment.`)
+        ]),
         image('images/nxlog/08.png', 'The guide opens with all five steps laid out (left), then walks through them one at a time (right).'),
         image('images/nxlog/09.png', 'The detected agent waiting for enrollment (left), and the confirmation (right).'),
 
@@ -1422,7 +1446,7 @@
         var spText = document.createElement('div');
         renderBlocks(spText, b.blocks);
         var spMedia = document.createElement('div');
-        renderBlocks(spMedia, [b.media]);
+        renderBlocks(spMedia, b.right || [b.media]);
         sp.appendChild(spText);
         sp.appendChild(spMedia);
         container.appendChild(sp);
