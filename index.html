@@ -933,14 +933,6 @@
               <div class="title" aria-hidden="true">FinTech Engagement Platform Concept &amp; AI Prototyping</div>
               <div class="tags" aria-hidden="true"><span>Fintech</span><span>Gamification</span></div>
             </a>
-            <a class="col" href="#work/bkk-payandgo" aria-label="Public Transport Ticketing Evaluation &amp; Redesign. Tags: Public Transport, Service Design">
-              <div class="title" aria-hidden="true">Public Transport Ticketing Evaluation &amp; Redesign</div>
-              <div class="tags" aria-hidden="true"><span>Public Transport</span><span>Service Design</span></div>
-            </a>
-            <a class="col" href="#work/skytree" aria-label="Multi-Role CO2 Capture Monitoring System Design. Tags: Hardware, Data Visualization">
-              <div class="title" aria-hidden="true">Multi-Role CO2 Capture Monitoring System Design</div>
-              <div class="tags" aria-hidden="true"><span>Hardware</span><span>Data Visualization</span></div>
-            </a>
           </div>
         </div>
 
@@ -1281,6 +1273,7 @@
       ]
     },
     'bkk-payandgo': {
+      hidden: true,
       title: 'Public Transport Ticketing Evaluation & Redesign',
       tags: ['Public Transport', 'Service Design'],
       meta: [
@@ -1363,6 +1356,7 @@
       ]
     },
     'skytree': {
+      hidden: true,
       title: 'Multi-Role CO2 Capture Monitoring System Design',
       tags: ['Hardware', 'Data Visualization'],
       meta: [
@@ -1842,7 +1836,7 @@
   function showProject(slug) {
     var huOnly = lang === 'hu' && PROJECTS_HU[slug];
     var proj = huOnly || PROJECTS[slug];
-    if (!proj) { location.hash = '#work'; return; }
+    if (!proj || proj.hidden) { location.hash = '#work'; return; }
     document.getElementById('project-title').textContent = proj.title;
     document.getElementById('project-lede').textContent = proj.lede;
 
