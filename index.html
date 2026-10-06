@@ -41,7 +41,7 @@
   /* A two-tone ring (dark line + light line) so keyboard focus stays
      visible against both the dark page and the light tiles — with
      cursor:none there's no other visual signal of where focus is. */
-  a:focus-visible, [role="button"]:focus-visible {
+  a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--ink);
     border-radius: 2px;
@@ -179,6 +179,26 @@
   nav a.current { color: var(--ink); }
   nav a.other { color: var(--ink-dim); }
   nav a:hover { color: var(--ink); }
+
+  .lang-switch {
+    display: flex;
+    gap: 12px;
+  }
+
+  .lang-switch button {
+    font-family: var(--font);
+    font-size: 14px;
+    letter-spacing: 0.01em;
+    color: var(--ink-dim);
+    background: none;
+    border: 0;
+    padding: 6px 4px;
+    margin: -6px -4px;
+    cursor: inherit;
+  }
+
+  .lang-switch button:hover,
+  .lang-switch button[aria-pressed="true"] { color: var(--ink); }
 
   .toc {
     display: flex;
@@ -876,6 +896,10 @@
     <nav>
       <a href="#work" class="nav-link" data-view="work" id="nav-work">Work</a>
       <a href="#about" class="nav-link" data-view="about">About</a>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="en" lang="en">EN</button>
+        <button type="button" data-lang="hu" lang="hu">HU</button>
+      </div>
       <div id="project-toc" class="toc"></div>
       <div class="nav-footer">© 2026 Benjamin Rigó. All rights reserved.</div>
     </nav>
@@ -1065,7 +1089,7 @@
   function cards(items) { return { t: 'cards', items: items }; }
   function split(blocks, media) { return { t: 'split', blocks: blocks, media: media }; }
   function cols(left, right) { return { t: 'split', blocks: left, right: right }; }
-  function reflect(text) { return { t: 'callout', label: 'Looking back', text: text }; }
+  function reflect(text, label) { return { t: 'callout', label: label || 'Looking back', text: text }; }
   function h3(text) { return { t: 'h3', text: text }; }
   function p(text) { return { t: 'p', text: text }; }
   function lead(label, text) { return { t: 'p', lead: label, text: text }; }
@@ -1379,6 +1403,190 @@
     }
   };
 
+  var UI_HU = {
+    'Work': 'Munkák',
+    'Tags': 'Címkék',
+    'About': 'Rólam',
+    'Start': 'Kezdés',
+    'Copy': 'Másolás',
+    'Copied': 'Kimásolva',
+    'Email address copied': 'E-mail-cím kimásolva',
+    '© 2026 Benjamin Rigó. All rights reserved.': '© 2026 Benjamin Rigó. Minden jog fenntartva.',
+    'Case Studies': 'Case studyk',
+    'Lead product designer, 8+ years turning complex, data-heavy systems into interfaces people can actually use.': 'Lead product designer, több mint 8 éve fordítok le összetett, adatgazdag rendszereket jól használható felületekre.',
+    'Redesigning the Core Workflows of an Enterprise Log Management Platform': 'Egy vállalati log management platform kulcsfolyamatainak újratervezése',
+    'FinTech Engagement Platform Concept &amp; AI Prototyping': 'Fintech engagement platform koncepció és AI prototipizálás',
+    'Public Transport Ticketing Evaluation &amp; Redesign': 'Tömegközlekedési jegyrendszer értékelése és újratervezése',
+    'Multi-Role CO2 Capture Monitoring System Design': 'Többszerepkörű CO2-leválasztó monitorozó rendszer tervezése',
+    'Log Management': 'Log management',
+    'Enterprise SaaS': 'Vállalati SaaS',
+    'Gamification': 'Gamifikáció',
+    'Public Transport': 'Tömegközlekedés',
+    'Service Design': 'Service design',
+    'Hardware': 'Hardver',
+    'Data Visualization': 'Adatvizualizáció',
+    'Proven track record leading design teams': 'Tapasztalat design csapatok vezetésében',
+    'Building tokenized design systems': 'Tokenalapú design systemek építése',
+    'Facilitating discovery through service design methodology': 'Discovery folyamatok facilitálása service design módszertannal',
+    'Advanced AI workflows (Claude Code, Claude-to-Figma automation) to accelerate research synthesis, prototyping, and engineering handoff': 'Haladó AI workflow-k (Claude Code, Claude–Figma automatizálás) a kutatási szintézis, a prototipizálás és a fejlesztői átadás gyorsítására',
+    'Core Competencies': 'Fő kompetenciák',
+    'Product Strategy &amp; Complex Interfaces': 'Termékstratégia és összetett felületek',
+    '<strong>UX/UI Design &amp; Systems:</strong> Complex web/app interfaces, native iOS/Android, data-heavy dashboards, tokenized design systems (shadcn/ui, Figma variables).': '<strong>UX/UI design és rendszerek:</strong> Összetett web- és alkalmazásfelületek, natív iOS/Android, adatgazdag dashboardok, tokenalapú design systemek (shadcn/ui, Figma variables).',
+    '<strong>Service Design &amp; Discovery:</strong> Service blueprinting, product concept workshops, user journey mapping, and research frameworks.': '<strong>Service design és discovery:</strong> Service blueprintek, termékkoncepció-workshopok, user journey térképek és kutatási keretrendszerek.',
+    '<strong>Usability Testing &amp; Research:</strong> Qualitative/quantitative research frameworks, iterative usability testing, field research, and validation.': '<strong>Használhatósági tesztelés és kutatás:</strong> Kvalitatív és kvantitatív kutatási keretrendszerek, iteratív használhatósági tesztelés, terepkutatás és validálás.',
+    '<strong>Cross-Functional Collaboration:</strong> Direct engineering handoff, component mapping, technical feasibility assessment, and QA.': '<strong>Csapatokon átívelő együttműködés:</strong> Közvetlen fejlesztői átadás, komponens-megfeleltetés, technikai megvalósíthatóság felmérése és QA.',
+    'Leadership &amp; Operations': 'Vezetés és működés',
+    '<strong>Design Leadership:</strong> Mentoring and managing teams of 3–5 mid-to-senior designers.': '<strong>Design vezetés:</strong> 3–5 fős, medior és senior designerekből álló csapatok mentorálása és vezetése.',
+    '<strong>Project &amp; Proposal Strategy:</strong> Scope definition, project planning, proposal writing, and client alignment.': '<strong>Projekt- és ajánlatstratégia:</strong> Scope meghatározása, projekttervezés, ajánlatírás és egyeztetés az ügyféllel.',
+    'Next-Gen Workflows &amp; Specialized Skills': 'Új generációs workflow-k és speciális készségek',
+    '<strong>AI-Assisted Design &amp; Dev Prep:</strong> Advanced Claude Code integration, Figma-Claude workflows.': '<strong>AI-támogatott design és fejlesztői előkészítés:</strong> Haladó Claude Code integráció, Figma–Claude workflow-k.',
+    '<strong>Brand &amp; Visual Communication:</strong> Brand strategy, visual identity, graphic design, and motion graphics.': '<strong>Márka és vizuális kommunikáció:</strong> Márkastratégia, arculat, grafikai tervezés és motion grafika.',
+    '<strong>Hardware &amp; Spatial Ergonomics:</strong> Experience in physical/spatial interface ergonomics (visionOS, PHID).': '<strong>Hardver és térbeli ergonómia:</strong> Tapasztalat fizikai és térbeli interfészek ergonómiájában (visionOS, PHID).',
+    'Education': 'Tanulmányok',
+    'Master of Arts (MA) — Media Design, MOME · 2017 – 2019': 'Mesterképzés (MA) — Médiadesign, MOME · 2017 – 2019',
+    'Erasmus Program — Media Design, Faculdade de Belas-Artes da Universidade de Lisboa · 2018': 'Erasmus program — Médiadesign, Faculdade de Belas-Artes da Universidade de Lisboa · 2018',
+    'Bachelor of Arts (BA) — Media Design, MOME · 2015 – 2017': 'Alapképzés (BA) — Médiadesign, MOME · 2015 – 2017',
+    'Audio Engineering Degree · 2014': 'Hangmérnöki végzettség · 2014',
+    'Sidequests': 'Mellékküldetések',
+    'Electronic Music Production': 'Elektronikus zenei produkció',
+    'Visiting Lecturer (BME) — Teaching electronic music production and sound design principles at the Department of Sociology and Communication.': 'Óraadó oktató (BME) — Elektronikus zenei produkció és hangdesign alapjainak oktatása a Szociológia és Kommunikáció Tanszéken.',
+    'Surf': 'Szörf',
+    'Professional Experience': 'Szakmai tapasztalat',
+    'UX Designer Intern': 'UX designer gyakornok',
+    'Jan 2024 – Present': '2024. jan. – jelenleg',
+    'Oct 2022 – Sep 2023': '2022. okt. – 2023. szept.',
+    'Nov 2019 – Mar 2023': '2019. nov. – 2023. márc.',
+    'Feb 2019 – Jan 2021': '2019. febr. – 2021. jan.',
+    'Jul 2016 – Aug 2016': '2016. júl. – 2016. aug.',
+    'Atlas, Rise! · Budapest, Hungary': 'Atlas, Rise! · Budapest',
+    'AR Analytics Ltd. · Budapest, Hungary': 'AR Analytics Kft. · Budapest',
+    'Frontira (formerly LHBS) · Budapest, Hungary': 'Frontira (korábban LHBS) · Budapest',
+    'Moholy-Nagy University of Art and Design (MOME) · Budapest, Hungary': 'Moholy-Nagy Művészeti Egyetem (MOME) · Budapest',
+    'Mito · Budapest, Hungary': 'Mito · Budapest',
+    'Led end-to-end product design, service design, and UX strategy for enterprise and public-sector clients (e.g., BKK Pay&amp;GO, a global card network).': 'Teljes körű product design, service design és UX stratégia vezetése vállalati és közszféra-ügyfeleknek (pl. BKK Pay&amp;GO, egy globális kártyatársaság).',
+    'Managed and mentored a team of 3–5 mid-to-senior designers across research, branding, and interface design streams.': '3–5 fős, medior és senior designerekből álló csapat vezetése és mentorálása kutatási, branding és interfésztervezési területeken.',
+    'Facilitated client discovery workshops, scoped proposals, and designed low-carbon digital products.': 'Ügyféloldali discovery workshopok facilitálása, ajánlatok scope-olása és alacsony szénlábnyomú digitális termékek tervezése.',
+    'Led augmented reality platform design and spatial UI frameworks tailored for Apple\'s visionOS.': 'Kiterjesztett valóság platform és Apple visionOS-re szabott térbeli UI keretrendszerek tervezésének vezetése.',
+    'Established the core visionOS design system and spatial interaction patterns for the platform.': 'A platform visionOS design systemének és térbeli interakciós mintáinak kialakítása.',
+    'Partnered with the BME Ergonomics Institute to execute academic-grade design research and spatial usability testing.': 'Együttműködés a BME ergonómiai intézetével akadémiai szintű design kutatásban és térbeli használhatósági tesztelésben.',
+    'Delivered end-to-end product design, web/mobile application structures, and design systems for enterprise clients.': 'Teljes körű product design, web- és mobilalkalmazás-struktúrák és design systemek vállalati ügyfeleknek.',
+    'Led qualitative UX research, usability testing rounds, and service blueprinting to align business strategy with user touchpoints.': 'Kvalitatív UX kutatások, használhatósági tesztkörök és service blueprintek vezetése, hogy az üzleti stratégia és a felhasználói érintkezési pontok összhangban legyenek.',
+    'Designed the physical-human interface (PHID) and digital UI ecosystem for a smart furniture product line.': 'Egy okosbútor-termékcsalád fizikai–emberi interfészének (PHID) és digitális UI ökoszisztémájának tervezése.',
+    'Focused on spatial ergonomics, physical interaction feedback, physical usability testing, and embedded system UX.': 'Fókuszban a térbeli ergonómia, a fizikai interakciós visszajelzések, a fizikai használhatósági tesztelés és a beágyazott rendszerek UX-e.',
+    'Worked within Mito\'s UX/Design department and learned agency workflows.': 'Munka a Mito UX/Design részlegén, az ügynökségi működés megismerése.',
+    'Created user flows, personas, and interactive wireframe prototypes using Axure and Sketch.': 'User flow-k, personák és interaktív wireframe prototípusok készítése Axure-ral és Sketch-csel.'
+  };
+
+  var PROJECTS_HU = {
+    'nxlog-platform': {
+      title: 'Egy vállalati log management platform kulcsfolyamatainak újratervezése',
+      tags: ['Log management', 'Vállalati SaaS'],
+      meta: [
+        { label: 'Évek', value: '2024–2025' },
+        { label: 'Szerep', value: 'Senior Product Designer' },
+        { label: 'Csapat', value: '3 fős design csapat' },
+        { label: 'Fókusz', value: 'UX/UI, prototipizálás, design system' }
+      ],
+      lede: `Egy háromfős design csapat senior designereként az NXLog Platformon dolgoztam, ami egy on-premise log management eszköz. A fókuszom a log keresés, a pipeline-vizualizáció, az agentek konfigurálása és az onboarding volt.`,
+      blocks: [
+        image('images/nxlog/01.png', 'Log Flow, a konfigurációépítő, a log keresés és a template-ek hozzárendelése.'),
+        cols([
+          h2('Kihívás'),
+          p(`Az NXLog Platform több ezer eszközről gyűjt logokat, például szerverekről, tűzfalakról és hálózati eszközökről, hogy a biztonsági és IT csapatok egy helyen tárolhassák, kereshessék és elemezhessék őket. A termék szakértőknek készült eszközökből nőtt ki, és a felülete nagyrészt a mögöttes technikai felépítést tükrözte, nem azokat a feladatokat, amelyeket a felhasználóknak el kellett végezniük.`),
+          p(`Ahogy a termék egyre inkább a log management piac felé nyitott, ezeknek a kulcsfolyamatoknak az új felhasználók számára is érthetővé kellett válniuk, úgy, hogy közben megmaradjon a szakértők által igényelt mélység.`)
+        ], [
+          h2('Megközelítés'),
+          p(`A terület új volt számomra, ezért minden feature azzal kezdődött, hogy megértsem, hogyan működik valójában a rendszer: a product csapat dokumentációjából, a fejlesztőkkel folytatott beszélgetésekből és valós adatokból, például log mintákból és meglévő konfigurációkból.`),
+          p(`Amikor a mögöttes struktúra világossá vált, a design szorosan követhette azt: leegyszerűsítette, amit a felhasználó lát, anélkül, hogy elrejtette volna, amire szüksége van. Az irányokat rendszeresen átnéztük a product csapattal, és egyeztettük a fejlesztőkkel.`)
+        ]),
+
+        h2('Keresés kötött séma nélküli adatokban', '01 / 05'),
+        cols([
+          p(`Az NXLog Platform sokféle forrásból gyűjt logokat, és minden forrás másképp strukturálja az adatait. A korábbi keresés fix sémát feltételezett: előre meghatározott oszlopokat és szűrőket mutatott, amelyek nem működtek, amint az adat eltért ettől. Ahogy az NXLog egyre inkább a log management felé mozdult, a keresésnek fel kellett nőnie az olyan bevett eszközökhöz, mint a Splunk, az Elastic és a Cribl.`)
+        ], [
+          p(`Valós log mintákkal kezdtem, nem idealizált adatokkal: router syslogokkal, beágyazott MQTT üzenetekkel és vegyes Windows eseményekkel. Ebből gyorsan kiderült a fő feszültség. A táblázat jól működik a strukturált biztonsági logoknál, ahol az események ugyanazokat a mezőket tartalmazzák. Az operációs logoknál viszont, ahol a mezők eseményenként eltérnek, a felhasználóknak a teljes, eredeti sort kell látniuk.`)
+        ]),
+        image('images/nxlog/10.png', 'A korábbi log keresés a fő problémák jelölésével (balra), és az újratervezett változat (jobbra).'),
+        cards([
+          ['Egy táblázat, kétféle olvasat', `A logok strukturált oszlopokkal, táblázatban jelennek meg, és bármelyik sor kinyitható, hogy formázott JSON-ként mutassa a teljes eseményt. Ugyanaz a nézet kezeli a következetes és a rendszertelen adatot is, módváltás nélkül.`],
+          ['Tapasztalattal együtt növő keresés', `Az egyszerű szöveges keresés úgy működik, mint egy megszokott keresőmező. Pontosabb kérdésekhez, például „SSH bejelentkezések a root felhasználóra a múlt héten, a tesztgépek kivételével”, SQL-t lehet írni, vagy ugyanezeket a feltételeket vizuális query builderben összerakni.`],
+          ['Mezők, amelyeket nem kell előre ismerni', `Mivel az adatnak nincs fix sémája, a felhasználók gyakran nem tudják, milyen mezők léteznek. Egy oldalsáv felsorolja az elérhető mezőket, és bármelyik egy kattintással oszlopként hozzáadható a táblázathoz.`],
+          ['Munka időzónákon át', `A biztonsági csapatok gyakran vizsgálnak más régióban történt eseményeket. Az időzóna kiválasztása a dátumválasztó része, így a keresés közvetlenül a cél időzónában állítható be, kézi átszámolás nélkül.`],
+          ['A teljesítmény mint az élmény része', `A log adathalmazok nagyok, ezért az eredmények lapozás helyett fokozatosan töltődnek be. Először a keresőmező és a táblázat jelenik meg, utána a másodlagos elemek, például az idővonal, és egyértelmű jelzés mutatja, ha egy lekérdezés még fut.`]
+        ]),
+        reflect(`Sokkal korábban bevonnám a fejlesztőket a tervezésbe. Több megoldást késői fázisban kellett átdolgozni technikai megvalósíthatóság miatt, ami elhúzta a projektet, és erre sem a design, sem a product nem készült fel. Legközelebb a legkockázatosabb részeket még a részletek kidolgozása előtt átnézném a fejlesztőkkel.`, 'Visszatekintve'),
+
+        h2('A log pipeline láthatóvá tétele', '02 / 05'),
+        cols([
+          p(`A logok hosszú utat tesznek meg, mielőtt bárki elolvasná őket. Agentek gyűjtik össze, relay-eken haladnak át, és olyan célhelyekre jutnak, mint egy on-premise tárhely vagy egy SIEM. Az NXLog Platformban ez az útvonal csak konfigurációs szövegként létezett. Ha valahol megszűnt az adatok érkezése, a hiba helyét a konfigurációs fájlok átolvasásával lehetett megtalálni. A feladat egy teljes körű log flow nézet megtervezése volt, ami segít az ilyen problémák felderítésében.`)
+        ], [
+          p(`Az első kérdés az volt, hogy mi legyen a diagram egy építőköve. Ha minden agent külön jelenik meg, az gyorsan több ezer elemet jelentett volna. Ehelyett az agenteket az általuk futtatott konfiguráció szerint csoportosítottam, így minden kártya egy konfigurációt jelöl, a mögötte álló agentekkel és kapcsolatokkal együtt. Ez nagy méretben is olvashatóvá teszi a diagramot, és illeszkedik ahhoz, ahogy a felhasználók már most is kezelik a rendszerüket.`)
+        ]),
+        image('images/nxlog/06.png', 'Az Architecture nézet a flow felépítéséhez (balra), és az EPS nézet az élő követéshez (jobbra).'),
+        cards([
+          ['Építés és megfigyelés két külön nézetben', `Az Architecture nézet egy háromoszlopos munkaterület: elérhető konfigurációk, maga az architektúra és a célhelyek. Az EPS nézet (events per second) ugyanezt a flow-t élőben mutatja, minden kapcsolaton az aktuális áteresztőképességgel és minden kártyán a közelmúlt adataival.`],
+          ['Problémák, amelyek maguktól láthatóvá válnak', `Minden kártya összesíti az agentjei állapotát, így egy figyelmeztetést vagy hibát jelző kártya kitűnik a diagram többi része közül. A felhasználók látják, hol érdemes keresgélni, mielőtt bármit megnyitnának.`],
+          ['Rövid bevezetés üres vászon helyett', `Az első használatkor egy háromlépéses útmutató fogadja a felhasználót: konfigurációk elrendezése, összekötése, a flow ellenőrzése. Azt is elmagyarázza, hogy a diagram nem módosítja a mögöttes konfigurációkat, így bátran lehet kísérletezni.`]
+        ]),
+        cols([
+          p(`A koncepciót öt használhatósági teszten próbálták ki senior kiberbiztonsági szakemberekkel, akiknek mind volt tapasztalatuk log management és vizualizációs eszközökkel. Az élő nézetet tömörnek találták, és leginkább az áteresztőképesség grafikonjait értékelték. A konfiguráció szerinti csoportosítás elsőre szokatlan volt, de használat közben hasznosnak bizonyult. Kevésbé voltak magabiztosak a konfigurációk kézi összekötésében, és szűrt nézeteket kértek, például csak azokat a flow-kat, amelyek egy adott célhelyre érkeznek.`)
+        ], [
+          p(`A mi részünk a koncepcióra és annak validálására terjedt ki. Innen a fejlesztőcsapat vitte tovább a kártyaalapú designt a megvalósításba.`)
+        ]),
+        reflect(`A felhasználók a konfigurációk kézi összekötésénél voltak a legbizonytalanabbak. Mivel minden konfiguráció eleve meghatározza, hová küldi az adatot, ma azt vizsgálnám, hogy a rendszer magától felajánlja-e ezeket a kapcsolatokat. Korábban is tesztelnék, durva vázlatokkal, nem kidolgozott designnal, és nagyobb figyelmet fordítanék arra, hogy a tanulságok olyan formában kerüljenek a fejlesztőkhöz, amivel közvetlenül tovább tudnak dolgozni.`, 'Visszatekintve'),
+
+        h2('Konfigurációk összeállítása kézi írás nélkül', '03 / 05'),
+        cols([
+          p(`Az NXLog agentek konfigurációja egymásba ágyazott blokkokból és direktívákból álló szöveges formátum. Pontos, de előzetes tapasztalat nélkül nehezen megközelíthető. A konfigurációépítő ugyanezt vizuálisan teszi lehetővé: a felhasználó modulokat húz egy route-ba, ami meghatározza, mit gyűjtsön, mit kezdjen vele, és hová küldje. A feladatunk kettős volt: megérteni, hogyan használják valójában az építőt, és a csomagok közti különbségeket egyértelművé és egységessé tenni a termékben és a dokumentációban.`)
+        ], [
+          p(`Az építőt három tapasztalt mérnökkel tesztelték: az egyikük nem ismerte az NXLogot, a másik évekig dolgozott egy másik log management eszközzel, a harmadik a Splunkot ismerte. A drag-and-drop modellt gyorsan megértették, de több részlet lelassította őket. Nem volt egyértelmű, melyik modul a route melyik részébe tartozik, és a szekciónevek keverték a főneveket és az igéket. Az előre összeállított csomagok átláthatatlanok voltak. A csomagjelölések hasznosnak bizonyultak, de zajnak tűntek annak, aki nem tervez váltani. Az integrációs útmutatók feltételezték, hogy a felhasználó ismeri a külső rendszert.`)
+        ]),
+        image('images/nxlog/07.png', 'A konfigurációépítő csomagjelölésekkel a modullistában (balra), és a lépésenként vezetett Google Chronicle beállítás (jobbra).'),
+        cards([
+          ['A vászonhoz igazodó listák', `A modullista az építő szerkezetét követi: Collect from, Actions, Send to, mindegyik egy ikonnal, ami a route-on belüli helyére utal. Az előre összeállított csomagok „Solution packs” helyett „Templates” nevet kaptak, és a lista tetejére kerültek, mert ezekkel lehet a leggyorsabban elindulni.`],
+          ['Egy csomagnyelv mindenhol', `Ugyanazok a Basic és Premium jelölések szerepelnek a csomagválasztó oldalon, az építőben és a dokumentációban, így egy funkció bárhol felismerhető, ahol a felhasználó találkozik vele.`],
+          ['Csomaginformáció zaj nélkül', `A felhasználó csomagjában nem szereplő modulok inaktívak, és a váltásra vonatkozó javaslat csak hover esetén jelenik meg. A „Show only free” szűrő elrejti mindazt, amit a felhasználó nem tud használni, a próbaidőszak állapota pedig a navigáció tetején látható.`],
+          ['Integrációk vezetett lépésekben', `Egy SIEM, például a Google Chronicle bekötése mindkét oldalon munkát igényel. A beállítás háromlépéses folyamat lett: csatlakozás a szolgáltatáshoz, a SIEM beállítása letölthető komponensekkel és útmutatóval, végül az agent frissítése.`]
+        ]),
+        reflect(`Az integrációs útmutatók nagyrészt szövegesek maradtak, és a tesztek megmutatták, hogy feltételezik a külső rendszer ismeretét. Legközelebb már az első verzióba vizuális segítséget tennék, és olyasvalakivel tesztelném, aki nem ismeri az adott rendszert.`, 'Visszatekintve'),
+
+        h2('Template-ek hozzárendelése nagy léptékben', '04 / 05'),
+        cols([
+          p(`Egy konfigurációs template határozza meg, mit gyűjt egy agent, és hová küldi az adatot. Eredetileg minden agent csak egy template-et futtathatott, ami nem felelt meg annak, ahogy az ügyfelek dolgoznak. Egy cég például 100 Windows gépet üzemeltet, amelyeknek mind ugyanarra az alap eseménygyűjtésre van szükségük, közülük tíz viszont domain controller is, amelyekhez további eseménykészlet kell. Ennek támogatása azt jelentette, hogy az agentenként egy template-ből több-a-többhöz kapcsolat lesz, több ezer agenten át.`)
+        ], [
+          p(`A product manager a flow-k első vázlatával és egy nyitott kérdéssel adta át a feature-t: hogyan viselkedjen a hozzárendelő képernyő, ha a kijelölt agentek már különböző template-eket futtatnak? Mielőtt bármilyen felületet terveztünk volna, feltérképeztük a struktúrát: hogyan jut el a felhasználó a hozzárendelésig, milyen döntéseket hoz közben, és hol csúszhat el valami. Azt is megnéztük, más termékek hogyan kezelnek hasonló beállításokat. Csak amikor a flow-k megálltak, akkor léptünk tovább a UI-ra, közben heti egyeztetésekkel.`)
+        ]),
+        image('images/nxlog/04.png', 'Template-ek hozzárendelése kijelölt agentekhez (balra), és agentek hozzárendelése egy template-hez (jobbra).'),
+        cards([
+          ['Két belépési pont, egy hozzárendelési logika', `Van, aki előbb létrehoz egy template-et, és enrollment szabályokkal engedi, hogy a megfelelő agentek felvegyék. Mások előbb hozzáadnak egy agentet, és utána csatolnak hozzá template-eket. Mindkét út ugyanarra a hozzárendelő képernyőre vezet, és amelyik oldalról a felhasználó indul, az automatikusan kitöltődik.`],
+          ['Tervezés vegyes kijelölésekre', `A kijelölt agentek ritkán egyforma beállításúak. A template-lista részleges állapotot mutat azoknál a template-eknél, amelyek csak az agentek egy részén futnak, és mindegyik beállítható mindenkinek, eltávolítható mindenkitől, vagy hagyható úgy, ahogy van. Egy agenten semmi nem változik, hacsak a felhasználó kifejezetten nem kéri.`],
+          ['Egy módosítás hatásának ismerete', `Ha a felhasználó olyan template-et szerkeszt, ami már agenteken fut, látja, hány agentet érint a változás. Elmentheti mindenkire, vagy készíthet egy másolatot, kipróbálhatja egyetlen agenten, és később terjesztheti ki.`],
+          ['Kommunikációs beállítások a template-ektől függetlenül', `Minden agentnek pontosan egy kapcsolatra van szüksége a platformmal, ez a beállítás viszont korábban a template-eken belül volt. Saját helyre került, control plane néven, egy védett alapértelmezett beállítással.`]
+        ]),
+        image('images/nxlog/05.png', 'Az agentlista az egyes agentek template-jeivel (balra), és a control plane-ek listája (jobbra).'),
+        reflect(`A product manager felvetette, hogy a vegyes kijelölés problémájára több megoldást is érdemes lenne kipróbálni. Ma pontosan ezt tenném: két-három változatot korán valós felhasználók elé vinnék, mielőtt elköteleződünk egy mellett és kidolgozzuk.`, 'Visszatekintve'),
+
+        h2('Az első agent bekötése', '05 / 05'),
+        cols([
+          p(`Mielőtt bármi más működne, egy agentet telepíteni kell egy gépre, be kell állítani, és regisztrálni kell a platformon. Ezek a lépések különböző helyeken voltak szétszórva, és sok felhasználó elakadt, mielőtt az első logjai megérkeztek volna.`)
+        ], [
+          p(`Az újratervezett folyamat egyetlen vezetett, ötlépéses sorozat: operációs rendszer kiválasztása, letöltés és telepítés, konfigurálás, a szolgáltatás újraindítása és regisztráció. Minden lépés egy rövid útmutatót tartalmaz. A platform automatikusan felismeri az új agentet, és regisztráció előtt megerősítésre megmutatja.`)
+        ]),
+        image('images/nxlog/08.png', 'Az útmutató mind az öt lépést előre megmutatja (balra), majd egyenként végigvezet rajtuk (jobbra).'),
+        image('images/nxlog/09.png', 'A felismert agent regisztrációra várva (balra), és a megerősítés (jobbra).'),
+
+        h2('A háttérben'),
+        split([
+          p(`A termék eredetileg egyedi designt használt, a fejlesztőcsapat pedig éppen MUI-ra állt át. Az MUI témát az NXLoghoz szabtuk, a színektől a méreteken és a tipográfián át a komponensekig, és elkészítettük hozzá a megfelelő Figma library-t a fejlesztők számára.`),
+          p(`Ettől kezdve az új képernyők mindkét oldalon ugyanazokból a komponensekből épülhettek fel, ami érezhetően felgyorsította a tervezést és a fejlesztést.`)
+        ], image('images/nxlog/02.png', 'A testreszabott MUI téma Figma library-ként, a fejlesztőkkel közösen használva.')),
+
+        h2('Amit magammal viszek'),
+        p(`Kívülről mindegyik terület összetettnek tűnt: kötött szerkezet nélküli adat, csak szövegként létező pipeline-ok, szakértői szintaxisban írt konfigurációk, hozzárendelések gépek ezrein át. Minden esetben ugyanúgy kezdődött a munka: megérteni, hogyan működik valójában a rendszer, majd olyan felületet tervezni, ami követi ezt a struktúrát ahelyett, hogy elrejtené. Ezt a megközelítést viszem magammal bármilyen új területre.`)
+      ]
+    }
+  };
+
   var sections = {
     work: document.getElementById('view-work'),
     project: document.getElementById('view-project'),
@@ -1608,7 +1816,7 @@
     tocEl.innerHTML = '';
     toc.items = [];
     toc.sections = [];
-    addTocItem(tocEl, 'Start', viewProjectEl);
+    addTocItem(tocEl, t('Start'), viewProjectEl);
     var h2s = document.querySelectorAll('#project-article .cs-h2');
     h2s.forEach(function (h, i) {
       h.id = 'sec-' + i;
@@ -1618,7 +1826,8 @@
   }
 
   function showProject(slug) {
-    var proj = PROJECTS[slug];
+    var huOnly = lang === 'hu' && PROJECTS_HU[slug];
+    var proj = huOnly || PROJECTS[slug];
     if (!proj) { location.hash = '#work'; return; }
     document.getElementById('project-title').textContent = proj.title;
     document.getElementById('project-lede').textContent = proj.lede;
@@ -1647,7 +1856,9 @@
       metaEl.appendChild(item);
     });
 
-    renderBlocks(document.getElementById('project-article'), proj.blocks);
+    var blocks = proj.blocks;
+    if (lang === 'hu' && !huOnly) blocks = [note('Ez a case study egyelőre csak angolul érhető el.')].concat(blocks);
+    renderBlocks(document.getElementById('project-article'), blocks);
     viewProjectEl.scrollTop = 0;
     buildToc();
   }
@@ -1689,6 +1900,42 @@
     }
   }
 
+  // English is the source text; Hungarian strings are looked up by it,
+  // so untranslated content simply stays in English.
+  var lang = 'en';
+  try { if (localStorage.getItem('lang') === 'hu') lang = 'hu'; } catch (e) {}
+  var langButtons = document.querySelectorAll('.lang-switch button');
+  var I18N_TARGETS = '.nav-link, .nav-footer, .mobile-footer, .intro, .section-title, .col .title, .col .tags span, .about-body li, .about-body h2, .about-body h3, .role-title, .role-dates, .role-company';
+
+  function t(text) { return (lang === 'hu' && UI_HU[text]) || text; }
+
+  function applyLang() {
+    document.documentElement.lang = lang;
+    document.querySelectorAll(I18N_TARGETS).forEach(function (el) {
+      if (el.dataset.en === undefined) el.dataset.en = el.innerHTML;
+      el.innerHTML = t(el.dataset.en);
+    });
+    document.querySelectorAll('.col').forEach(function (col) {
+      var tags = Array.prototype.map.call(col.querySelectorAll('.tags span'), function (s) { return s.textContent; });
+      col.setAttribute('aria-label', col.querySelector('.title').textContent + '. ' + t('Tags') + ': ' + tags.join(', '));
+    });
+    document.getElementById('cursor-label').textContent = t('Copy');
+    langButtons.forEach(function (b) {
+      b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false');
+    });
+  }
+
+  langButtons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (b.dataset.lang === lang) return;
+      lang = b.dataset.lang;
+      try { localStorage.setItem('lang', lang); } catch (e) {}
+      applyLang();
+      route();
+    });
+  });
+
+  applyLang();
   window.addEventListener('hashchange', route);
   route();
 
@@ -1705,7 +1952,7 @@
 
   var cursorDot = document.getElementById('cursor-dot');
   var cursorLabel = document.getElementById('cursor-label');
-  var CURSOR_INTERACTIVE = 'a, [role="button"], .col, [tabindex]';
+  var CURSOR_INTERACTIVE = 'a, button, [role="button"], .col, [tabindex]';
   window.addEventListener('mousemove', function (e) {
     cursorDot.classList.add('visible');
     cursorDot.style.transform = 'translate3d(' + e.clientX + 'px,' + e.clientY + 'px,0) translate(-50%,-50%)';
@@ -1749,10 +1996,10 @@
     }
 
     clearTimeout(emailResetTimer);
-    cursorLabel.textContent = 'Copied';
-    copyAnnounceEl.textContent = 'Email address copied';
+    cursorLabel.textContent = t('Copied');
+    copyAnnounceEl.textContent = t('Email address copied');
     emailResetTimer = setTimeout(function () {
-      cursorLabel.textContent = 'Copy';
+      cursorLabel.textContent = t('Copy');
       copyAnnounceEl.textContent = '';
     }, 1200);
   }
