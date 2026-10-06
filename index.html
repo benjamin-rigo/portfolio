@@ -309,8 +309,8 @@
   /* Dark tiles that sit just above the page ground, so the work list
      doesn't glare. */
   .col {
-    flex: 0 0 47%;
-    min-width: 450px;
+    flex: 0 0 calc((100% - 96px) / 3);
+    min-width: 340px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -801,11 +801,10 @@
     #cursor-dot, #cursor-label { display: none; }
   }
 
-  /* ---- Tablet: the tile hits its 450px min-width floor here, so it's
-     narrower/squarer than on desktop and the 30px title reads small
-     against the card. Bump it back up in this band. ---- */
+  /* ---- Tablet: tiles hit their 340px min-width floor here and the
+     third one scrolls into view, so the title steps down slightly. ---- */
   @media (min-width: 701px) and (max-width: 1150px) {
-    .col .title { font-size: 34px; }
+    .col .title { font-size: 28px; }
   }
 
   /* ---- Mobile / narrow viewport ---- */
