@@ -961,6 +961,13 @@
               </div>
               <div class="tags" aria-hidden="true"><span>Fintech</span><span>Gamification</span></div>
             </a>
+            <a class="col" href="#work/bkk-payandgo" aria-label="Researching and Redesigning Contactless Ticketing for Budapest. Tags: Public Transport, Service Design">
+              <div class="col-text" aria-hidden="true">
+                <div class="title">Researching and Redesigning Contactless Ticketing for Budapest</div>
+                <p class="summary">Field research, testing and a new terminal flow for paying for public transport with a bank card.</p>
+              </div>
+              <div class="tags" aria-hidden="true"><span>Public Transport</span><span>Service Design</span></div>
+            </a>
           </div>
         </div>
 
@@ -1336,86 +1343,91 @@
       ]
     },
     'bkk-payandgo': {
-      hidden: true,
-      title: 'Public Transport Ticketing Evaluation & Redesign',
+      title: 'Researching and Redesigning Contactless Ticketing for Budapest',
       tags: ['Public Transport', 'Service Design'],
       meta: [
-        { label: 'Duration', value: '2024' },
+        { label: 'Year', value: '2024' },
         { label: 'Role', value: 'Lead UX Researcher & Product Designer, Atlas, Rise!' },
         { label: 'Team', value: '2 mid-level designers, 1 lead strategist' },
-        { label: 'Methods', value: 'Heuristic analysis, analytics review, 5 days of field research, 16 usability tests' }
+        { label: 'Scope', value: 'Research, terminal flow, communication, website and portal' }
       ],
-      lede: `BKK's Pay&GO lets riders in Budapest pay for transit by tapping a bank card. I led the research and redesign across the terminal, the bkk.hu info page, and the customer portal. The key recommendation wasn't a screen: it was how BKK should describe the product.`,
+      lede: `As lead UX researcher and product designer at Atlas, Rise!, I led the research and redesign of Budapest Pay&GO, the way to pay for public transport by tapping a bank card, across the ticket terminal, the website and the communication around it.`,
       blocks: [
-        visual(`Hero shot here — the physical terminal in situ at a metro stop is the strongest option, since it's the most tangible, recognizable part of the project at a glance.`),
-        h2('Context'),
-        p(`BKK, Budapest's public transport authority, wanted to know how riders understand, trust, and use Pay&GO across every touchpoint: the physical terminal, the informational subpage on bkk.hu, and the customer portal for purchases and complaints. Atlas, Rise! was BKK's design partner on the project.`),
-        h2('My role and approach'),
-        p(`I led the research and the design work, with two mid-level designers who ran the heuristic analysis under my review, and a lead strategist alongside me.`),
-        list([
-          ['Heuristic analysis.', `The two designers each evaluated the subpage and the portal against a 296-item checklist in 13 categories, based on Nielsen's heuristics. I reviewed and validated their findings.`],
-          ['Analytics review.', `Google Analytics for both language versions of the subpage added real traffic context.`],
-          ['Field research.', `Five observation days at stops on the M1 metro line and the +100E route, watching riders use the terminal and interviewing them on the spot.`],
-          ['Usability testing.', `Sixteen tests on the redesigned flows and prototypes, covering communication materials, purchase and inspection, the subpage, and the portal. I iterated after each round.`]
+        image('images/bkk/01.png', 'The recommended terminal flow: choose, tap within ten seconds, payment, confirmation.'),
+        cols([
+          h2('Challenge'),
+          p(`Pay&GO lets riders buy and validate a single ticket in one tap, with a bank card, phone or watch. Riders liked the idea, but many didn't understand what they were buying, when it became valid, or how to prove it at inspection.`),
+          p(`BKK, Budapest's public transport authority, wanted to know how riders understand, trust and use the service across every touchpoint.`)
+        ], [
+          h2('Approach'),
+          p(`I led the research and the design work, together with two mid-level designers and a lead strategist. Each step fed the next:`),
+          list([
+            `A heuristic review of the website and customer portal: 296 checks in 13 categories, run independently by the two designers and validated with me.`,
+            `An analytics review of both language versions of the website.`,
+            `Five days of observation and on-the-spot interviews at stops on the M1 metro line and the airport bus.`,
+            `Sixteen usability tests, iterating the designs after each round.`
+          ])
         ]),
         stats([
-          { value: '70%', label: 'bkk.hu Pay&GO subpage, heuristic usability score' },
-          { value: '85%', label: 'Customer portal, heuristic usability score' },
-          { value: '16', label: 'usability tests run across the terminal, subpage, and portal' },
-          { value: '3,200+', label: 'monthly subpage visits per language (Google Analytics)' }
+          { value: '70%', label: 'website, heuristic usability score' },
+          { value: '85%', label: 'customer portal, heuristic usability score' },
+          { value: '16', label: 'usability tests across terminal, website and portal' },
+          { value: '3,200+', label: 'monthly website visits per language' }
         ]),
-        p(`Both interfaces scored above average, and riders responded positively to the Pay&GO concept itself. The problems were specific and fixable, not conceptual.`),
-        visual(`The heuristic analysis radar chart from the research report — it's already a clean, presentable diagnostic visual, no rebuilding needed. A photo from the field research days works well here too, coordinators or riders at the terminal in situ.`),
-        h2('The terminal'),
-        h3('What we found'),
-        list([
-          ['More taps than intended.', `The screen is always on and inviting, unlike a vending machine's "touch to start". Riders triggered purchases by accident, made worse by unresponsive touchscreens and mismatched timeouts. Some only noticed on their bank statement.`],
-          [`Help that shouldn't be necessary.`, `Most riders couldn't buy or validate a ticket unaided. Passenger coordinators ended up confirming purchases and explaining the service, and where none were present, fewer riders succeeded.`],
-          [`A tap that doesn't feel like a tap.`, `Riders rubbed their card against the reader, mistook the validator for a barcode or QR scanner, or looked for a BudapestGO app code. The interface never corrected them.`],
-          ['Confirmation that never quite arrives.', `Riders expected confirmation somewhere: on screen, in a bank notification, on a receipt, or in the BudapestGO app. The terminal's feedback was inconsistent, and the audio cue only played for one or two tickets. Some assumed Pay&GO was part of the BudapestGO app and looked for their ticket there.`],
-          ['Distrust at inspection.', `Riders didn't know how their ticket would be checked, and felt uneasy using a bank card as proof of travel. Inspections that failed to read a card or phone made it worse.`],
-          ['A ticket that starts before you think it does.', `The most structural finding: riders didn't realize a ticket is valid immediately and tied to a direction of travel, so some bought extra, planning to use them later. Coordinators also noted that the name "Pay&GO" doesn't separate it from a paper single ticket.`]
+
+        h2('What riders actually do', '01 / 04'),
+        cols([
+          p(`Both interfaces scored above average, and riders responded positively to the concept itself. The problems were specific, and most of them only showed up in the field, watching people at the terminal.`)
+        ], [
+          p(`What we saw again and again was a gap between how the service works and what riders expected from a ticket machine.`)
         ]),
-        visual(`A photo or screen capture of one of the actual observed behaviors — riders rubbing a card against the reader, or a terminal with a stray notification/purchase mid-screen — makes these findings concrete rather than abstract.`),
-        h3('Redesigning the terminal flow'),
-        p(`I redesigned the flow screen by screen to close these gaps.`),
-        visual(`This is the strongest GIF opportunity in the whole case study — an animated walkthrough of the five screens below in sequence, check tickets → quantity → tap → loading → success, shows the actual flow far better than five static screenshots.`),
-        list([
-          ['Check before buying.', `The flow opens on "Van érvényes jegyem? / Check my tickets", so riders see what they already hold before they can buy anything new.`],
-          ['See the price before you commit.', `Quantity selection shows a large, unambiguous total.`],
-          ['Tap, not rub.', `One instruction, "Touch card to purchase a Digital Single Ticket", paired with a clear contactless icon.`],
-          ['Feedback at every stage.', `An explicit loading state while payment is in progress.`],
-          ['Know what to show at inspection.', `The success screen tells riders to present the same bank card on inspection, closing the trust gap directly.`]
+        cards([
+          ['More taps than intended', `The terminal screen is always on and inviting, so riders sometimes started a purchase without meaning to, and only noticed it on their bank statement.`],
+          [`A tap that doesn't feel like a tap`, `Riders rubbed their card against the reader, or looked for a barcode or QR code to scan.`],
+          ['No confirmation they trust', `The bank notification only arrives the next day, so the terminal's own feedback was the only proof, and it was inconsistent.`],
+          ['Uneasy at inspection', `Riders didn't know how their ticket would be checked, or what an inspector sees when they tap their card.`],
+          ['A ticket that starts right away', `Some bought several tickets for later trips, not realizing each one is valid immediately, for one trip in one direction.`],
+          ['Two products, one name in mind', `Many looked for their ticket in the BudapestGO app, assuming the two were the same service.`]
         ]),
-        p(`Hungarian and English copy run side by side throughout, because riders rarely switch the terminal's language themselves, and Budapest has heavy tourist traffic.`),
-        h3('Naming the ticket, or dropping the idea of a ticket'),
-        p(`The new screens fix the moment-to-moment gaps, but not the deepest one: riders don't realize a ticket starts immediately. That's a naming problem before it's a screen problem. Riders described what they'd bought as a digital ticket, a virtual ticket, or a card ticket, each implying something slightly different.`),
-        p(`I compared two directions on a need-to-have/nice-to-have and effort matrix:`),
-        list([
-          ['Keep "digital ticket" and clean up the language.', `Low effort, but only a nice-to-have improvement over what riders already partly understood.`],
-          ['Drop the ticket concept.', `Reposition Pay&GO as a pay-as-you-go fare: paying for the ride, not buying a ticket. More effort across every touchpoint, but it fixes the misunderstanding at its root.`]
+
+        h2('Three ways to start a purchase', '02 / 04'),
+        cols([
+          p(`The accidental purchases came down to one question: what should start a payment on a screen that is always on? I designed and compared three flows. In the always-on version, the reader is active from the start, which is fast but exactly what caused stray purchases.`)
+        ], [
+          p(`In touch to start, the rider taps first and then chooses, which feels backwards at a ticket machine. In the hybrid version, the rider chooses the quantity, presses Purchase, and only then has ten seconds to tap. I recommended the hybrid: it keeps the flow short, but nothing is charged until the rider has said what they want.`)
         ]),
-        p(`I recommended the second.`),
-        visual(`The need-to-have/nice-to-have × effort matrix from the research deck, showing both options plotted against each other — this is a genuinely strong, self-explanatory visual for exactly this kind of reasoning, use it directly.`),
-        h2('The website and portal'),
-        h3('What we found'),
-        list([
-          ['A menu that reads like a table of contents.', `On the subpage, menu items and page titles looked alike, so nothing signaled hierarchy. Riders bounced between the homepage, the subpage, and the vending machine's info screen to find one answer, while the prominent hero banner was just decoration.`],
-          ['Trust, not usability, on the portal.', `The portal scored well on the checklist, but testing surfaced trust problems. The login screen looked like a payment form, so riders hesitated until they understood it doesn't ask for a CVC. The masked card number looked like their real card number, though it's a token. And the reporting feature had three different names across the navigation, the FAQ, and a sub-menu, so riders emailed screenshots to BKK's general inbox instead.`]
+        image('images/bkk/02.png', 'The key moment in each flow: always on (left), touch to start (middle), and the recommended hybrid with its ten-second window (right).'),
+        cards([
+          ['Check before buying', `The first screen opens with "Check my tickets," so riders can see what they already hold before they buy anything new.`],
+          ['Quantity means people, not trips', `The selector counts persons, with a large total price, to counter the idea that extra tickets can be saved for later.`],
+          ['Tap, not rub', `One clear instruction with a contactless icon, and a visible countdown, so riders know exactly when and how to tap.`],
+          ['Feedback at every step', `A distinct payment-in-progress state, then a green success screen, the only real-time confirmation riders get.`],
+          ['What to show at inspection', `The success screen ends with "Present your bank card on inspection," closing the trust gap at the moment it starts.`]
         ]),
-        visual(`The original subpage's flat menu list next to the portal's login/CVC screen — pairing the two findings in one shot sets up the "before" for the fixes that follow.`),
-        h3('Fixing the subpage and portal'),
-        p(`Both already had working content and account structures, so the fixes target the exact points where riders got stuck.`),
-        list([
-          ['A homepage that navigates.', `I restructured the subpage around the real steps of using Pay&GO (choose a quantity, tap to pay, success, failure, inspection) and gave the hero the job of showing them.`],
-          ['No CVC where none is needed.', `I removed the CVC field from card lookup, since Pay&GO never needed it, and added a note explaining why.`],
-          [`A token that doesn't look like your card.`, `I relabeled the masked number as an identifier for a saved payment method.`],
-          ['One name for one function.', `The reporting feature got one consistent name across the navigation, the FAQ, and every sub-menu.`]
+        reflect(`I would test even more, ideally with working prototypes on real terminals at a stop, where the accidental taps actually happen. Lab tests showed the direction, but the street is where the hybrid flow would really prove itself.`),
+
+        h2('A ticket, or a fare?', '03 / 04'),
+        cols([
+          p(`The deepest finding wasn't a screen problem. Riders described what they had bought as a digital ticket, a virtual ticket, a card ticket or a Pay&GO ticket, each implying something slightly different. As long as the service is presented as a ticket, people expect a ticket: something to hold, keep and use later.`)
+        ], [
+          p(`We proposed two directions. Make the digital ticket a named product of its own, or drop the idea of a ticket and talk about paying for the ride, the way contactless fare systems work in other cities. The second asks for more change across every touchpoint, but it fixes the misunderstanding at its root, so that's what I recommended.`)
         ]),
-        visual(`The restructured subpage, before/after against the flat page list from the finding above, is the highest-value visual in this section — a direct side-by-side makes the navigation fix obvious without reading a word.`),
-        h2('Where this stands'),
-        p(`Three findings need more than interface changes: tuning the terminal's touchscreen and timeouts, which is a hardware and firmware fix; the naming and positioning work above; and making clear, likely through terminal messaging and coordinator scripts, that a ticket is valid immediately and tied to a direction of travel. Interface polish alone won't change a rider's mental model of when a ticket starts.`),
-        pending(`Post-launch numbers, once available: adoption of the redesigned flow, or updated usability results after the recommendations ship.`)
+        p(`The communication recommendations followed the same logic in smaller steps: show what an inspector sees, say up front that the bank message arrives later, and show phones and watches alongside cards.`),
+
+        h2('The website and portal', '04 / 04'),
+        cols([
+          p(`On the website, menu items and page titles looked alike, so nothing signaled hierarchy, and riders bounced between pages to find one answer. The portal scored well on the checklist, but testing surfaced trust problems: the login looked like a payment form, and a masked card number looked like the rider's real one.`)
+        ], [
+          p(`The fixes targeted the exact points where riders got stuck: a page built around the real steps of using Pay&GO, no CVC field where none is needed, a clear label for the masked card number, and one name for the reporting feature across the navigation, the FAQ and every sub-menu.`)
+        ]),
+
+        h2('What I took away'),
+        cols([
+          p(`Some of the most important problems here weren't on any screen. They were in riders' mental model of what a ticket is and when it starts. Watching people at the terminal, rather than only testing in a room, is what made that visible, and it shaped every recommendation that followed.`)
+        ], [
+          h3('Looking back'),
+          p(`Our work ended with the concept and the recommendations, and I don't know how they evolved afterwards. Next time I'd stay involved through development, to follow the decisions into the product and test them once they're live.`)
+        ])
       ]
     },
     'skytree': {
@@ -1487,7 +1499,8 @@
     'Lead product designer, 8+ years turning complex, data-heavy systems into interfaces people can actually use.': 'Lead product designer, több mint 8 éve fordítok le összetett, adatgazdag rendszereket jól használható felületekre.',
     'Redesigning the Core Workflows of an Enterprise Log Management Platform': 'Egy vállalati log management platform kulcsfolyamatainak újratervezése',
     'Turning an Idea into a Financial Engagement Product': 'Egy ötletből pénzügyi engagement termék',
-    'Public Transport Ticketing Evaluation &amp; Redesign': 'Tömegközlekedési jegyrendszer értékelése és újratervezése',
+    'Researching and Redesigning Contactless Ticketing for Budapest': 'A budapesti érintéses jegyvásárlás kutatása és újratervezése',
+    'Field research, testing and a new terminal flow for paying for public transport with a bank card.': 'Terepkutatás, tesztelés és új terminál-flow a bankkártyás tömegközlekedési fizetéshez.',
     'Multi-Role CO2 Capture Monitoring System Design': 'Többszerepkörű CO2-leválasztó monitorozó rendszer tervezése',
     'Making log search, pipelines and agent configuration approachable for new users, without losing the depth experts rely on.': 'A log keresés, a pipeline-ok és az agent-konfiguráció érthetővé tétele új felhasználóknak, a szakértők által igényelt mélység megtartásával.',
     'Defining a gamified financial-education module for banks, from a strategy workshop to a points system that means something.': 'Egy bankokba építhető, gamifikált pénzügyi edukációs modul definiálása, a stratégiai workshoptól egy értelmes pontrendszerig.',
@@ -1749,6 +1762,94 @@
 
         h2('Amit magammal viszek'),
         p(`Ebben a projektben nem volt meglévő rendszer, amiből tanulni lehetett, csak egy ötlet. A munka mégis ugyanúgy kezdődött, mint egy összetett, meglévő terméknél: megtalálni, mi számít igazán, itt a bank céljait, a felhasználó motivációját és a jutalmak mögötti pontgazdaságot, majd ezt olyasmivé egyszerűsíteni, amit az emberek a mechanikára gondolás nélkül tudnak használni.`)
+      ]
+    },
+    'bkk-payandgo': {
+      title: 'A budapesti érintéses jegyvásárlás kutatása és újratervezése',
+      tags: ['Tömegközlekedés', 'Service design'],
+      meta: [
+        { label: 'Év', value: '2024' },
+        { label: 'Szerep', value: 'Lead UX Researcher & Product Designer, Atlas, Rise!' },
+        { label: 'Csapat', value: '2 medior designer, 1 lead stratéga' },
+        { label: 'Fókusz', value: 'Kutatás, terminál-flow, kommunikáció, weboldal és portál' }
+      ],
+      lede: `Az Atlas, Rise! lead UX kutatójaként és product designereként én vezettem a Budapest Pay&GO kutatását és újratervezését. A szolgáltatással bankkártya érintésével lehet fizetni a tömegközlekedésért, a munka a jegyautomatára, a weboldalra és a kapcsolódó kommunikációra terjedt ki.`,
+      blocks: [
+        image('images/bkk/01.png', 'A javasolt terminál-flow: választás, érintés tíz másodpercen belül, fizetés, visszaigazolás.'),
+        cols([
+          h2('Kihívás'),
+          p(`A Pay&GO-val egyetlen érintéssel lehet vonaljegyet venni és érvényesíteni, bankkártyával, telefonnal vagy okosórával. Az utasoknak tetszett az ötlet, de sokan nem értették, mit vásárolnak, mikortól érvényes, és hogyan igazolják ellenőrzéskor.`),
+          p(`A BKK, Budapest közlekedésszervezője azt akarta megtudni, hogyan értik, mennyire bíznak meg benne és hogyan használják az utasok a szolgáltatást minden érintkezési ponton.`)
+        ], [
+          h2('Megközelítés'),
+          p(`A kutatást és a tervezést én vezettem, két medior designerrel és egy lead stratégával. Minden lépés a következőre épült:`),
+          list([
+            `A weboldal és az ügyfélportál heurisztikus vizsgálata: 296 szempont 13 kategóriában, amelyet a két designer egymástól függetlenül végzett el, én pedig validáltam.`,
+            `A weboldal mindkét nyelvi változatának analitikai áttekintése.`,
+            `Öt nap megfigyelés és helyszíni interjúk az M1-es metró és a reptéri busz megállóiban.`,
+            `Tizenhat használhatósági teszt, minden kör után a tervek finomításával.`
+          ])
+        ]),
+        stats([
+          { value: '70%', label: 'weboldal, heurisztikus használhatósági pontszám' },
+          { value: '85%', label: 'ügyfélportál, heurisztikus használhatósági pontszám' },
+          { value: '16', label: 'használhatósági teszt a terminálon, a weboldalon és a portálon' },
+          { value: '3200+', label: 'havi látogatás a weboldalon nyelvenként' }
+        ]),
+
+        h2('Amit az utasok valójában csinálnak', '01 / 04'),
+        cols([
+          p(`Mindkét felület átlag feletti pontszámot kapott, és az utasok pozitívan fogadták magát a koncepciót. A problémák konkrétak voltak, és többségük csak a terepen, az automatánál álló embereket figyelve derült ki.`)
+        ], [
+          p(`Újra és újra ugyanazt láttuk: rés volt aközött, ahogy a szolgáltatás működik, és amit az utasok egy jegyautomatától vártak.`)
+        ]),
+        cards([
+          ['Több érintés a szándékoltnál', `A terminál képernyője mindig bekapcsolt és hívogató, így az utasok néha akaratlanul indítottak vásárlást, és csak a bankszámlakivonaton vették észre.`],
+          ['Egy érintés, ami nem érintésnek hat', `Az utasok végighúzták a kártyát az olvasón, vagy vonalkódot, QR-kódot kerestek, amit beolvashatnak.`],
+          ['Nincs visszaigazolás, amiben bíznának', `A banki értesítés csak másnap érkezik, így a terminál saját visszajelzése volt az egyetlen bizonyíték, és az sem volt következetes.`],
+          ['Bizonytalanság ellenőrzéskor', `Az utasok nem tudták, hogyan ellenőrzik majd a jegyüket, és mit lát az ellenőr, amikor a kártyájukat érinti.`],
+          ['Egy jegy, ami azonnal indul', `Volt, aki több jegyet vett későbbi utakra, mert nem tudta, hogy mindegyik azonnal érvényes, egy útra, egy irányba.`],
+          ['Két termék, egy név a fejekben', `Sokan a BudapestGO appban keresték a jegyüket, mert azt hitték, a kettő ugyanaz a szolgáltatás.`]
+        ]),
+
+        h2('Három módja egy vásárlás elindításának', '02 / 04'),
+        cols([
+          p(`A véletlen vásárlások egyetlen kérdésen múltak: mi indítsa a fizetést egy mindig bekapcsolt képernyőn? Három flow-t terveztem és hasonlítottam össze. Az „always on” változatban az olvasó az első pillanattól aktív, ami gyors, de épp ez okozta a véletlen vásárlásokat.`)
+        ], [
+          p(`A „touch to start” változatban az utas előbb érint, és csak utána választ, ami egy jegyautomatánál fordítottnak hat. A hibrid változatban az utas kiválasztja a mennyiséget, megnyomja a Vásárlás gombot, és csak ezután van tíz másodperce érinteni. A hibridet javasoltam: rövid marad a folyamat, de semmit nem terhelünk, amíg az utas meg nem mondta, mit szeretne.`)
+        ]),
+        image('images/bkk/02.png', 'A kulcspillanat mindhárom flow-ban: always on (balra), touch to start (középen), és a javasolt hibrid a tíz másodperces ablakkal (jobbra).'),
+        cards([
+          ['Ellenőrzés vásárlás előtt', `Az első képernyő a „Van érvényes jegyem?” kérdéssel indul, így az utas megnézheti, mi van már nála, mielőtt újat venne.`],
+          ['A mennyiség személyt jelent, nem utat', `A választó személyeket számol, nagy, jól látható végösszeggel, hogy ellensúlyozza azt a hiedelmet, hogy a plusz jegyek félretehetők későbbre.`],
+          ['Érintés, nem húzás', `Egy egyértelmű utasítás érintés ikonnal és egy látható visszaszámlálással, így az utas pontosan tudja, mikor és hogyan érintsen.`],
+          ['Visszajelzés minden lépésnél', `Külön állapot jelzi, hogy a fizetés folyamatban van, utána jön a zöld sikerképernyő, az egyetlen valós idejű visszaigazolás.`],
+          ['Mit mutass fel ellenőrzéskor', `A sikerképernyő azzal zárul: „Ellenőrzésnél mutasd fel a bankkártyád”, így a bizalmi rés ott záródik, ahol kezdődik.`]
+        ]),
+        reflect(`Még többet tesztelnék, ideális esetben működő prototípusokkal, valódi terminálokon egy megállóban, ahol a véletlen érintések ténylegesen történnek. A laborteszt megmutatta az irányt, de a hibrid flow igazán az utcán bizonyíthatna.`, 'Visszatekintve'),
+
+        h2('Jegy vagy viteldíj?', '03 / 04'),
+        cols([
+          p(`A legmélyebb tanulság nem képernyőprobléma volt. Az utasok digitális jegynek, virtuális jegynek, bankkártyás jegynek vagy Pay&GO-s jegynek nevezték, amit vettek, és mindegyik kicsit mást sugall. Amíg a szolgáltatás jegyként jelenik meg, az emberek jegyet várnak: valamit, amit megfoghatnak, megtarthatnak és később felhasználhatnak.`)
+        ], [
+          p(`Két irányt javasoltunk. A digitális jegyet önálló, saját névvel rendelkező termékké tenni, vagy elhagyni a jegy fogalmát, és az utazásért való fizetésről beszélni, ahogy más városok érintéses viteldíj-rendszerei működnek. A második nagyobb változást kíván minden érintkezési ponton, de a félreértést a gyökerénél oldja meg, ezért ezt javasoltam.`)
+        ]),
+        p(`A kommunikációs javaslatok kisebb lépésekben ugyanezt a logikát követték: megmutatni, mit lát az ellenőr, előre jelezni, hogy a banki értesítés később érkezik, és a kártya mellett a telefont és az órát is megmutatni.`),
+
+        h2('A weboldal és a portál', '04 / 04'),
+        cols([
+          p(`A weboldalon a menüpontok és az oldalcímek hasonlóan néztek ki, így semmi nem jelezte a hierarchiát, és az utasok oldalról oldalra ugráltak, hogy megtaláljanak egy választ. A portál jól szerepelt a heurisztikus vizsgálaton, de a tesztek bizalmi problémákat hoztak felszínre: a belépés fizetési űrlapnak tűnt, a maszkolt kártyaszám pedig az utas valódi kártyaszámának.`)
+        ], [
+          p(`A javítások pontosan azokra a pontokra irányultak, ahol az utasok elakadtak: a Pay&GO használatának valós lépéseire épülő oldal, CVC-mező nélküli belépés, ahol nincs rá szükség, egyértelmű címke a maszkolt kártyaszámhoz, és egyetlen név a bejelentés funkcióhoz a navigációban, a GYIK-ben és minden almenüben.`)
+        ]),
+
+        h2('Amit magammal viszek'),
+        cols([
+          p(`A legfontosabb problémák egy része itt nem volt egyetlen képernyőn sem. Az utasok fejében volt, abban, hogy mit jelent egy jegy, és mikor indul. Ezt az tette láthatóvá, hogy az automatánál figyeltük az embereket, nem csak egy teremben teszteltünk, és ez meghatározta az összes ezt követő javaslatot.`)
+        ], [
+          h3('Visszatekintve'),
+          p(`A munkánk a koncepciónál és a javaslatoknál zárult, és nem tudom, hogyan fejlődtek tovább. Legközelebb a fejlesztés alatt is bevonódnék, hogy kövessem a döntéseket a termékbe, és élesben is teszteljem őket.`)
+        ])
       ]
     }
   };
