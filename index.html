@@ -929,8 +929,8 @@
               <div class="title" aria-hidden="true">Redesigning the Core Workflows of an Enterprise Log Management Platform</div>
               <div class="tags" aria-hidden="true"><span>Log Management</span><span>Enterprise SaaS</span></div>
             </a>
-            <a class="col" href="#work/enlight" aria-label="FinTech Engagement Platform Concept &amp; AI Prototyping. Tags: Fintech, Gamification">
-              <div class="title" aria-hidden="true">FinTech Engagement Platform Concept &amp; AI Prototyping</div>
+            <a class="col" href="#work/enlight" aria-label="Turning an Idea into a Financial Engagement Product. Tags: Fintech, Gamification">
+              <div class="title" aria-hidden="true">Turning an Idea into a Financial Engagement Product</div>
               <div class="tags" aria-hidden="true"><span>Fintech</span><span>Gamification</span></div>
             </a>
           </div>
@@ -1215,61 +1215,96 @@
       ]
     },
     'enlight': {
-      title: 'FinTech Engagement Platform Concept & AI Prototyping',
+      title: 'Turning an Idea into a Financial Engagement Product',
       tags: ['Fintech', 'Gamification'],
       meta: [
-        { label: 'Duration', value: '2025–ongoing' },
+        { label: 'Years', value: '2025–2026' },
         { label: 'Role', value: 'Lead Product Designer, Atlas, Rise!' },
-        { label: 'Team', value: '1 mid-level designer, client stakeholders' },
-        { label: 'Status', value: 'Pitch stage, not yet launched by a bank' }
+        { label: 'Team', value: '2-person design team' },
+        { label: 'Scope', value: 'Product definition, UX/UI, gamification system, AI prototyping' }
       ],
-      lede: `A gamification and financial-education module that banks embed in their own apps. I led it from the strategy workshop that defined the product to a design that keeps evolving as the client pitches it to new stakeholders.`,
+      lede: `As lead product designer at Atlas, Rise!, I helped a client turn an idea into a product concept: a gamified financial-education module that banks can embed in their own apps.`,
       blocks: [
-        note(`NDA project. The product name and specific partner or client identities are generalized or omitted.`),
-        visual(`Hero shot here — the Level/points overview screen (Level, points-to-level-up bar, streak) is the most recognizable single screen to lead with.`),
-        h2('Context'),
-        p(`Financial education in banking apps usually fails in one of two ways: it's generic and disconnected from what the user is doing, or it feels like a chore with no payoff. The client came to Atlas, Rise! with an idea for a module banks could embed to make financial engagement something people return to. It was an idea, not yet a product.`),
-        h2('My role'),
-        list([
-          `Facilitated a strategy canvas workshop, together with a mid-level designer, to define what the product does, how it looks, and its value proposition for each stakeholder the client wanted to pitch to.`,
-          `Designed the flows, the learning experience, the two activity formats, the points and leveling system, and how personalized offers surface.`,
-          `Built the design system on shadcn, customized for the module's own components.`
+        note(`NDA project. The product, partner and client identities are generalized, and screens show neutral placeholder branding.`),
+        image('images/enlight/01.png', 'The dashboard, a quiz, choosing a mission pace, and a level-up.'),
+        cols([
+          h2('Challenge'),
+          p(`Banks are losing their role as the trusted advisor in people's financial lives. Fintechs engage people more often and more personally, and traditional banking apps struggle to keep users active.`),
+          p(`Financial education could help, but in banking apps it tends to be generic, disconnected from what people actually do, or simply a chore. The client had an idea for a module banks could embed to change that, but it was an idea, not yet a product.`)
+        ], [
+          h2('Approach'),
+          p(`Instead of starting with screens, I started with definition: what the product does, who it serves, and what each side gets from it.`),
+          p(`From there, every feature had to trace back to a clear goal, and the experience had to stay simple, since financial content already carries enough friction of its own.`)
         ]),
-        lead('Status.', `The project has been active since 2025 and is at pitch stage: no bank has launched it to real users yet. A CMS for content and partner-benefit weighting is planned but not yet scoped.`),
-        visual(`The strategy canvas board or an early flow sketch from that first stage, to show where the design actually started.`),
-        h2(`From a bank's goal to a single quiz`),
-        p(`Every piece traces back to what the bank wants to achieve. A bank's marketing priorities for a period, such as security awareness, saving habits, or a partner offer, decide which topics the quizzes cover and which real-world tasks the missions ask for. Both award points.`),
-        p(`What a bank does with those points is its own call. It can close the loop, with a savings quest unlocking a savings benefit, or use points from one topic to promote something unrelated, like a partner offer. I designed the system to support both, because the right choice depends on the bank's goal, not on a fixed idea of gamification.`),
-        visual(`A simple diagram of this chain, marketing goal → topic → quiz/mission → points → benefit, would do more here than any single screenshot; a Rewards or Special-offers screen showing an earned benefit works as a substitute if a diagram isn't available.`),
-        h2('Two ways to engage'),
-        p(`Quizzes are short multiple-choice prompts, like spotting a phishing attempt or an everyday budgeting habit, worth a few points. Missions are longer, time-boxed real-world tasks, like setting aside a set amount, worth more points and sometimes a partner benefit.`),
-        p(`Both sit on the same shallow path: Learning hub, course, module, a short quiz, then feedback and a reward to claim. Financial content already has enough friction without an unfamiliar interaction model on top.`),
-        visual(`The Activities screen with the All / Security / Banking / Survey / Done filter chips and a mixed list of quizzes and missions, to show both formats living side by side.`),
-        h3('Choosing your pace'),
-        p(`Accepting a mission starts with picking a pace: Sprint (24 hours, +50% bonus), Jog (3 days, standard), or Walk (1 week, –20%). Acceptance becomes a small commitment decision, so users who have the time can chase the bonus instead of everyone getting the same deadline.`),
-        visual(`The "Accept Mission" screen with the Sprint / Jog / Walk options — a clean, self-explanatory visual, use as-is.`),
-        h2('Progress that means something day to day'),
-        p(`The point balance sits at the top with the user's level and streak. Underneath are two separate progress bars: points to the next level (e.g. 1,495 of 1,500), which shows how close you are rather than just a total, and a shorter tracker for time-bound activity sets (e.g. 3 of 4).`),
-        p(`Keeping early levels rewarding without later levels flattening out is something I've reasoned through without usage data, since the product hasn't launched. I expect to revisit it once it does.`),
-        visual(`The Level overview screen — Level, points-to-level-up progress bar, streak, and the Activities tracker together — the clearest single shot of the whole system.`),
-        h2('Making the small stuff legible'),
-        h3('Why an offer showed up'),
-        p(`Offers split into "Just for you" (personalized) and "Based on your activity" (behavior-triggered). In a financial product, knowing why something appears matters for trust. An AI assistant built on the card network's own AI tools was explored in an early pitch deck, but hasn't been built.`),
-        h3('One filter system for two content types'),
-        p(`Quizzes and missions share the same category chips: All, Security, Banking, General, Survey, Done. A themed campaign, like a security push, shows up consistently across both formats with a single navigation model.`),
-        h3(`Showing what's still out of reach`),
-        p(`Higher-tier benefits appear locked with their level requirement, instead of hidden. The leveling system reads as a path forward, with a concrete reason to keep going.`),
-        visual(`The "Your benefits" row — active tiers next to a locked one with its level requirement shown — and the Special offers section with both "Just for you" and "Based on your activity" visible.`),
-        h2('Rebuilding the flow between pitches'),
-        p(`Each pitch to a new stakeholder brought new requirements, and settled flows had to be rebuilt. Doing that by hand every time got heavy, so I moved prototyping to AI tools, starting with Figma Make.`),
-        p(`Iteration got faster, but the speed created its own problem. Once anything can be built quickly, the client expects everything to work that way, and that usually costs more than scoping and designing properly the first time.`),
-        visual(`A couple of the AI-prototyped (Figma Make) screens, or a before/after of one flow that got rebuilt after a pitch, if you kept either — this is the strongest "real obstacle" visual in the case study.`),
-        h2('Lessons'),
-        list([
-          ['Benefit weighting is its own discipline.', `The module sits on top of a card network's loyalty program. Deciding which benefits to surface and which quests promote them meant reasoning about the partner's incentives as much as the user's.`],
-          [`Scoping a product that doesn't exist yet is a different skill.`, `Running the strategy workshop myself made me more comfortable in the early, messy stage of a project, instead of waiting for a settled brief.`],
-          [`Fast iteration isn't free.`, `AI prototyping helps when requirements keep moving. Next time I'd put its cost on the table up front, instead of letting speed become the client's new baseline.`]
-        ])
+
+        h2('Turning an idea into a product', '01 / 05'),
+        cols([
+          p(`Together with a mid-level designer, I facilitated a strategy workshop with the client. We mapped the world around the product, including trends, potential clients and existing solutions, then what the client could credibly offer, and finally the story the product needed to tell.`)
+        ], [
+          p(`Looking at existing solutions was revealing: most banks' learning hubs were simple lists of courses that informed people but didn't engage them. The workshop ended in a short set of principles that guided every later decision.`)
+        ]),
+        image('images/enlight/06.png', 'The structure of the strategy workshop, from the world around the product to the principles behind it.'),
+        cards([
+          ['Small, reshuffleable units', `Knowledge comes in short modules that can be combined differently for each bank and audience.`],
+          ['Content first', `The value is in what people learn and do, so content mattered more than how deeply the module is built into a bank's app.`],
+          ['Several levels of integration', `A bank can start with a simple entry point and go deeper over time, without the experience changing for its users.`],
+          ['Topics by life stage', `From first-time banking to retirement, topics follow the moments when people need guidance most.`]
+        ]),
+        reflect(`Running the workshop before any interface work changed how I approach a product that doesn't exist yet. Defining a product is a different skill from refining an existing flow, and I'm now much more comfortable stepping into that early, ambiguous stage.`),
+
+        h2(`From a bank's goal to a single quiz`, '02 / 05'),
+        cols([
+          p(`Every piece of the module traces back to what the bank wants to achieve. Its priorities for a period, such as security awareness, saving habits or a partner offer, decide which topics the quizzes cover and which real-world tasks the missions ask for. Both earn points, and points unlock rewards.`)
+        ], [
+          p(`The system also had to be modular. One bank might not work with partner offers, another might only want missions, so every part needed to work on its own. Offers explain why they appear ("Just for you" or "Based on your activity"), because in a financial product, trust depends on knowing why something is shown.`)
+        ]),
+        image('images/enlight/05.png', 'Personalized offers and unlocked benefits (left), and how the module introduces itself (right).'),
+        reflect(`Deciding which benefits to surface and how to weight them meant reasoning about the partners' incentives as much as the users'. That balance deserves its own discipline, not a side note.`),
+
+        h2('Learning in small steps', '03 / 05'),
+        cols([
+          p(`Financial topics feel heavy, so a quiz never starts with a question. It opens with a short scenario, such as a Monday-morning inbox full of suspicious emails, then a short lesson that can be skipped.`)
+        ], [
+          p(`Each quiz has only a few questions, and every answer is followed by a one-line explanation, so people learn something even when they get it wrong. The quiz ends with the reward and a simple total.`)
+        ]),
+        image('images/enlight/02.png', 'A quiz from start to finish: scenario, lesson, feedback, reward.'),
+
+        h2('Missions at your own pace', '04 / 05'),
+        cols([
+          p(`Missions are real-world tasks, like paying by card a few times a week or setting money aside. They take longer than a quiz and earn more.`)
+        ], [
+          p(`Accepting a mission starts with choosing a pace: Sprint (24 hours, +50% bonus), Jog (3 days) or Walk (1 week, −20%). Acceptance becomes a small commitment, so people who have the time can chase the bonus instead of everyone getting the same deadline.`)
+        ]),
+        image('images/enlight/03.png', 'Activities by topic, choosing a pace, and a mission in progress.'),
+
+        h2('Making progress mean something', '05 / 05'),
+        cols([
+          p(`Progress was the most debated part of the project. Points, levels, streaks and rewards are easy to add, but hard to make meaningful together. I started with research into loyalty programs and how they combine points, levels, streaks and commitments.`),
+          p(`The first model used two currencies: points to spend on rewards, and experience points to measure progress. It was logical, but two numbers that both grow with activity were hard to tell apart.`)
+        ], [
+          p(`Then came the constraints. The card network's own loyalty program already rewards spending, so the module couldn't reward purchases without paying twice. We also explored resetting levels every few months, regression after inactivity and expiring points, to keep the economy sustainable.`),
+          p(`The final model keeps one visible balance and separates it from progress.`)
+        ]),
+        image('images/enlight/04.png', 'How the system introduces itself, progress on the dashboard, and a level-up with a newly unlocked benefit.'),
+        cards([
+          ['One balance to spend, one progress that never drops', `Points can be spent freely on rewards, while levels follow lifetime points that never decrease. Redeeming a reward never sets anyone back.`],
+          ['Levels that need learning, not just activity', `Leveling up requires both enough points and a number of completed activities, shown as a separate stepped bar. Points alone can't buy a level.`],
+          ['Rewards you can see before you reach them', `Higher-tier benefits stay visible but locked, with the level they need, so the system reads as a path forward rather than a black box.`],
+          ['An economy that can be tuned', `Reward values and pace are set per bank, so the same structure can be made more or less generous without redesigning it.`]
+        ]),
+        reflect(`Balancing a points economy without usage data means every number is an assumption. I'd validate the reward pace with real users as early as possible, before the system's logic hardens.`),
+
+        h2('Behind the scenes'),
+        cols([
+          p(`The concept kept evolving as it met new stakeholders, and rebuilding flows by hand each time became heavy. I moved prototyping to Figma Make to keep pace, building the design system on shadcn.`),
+          p(`To keep AI-generated screens consistent and accessible, I wrote a set of design rules for the tool: a 4px grid, 44px minimum touch targets, contrast rules for brand colors, one primary action per section, and the required states for every component.`)
+        ], [
+          h3('Looking back'),
+          p(`Fast iteration is useful when requirements keep moving, but it isn't free. Once anything can be rebuilt quickly, that speed becomes the expectation, and it often costs more than scoping properly the first time. Next time I'd put that trade-off on the table early.`)
+        ]),
+
+        h2('What I took away'),
+        p(`This project had no existing system to learn from, only an idea. The work still started the same way as in a complex existing product: finding what really matters, here the bank's goals, the user's motivation and the economy behind the rewards, then simplifying it into something people can use without thinking about the mechanics.`)
       ]
     },
     'bkk-payandgo': {
@@ -1423,7 +1458,7 @@
     'Case Studies': 'Case studyk',
     'Lead product designer, 8+ years turning complex, data-heavy systems into interfaces people can actually use.': 'Lead product designer, több mint 8 éve fordítok le összetett, adatgazdag rendszereket jól használható felületekre.',
     'Redesigning the Core Workflows of an Enterprise Log Management Platform': 'Egy vállalati log management platform kulcsfolyamatainak újratervezése',
-    'FinTech Engagement Platform Concept &amp; AI Prototyping': 'Fintech engagement platform koncepció és AI prototipizálás',
+    'Turning an Idea into a Financial Engagement Product': 'Egy ötletből pénzügyi engagement termék',
     'Public Transport Ticketing Evaluation &amp; Redesign': 'Tömegközlekedési jegyrendszer értékelése és újratervezése',
     'Multi-Role CO2 Capture Monitoring System Design': 'Többszerepkörű CO2-leválasztó monitorozó rendszer tervezése',
     'Log Management': 'Log management',
@@ -1591,6 +1626,99 @@
 
         h2('Amit magammal viszek'),
         p(`Kívülről mindegyik terület összetettnek tűnt: kötött szerkezet nélküli adat, csak szövegként létező pipeline-ok, szakértői szintaxisban írt konfigurációk, hozzárendelések gépek ezrein át. Minden esetben ugyanúgy kezdődött a munka: megérteni, hogyan működik valójában a rendszer, majd olyan felületet tervezni, ami követi ezt a struktúrát ahelyett, hogy elrejtené. Ezt a megközelítést viszem magammal bármilyen új területre.`)
+      ]
+    },
+    'enlight': {
+      title: 'Egy ötletből pénzügyi engagement termék',
+      tags: ['Fintech', 'Gamifikáció'],
+      meta: [
+        { label: 'Évek', value: '2025–2026' },
+        { label: 'Szerep', value: 'Lead Product Designer, Atlas, Rise!' },
+        { label: 'Csapat', value: '2 fős design csapat' },
+        { label: 'Fókusz', value: 'Termékdefiníció, UX/UI, gamifikációs rendszer, AI prototipizálás' }
+      ],
+      lede: `Az Atlas, Rise! lead product designereként segítettem egy ügyfélnek egy ötletből termékkoncepciót formálni: egy gamifikált pénzügyi edukációs modult, amit a bankok a saját appjukba építhetnek be.`,
+      blocks: [
+        note(`NDA projekt. A termék, a partnerek és az ügyfél azonosítói általánosítva szerepelnek, a képernyőkön semleges, helyettesítő arculat látható.`),
+        image('images/enlight/01.png', 'A dashboard, egy kvíz, a küldetés tempójának kiválasztása és egy szintlépés.'),
+        cols([
+          h2('Kihívás'),
+          p(`A bankok elveszítik a megbízható pénzügyi tanácsadó szerepét az emberek életében. A fintechek gyakrabban és személyesebben szólítják meg a felhasználókat, a hagyományos banki appok pedig nehezen tartják aktívan az ügyfeleket.`),
+          p(`A pénzügyi edukáció segíthetne, de a banki appokban többnyire általános, nem kapcsolódik ahhoz, amit az emberek valójában csinálnak, vagy egyszerűen kötelező feladatnak hat. Az ügyfélnek volt egy ötlete egy modulra, amit a bankok beépíthetnek, hogy ezen változtassanak, de ez még csak ötlet volt, nem termék.`)
+        ], [
+          h2('Megközelítés'),
+          p(`Képernyők helyett a definícióval kezdtem: mit csinál a termék, kinek szól, és mit kap belőle az egyes szereplő.`),
+          p(`Innentől minden funkciónak egy világos célra kellett visszavezethetőnek lennie, az élménynek pedig egyszerűnek kellett maradnia, hiszen a pénzügyi tartalom eleve elég súrlódással jár.`)
+        ]),
+
+        h2('Ötletből termék', '01 / 05'),
+        cols([
+          p(`Egy medior designerrel közösen stratégiai workshopot facilitáltam az ügyféllel. Feltérképeztük a termék környezetét, a trendeket, a lehetséges ügyfeleket és a meglévő megoldásokat, majd azt, amit az ügyfél hitelesen kínálni tud, végül azt a történetet, amit a terméknek el kell mesélnie.`)
+        ], [
+          p(`A meglévő megoldások áttekintése sokat elárult: a bankok tanulási felületei többnyire egyszerű kurzuslisták voltak, amelyek tájékoztattak, de nem vontak be. A workshop néhány alapelvvel zárult, amelyek minden későbbi döntést meghatároztak.`)
+        ]),
+        image('images/enlight/06.png', 'A stratégiai workshop felépítése, a termék környezetétől a mögötte álló alapelvekig.'),
+        cards([
+          ['Kicsi, újrarendezhető egységek', `A tudás rövid modulokban érkezik, amelyek bankonként és célcsoportonként másképp kombinálhatók.`],
+          ['A tartalom az első', `Az érték abban van, amit az emberek megtanulnak és megcsinálnak, ezért a tartalom fontosabb volt annál, hogy mennyire mélyen épül be a modul a bank appjába.`],
+          ['Többféle integrációs szint', `Egy bank indulhat egy egyszerű belépési ponttal, és idővel mélyebbre léphet, anélkül, hogy a felhasználói élmény változna.`],
+          ['Témák életszakaszok szerint', `Az első bankszámlától a nyugdíjig a témák azokat a pillanatokat követik, amikor az embereknek a legnagyobb szükségük van útmutatásra.`]
+        ]),
+        reflect(`Az, hogy a workshop megelőzte a felülettervezést, megváltoztatta, hogyan közelítek egy még nem létező termékhez. Egy termék definiálása más készség, mint egy meglévő folyamat finomítása, és ma már sokkal magabiztosabban lépek be ebbe a korai, bizonytalan szakaszba.`, 'Visszatekintve'),
+
+        h2('A bank céljától egyetlen kvízig', '02 / 05'),
+        cols([
+          p(`A modul minden eleme arra vezethető vissza, amit a bank el akar érni. Az adott időszak prioritásai, például a biztonságtudatosság, a megtakarítási szokások vagy egy partnerajánlat, határozzák meg, milyen témákról szólnak a kvízek, és milyen valós feladatokat kérnek a küldetések. Mindkettő pontot ér, a pontok pedig jutalmakat nyitnak meg.`)
+        ], [
+          p(`A rendszernek modulárisnak is kellett lennie. Egy bank nem dolgozik partnerajánlatokkal, egy másik csak küldetéseket szeretne, ezért minden résznek önállóan is működnie kellett. Az ajánlatok megmutatják, miért jelennek meg („Just for you” vagy „Based on your activity”), mert egy pénzügyi termékben a bizalom azon múlik, hogy az ember tudja, miért lát valamit.`)
+        ]),
+        image('images/enlight/05.png', 'Személyre szabott ajánlatok és elérhető jutalmak (balra), és ahogy a modul bemutatkozik (jobbra).'),
+        reflect(`Annak eldöntése, mely jutalmak jelenjenek meg és milyen súllyal, legalább annyira a partnerek érdekeiről szólt, mint a felhasználókéról. Ez az egyensúly külön szakterület, nem mellékszál.`, 'Visszatekintve'),
+
+        h2('Tanulás kis lépésekben', '03 / 05'),
+        cols([
+          p(`A pénzügyi témák nehéznek hatnak, ezért egy kvíz soha nem kérdéssel indul. Egy rövid helyzettel kezdődik, például egy gyanús e-mailekkel teli hétfő reggeli postafiókkal, majd egy rövid, átugorható lecke következik.`)
+        ], [
+          p(`Minden kvízben csak néhány kérdés van, és minden válasz után egy egysoros magyarázat jön, így az is tanul valamit, aki rosszul válaszol. A kvíz a jutalommal és egy egyszerű összesítéssel zárul.`)
+        ]),
+        image('images/enlight/02.png', 'Egy kvíz az elejétől a végéig: helyzet, lecke, visszajelzés, jutalom.'),
+
+        h2('Küldetések saját tempóban', '04 / 05'),
+        cols([
+          p(`A küldetések valós feladatok, például néhányszor kártyával fizetni egy héten, vagy pénzt félretenni. Tovább tartanak egy kvíznél, és többet is érnek.`)
+        ], [
+          p(`Egy küldetés elfogadása a tempó kiválasztásával kezdődik: Sprint (24 óra, +50% bónusz), Jog (3 nap) vagy Walk (1 hét, −20%). Az elfogadás így egy kis vállalássá válik: akinek van ideje, hajthat a bónuszért, ahelyett, hogy mindenki ugyanazt a határidőt kapná.`)
+        ]),
+        image('images/enlight/03.png', 'Aktivitások témák szerint, a tempó kiválasztása és egy folyamatban lévő küldetés.'),
+
+        h2('Haladás, aminek értelme van', '05 / 05'),
+        cols([
+          p(`A haladás volt a projekt legtöbbet vitatott része. Pontokat, szinteket, streakeket és jutalmakat könnyű hozzáadni, de nehéz úgy összerakni őket, hogy együtt értelmük legyen. Hűségprogramok kutatásával kezdtem: hogyan kombinálják a pontokat, szinteket, streakeket és vállalásokat.`),
+          p(`Az első modell két valutával dolgozott: elkölthető pontokkal a jutalmakhoz és tapasztalati pontokkal a haladáshoz. Logikus volt, de két szám, amely egyaránt az aktivitással nő, nehezen volt megkülönböztethető.`)
+        ], [
+          p(`Aztán jöttek a korlátok. A kártyatársaság saját hűségprogramja már jutalmazza a költést, így a modul nem adhatott pontot a vásárlásokért, különben kétszer fizetnének érte. Vizsgáltuk a néhány havonta nullázódó szinteket, az inaktivitás miatti visszaesést és a lejáró pontokat is, hogy a pontgazdaság fenntartható maradjon.`),
+          p(`A végső modell egyetlen látható egyenleget tart meg, és ezt elválasztja a haladástól.`)
+        ]),
+        image('images/enlight/04.png', 'Ahogy a rendszer bemutatkozik, a haladás a dashboardon, és egy szintlépés egy újonnan megnyílt jutalommal.'),
+        cards([
+          ['Egy elkölthető egyenleg, egy soha nem csökkenő haladás', `A pontok szabadon beválthatók jutalmakra, a szintek viszont az összesen gyűjtött pontokat követik, amelyek soha nem csökkennek. Egy jutalom beváltása senkit nem vet vissza.`],
+          ['Szintek, amelyekhez tanulni is kell', `A szintlépéshez elég pont és bizonyos számú elvégzett aktivitás is kell, amit egy külön, lépcsőzetes sáv mutat. Pusztán pontokkal nem lehet szintet venni.`],
+          ['Jutalmak, amelyek már elérésük előtt láthatók', `A magasabb szintű jutalmak láthatók maradnak, de zárolva, a szükséges szinttel együtt, így a rendszer előrevezető útnak hat, nem fekete doboznak.`],
+          ['Hangolható pontgazdaság', `A jutalmak értéke és tempója bankonként állítható, így ugyanaz a struktúra lehet bőkezűbb vagy visszafogottabb, újratervezés nélkül.`]
+        ]),
+        reflect(`Egy pontgazdaság kiegyensúlyozása használati adatok nélkül azt jelenti, hogy minden szám feltételezés. A jutalmazás tempóját a lehető legkorábban valós felhasználókkal validálnám, mielőtt a rendszer logikája megszilárdul.`, 'Visszatekintve'),
+
+        h2('A háttérben'),
+        cols([
+          p(`A koncepció folyamatosan változott, ahogy új szereplőkkel találkozott, és a flow-k kézi újraépítése minden alkalommal nehézkessé vált. Hogy tartsam a tempót, a prototipizálást Figma Make-re vittem át, a design systemet pedig shadcn-re építettem.`),
+          p(`Hogy az AI által generált képernyők egységesek és akadálymentesek maradjanak, design szabályokat írtam az eszköznek: 4px-es grid, legalább 44px-es érintési célterület, kontrasztszabályok a márkaszínekre, szekciónként egy elsődleges művelet, és minden komponens kötelező állapotai.`)
+        ], [
+          h3('Visszatekintve'),
+          p(`A gyors iteráció hasznos, ha a követelmények folyamatosan változnak, de nem ingyenes. Ha bármi gyorsan újraépíthető, ez a sebesség lesz az elvárás, és ez gyakran többe kerül, mint elsőre rendesen meghatározni a scope-ot. Legközelebb ezt a kompromisszumot már az elején az asztalra tenném.`)
+        ]),
+
+        h2('Amit magammal viszek'),
+        p(`Ebben a projektben nem volt meglévő rendszer, amiből tanulni lehetett, csak egy ötlet. A munka mégis ugyanúgy kezdődött, mint egy összetett, meglévő terméknél: megtalálni, mi számít igazán, itt a bank céljait, a felhasználó motivációját és a jutalmak mögötti pontgazdaságot, majd ezt olyasmivé egyszerűsíteni, amit az emberek a mechanikára gondolás nélkül tudnak használni.`)
       ]
     }
   };
