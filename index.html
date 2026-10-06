@@ -296,30 +296,43 @@
   }
 
   .filmstrip {
-    height: 500px;
+    height: 540px;
     flex-shrink: 0;
     display: flex;
-    gap: 6px;
+    gap: 16px;
+    padding: 0 32px;
     overflow-x: auto;
     overflow-y: hidden;
     background: var(--bg);
   }
 
+  /* Dark tiles that sit just above the page ground, so the work list
+     doesn't glare; the hero image carries the color. */
   .col {
     flex: 0 0 47%;
     min-width: 450px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 24px;
     padding: 32px;
-    background: var(--ink);
-    transition: transform 200ms ease;
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    transition: transform 200ms ease, border-color 200ms ease;
   }
 
   @media (hover: hover) {
     .col:hover {
       transform: scale(0.985);
+      border-color: rgba(255, 255, 255, 0.22);
     }
+  }
+
+  .col-text {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
 
   .col .title {
@@ -328,8 +341,25 @@
     font-weight: 500;
     line-height: 1.15;
     letter-spacing: -0.005em;
-    color: var(--bg);
+    color: var(--ink);
     max-width: 22ch;
+  }
+
+  .col .summary {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-body);
+    max-width: 52ch;
+    margin: 0;
+  }
+
+  .col-img {
+    display: block;
+    width: 100%;
+    min-height: 0;
+    flex: 1 1 auto;
+    object-fit: cover;
+    border-radius: 10px;
   }
 
   .tags {
@@ -348,8 +378,8 @@
   }
 
   .col .tags span {
-    background: var(--bg);
-    color: var(--ink);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: var(--ink-dim);
   }
 
   /* ---- Project detail ---- */
@@ -854,14 +884,14 @@
       height: auto;
       overflow-x: visible;
       overflow-y: visible;
-      gap: 3px;
+      gap: 12px;
+      padding: 0 20px;
     }
 
     .col {
       flex: none;
       min-width: 0;
       width: 100%;
-      aspect-ratio: 4 / 3;
       height: auto;
       padding: 24px 20px;
     }
@@ -926,12 +956,20 @@
           <h2 class="section-title">Case Studies</h2>
           <div class="filmstrip">
             <a class="col" href="#work/nxlog-platform" aria-label="Redesigning the Core Workflows of an Enterprise Log Management Platform. Tags: Log Management, Enterprise SaaS">
-              <div class="title" aria-hidden="true">Redesigning the Core Workflows of an Enterprise Log Management Platform</div>
-              <div class="tags" aria-hidden="true"><span>Log Management</span><span>Enterprise SaaS</span></div>
+              <div class="col-text" aria-hidden="true">
+                <div class="title">Redesigning the Core Workflows of an Enterprise Log Management Platform</div>
+                <p class="summary">Making log search, pipelines and agent configuration approachable for new users, without losing the depth experts rely on.</p>
+                <div class="tags"><span>Log Management</span><span>Enterprise SaaS</span></div>
+              </div>
+              <img class="col-img" src="images/nxlog/01.png" alt="" loading="lazy">
             </a>
             <a class="col" href="#work/enlight" aria-label="Turning an Idea into a Financial Engagement Product. Tags: Fintech, Gamification">
-              <div class="title" aria-hidden="true">Turning an Idea into a Financial Engagement Product</div>
-              <div class="tags" aria-hidden="true"><span>Fintech</span><span>Gamification</span></div>
+              <div class="col-text" aria-hidden="true">
+                <div class="title">Turning an Idea into a Financial Engagement Product</div>
+                <p class="summary">Defining a gamified financial-education module for banks, from a strategy workshop to a points system that means something.</p>
+                <div class="tags"><span>Fintech</span><span>Gamification</span></div>
+              </div>
+              <img class="col-img" src="images/enlight/01.png" alt="" loading="lazy">
             </a>
           </div>
         </div>
@@ -1461,6 +1499,8 @@
     'Turning an Idea into a Financial Engagement Product': 'Egy ötletből pénzügyi engagement termék',
     'Public Transport Ticketing Evaluation &amp; Redesign': 'Tömegközlekedési jegyrendszer értékelése és újratervezése',
     'Multi-Role CO2 Capture Monitoring System Design': 'Többszerepkörű CO2-leválasztó monitorozó rendszer tervezése',
+    'Making log search, pipelines and agent configuration approachable for new users, without losing the depth experts rely on.': 'A log keresés, a pipeline-ok és az agent-konfiguráció érthetővé tétele új felhasználóknak, a szakértők által igényelt mélység megtartásával.',
+    'Defining a gamified financial-education module for banks, from a strategy workshop to a points system that means something.': 'Egy bankokba építhető, gamifikált pénzügyi edukációs modul definiálása, a stratégiai workshoptól egy értelmes pontrendszerig.',
     'Log Management': 'Log management',
     'Enterprise SaaS': 'Vállalati SaaS',
     'Gamification': 'Gamifikáció',
@@ -2041,7 +2081,7 @@
   var lang = 'en';
   try { if (localStorage.getItem('lang') === 'hu') lang = 'hu'; } catch (e) {}
   var langButtons = document.querySelectorAll('.lang-switch button');
-  var I18N_TARGETS = '.nav-link, .nav-footer, .mobile-footer, .intro, .section-title, .col .title, .col .tags span, .about-body li, .about-body h2, .about-body h3, .role-title, .role-dates, .role-company';
+  var I18N_TARGETS = '.nav-link, .nav-footer, .mobile-footer, .intro, .section-title, .col .title, .col .summary, .col .tags span, .about-body li, .about-body h2, .about-body h3, .role-title, .role-dates, .role-company';
 
   function t(text) { return (lang === 'hu' && UI_HU[text]) || text; }
 
