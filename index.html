@@ -282,7 +282,7 @@
   }
 
   .work-list {
-    margin-top: auto;
+    margin-top: 160px;
   }
 
   .section-title {
@@ -296,21 +296,16 @@
   }
 
   .filmstrip {
-    height: 540px;
-    flex-shrink: 0;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 16px;
-    padding: 0 32px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    background: var(--bg);
+    padding: 0 48px 0 32px;
   }
 
   /* Dark tiles that sit just above the page ground, so the work list
      doesn't glare. */
   .col {
-    flex: 0 0 39%;
-    min-width: 400px;
+    min-height: 380px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -680,19 +675,15 @@
     margin-top: 6px;
   }
 
-  /* ---- About ---- */
+  /* ---- About (second section of the work page) ---- */
 
-  #view-about {
-    padding: 0;
-    overflow-y: auto;
+  .about-section {
+    margin-top: 160px;
+    padding-bottom: 96px;
   }
 
-  .about-pad {
-    padding: 72px 48px 96px 32px;
-  }
-
-  #view-about .intro {
-    margin: 0 0 48px 0;
+  .about-section .about-body {
+    padding: 0 48px 0 32px;
   }
 
   .about-body {
@@ -801,12 +792,6 @@
     #cursor-dot, #cursor-label { display: none; }
   }
 
-  /* ---- Tablet: tiles hit their 400px min-width floor here, so the
-     title keeps the desktop size instead of growing. ---- */
-  @media (min-width: 701px) and (max-width: 1150px) {
-    .col .title { font-size: 30px; }
-  }
-
   /* ---- Mobile / narrow viewport ---- */
   @media (max-width: 700px) {
     header {
@@ -871,19 +856,13 @@
     }
 
     .filmstrip {
-      flex-direction: column;
-      height: auto;
-      overflow-x: visible;
-      overflow-y: visible;
+      grid-template-columns: 1fr;
       gap: 12px;
       padding: 0 20px;
     }
 
     .col {
-      flex: none;
-      min-width: 0;
-      width: 100%;
-      height: auto;
+      min-height: 0;
       padding: 24px 20px;
     }
 
@@ -911,9 +890,8 @@
     .cs-stats { gap: 24px; }
     .cs-stat-value { font-size: 24px; }
 
-    .about-pad { padding: 40px 20px 72px 20px; }
-
-    #view-about .intro { margin: 0 0 32px 0; }
+    .about-section { margin-top: 100px; padding-bottom: 0; }
+    .about-section .about-body { padding: 0 20px; }
   }
 </style>
 
@@ -970,23 +948,8 @@
           </div>
         </div>
 
-        <div class="mobile-footer">© 2026 Benjamin Rigó. All rights reserved.</div>
-      </section>
-
-      <section id="view-project">
-        <div class="cs-content">
-          <h1 id="project-title" class="cs-title"></h1>
-          <div id="project-tags" class="tags"></div>
-          <div id="project-meta" class="cs-meta"></div>
-          <p id="project-lede" class="cs-lede"></p>
-          <div id="project-article" class="cs-article"></div>
-        </div>
-        <div class="bottom-blur-veil"><div class="bottom-blur-veil-inner"></div></div>
-      </section>
-
-      <section id="view-about">
-        <div class="about-pad">
-        <h1 class="intro">Lead product designer, 8+ years turning complex, data-heavy systems into interfaces people can actually use.</h1>
+        <div id="about" class="about-section">
+          <h2 class="section-title">About</h2>
         <div class="about-body">
           <ul>
             <li>Proven track record leading design teams</li>
@@ -1104,8 +1067,21 @@
           </div>
         </div>
         </div>
+
+        <div class="mobile-footer">© 2026 Benjamin Rigó. All rights reserved.</div>
+      </section>
+
+      <section id="view-project">
+        <div class="cs-content">
+          <h1 id="project-title" class="cs-title"></h1>
+          <div id="project-tags" class="tags"></div>
+          <div id="project-meta" class="cs-meta"></div>
+          <p id="project-lede" class="cs-lede"></p>
+          <div id="project-article" class="cs-article"></div>
+        </div>
         <div class="bottom-blur-veil"><div class="bottom-blur-veil-inner"></div></div>
       </section>
+
     </main>
   </div>
 </div>
@@ -1129,6 +1105,7 @@
   function cards(items) { return { t: 'cards', items: items }; }
   function split(blocks, media) { return { t: 'split', blocks: blocks, media: media }; }
   function cols(left, right) { return { t: 'split', blocks: left, right: right }; }
+  function insight(text, label) { return { t: 'callout', label: label || 'Key insight', text: text }; }
   function reflect(text, label) { return { t: 'callout', label: label || 'Looking back', text: text }; }
   function h3(text) { return { t: 'h3', text: text }; }
   function p(text) { return { t: 'p', text: text }; }
@@ -1155,7 +1132,8 @@
         image('images/nxlog/01.png', 'Log Flow, the configuration builder, log search and template assignment.'),
         cols([
           h2('Challenge'),
-          p(`NXLog Platform collects logs from thousands of devices, such as servers, firewalls and network equipment, so security and IT teams can store, search and analyze them in one place. The product grew out of tools built for specialists, and much of its interface reflected the underlying technical structure rather than the tasks people needed to do.`),
+          p(`Every server, firewall and network device keeps a log: a running record of what happened on it. Security and IT teams search these logs to investigate incidents and keep systems healthy. NXLog Platform collects them through agents, small programs installed on each machine, so thousands of devices can be managed and searched in one place.`),
+          p(`The product grew out of tools built for specialists, and much of its interface reflected the underlying technical structure rather than the tasks people needed to do.`),
           p(`As it expanded further into log management, these core workflows needed to become approachable for new users while keeping the depth experts rely on.`)
         ], [
           h2('Approach'),
@@ -1181,7 +1159,7 @@
 
         h2('Making the log pipeline visible', '02 / 05'),
         cols([
-          p(`Logs travel a long way before anyone reads them. They are collected by agents, passed through relays, and delivered to destinations such as on-premises storage or a SIEM. In NXLog Platform, this path existed only as configuration text. When data stopped arriving somewhere, finding the point where it broke meant reading through configuration files. The task was to design an end-to-end view of the log flow that helps users troubleshoot these problems.`)
+          p(`Logs travel a long way before anyone reads them. They are collected by agents, passed through relays that bundle and forward them, and delivered to destinations such as on-premises storage or a SIEM, a security tool that analyzes logs for threats. In NXLog Platform, this path existed only as configuration text. When data stopped arriving somewhere, finding the point where it broke meant reading through configuration files. The task was to design an end-to-end view of the log flow that helps users troubleshoot these problems.`)
         ], [
           p(`The first question was what a single building block in the diagram should be. Showing every agent individually would quickly mean thousands of nodes. Instead, I grouped agents by the configuration they run, so each card represents one configuration together with the agents and connections behind it. This keeps the diagram readable at scale and matches how users already manage their setup.`)
         ]),
@@ -1330,7 +1308,7 @@
 
         h2('Behind the scenes'),
         cols([
-          p(`The concept kept evolving as it met new stakeholders, and rebuilding flows by hand each time became heavy. I moved prototyping to Figma Make to keep pace, building the design system on shadcn.`),
+          p(`The concept kept evolving as it met new stakeholders, and rebuilding flows by hand each time became heavy. I moved prototyping to Figma Make, an AI tool that generates working prototypes from prompts, building the design system on shadcn.`),
           p(`To keep AI-generated screens consistent and accessible, I wrote a set of design rules for the tool: a 4px grid, 44px minimum touch targets, contrast rules for brand colors, one primary action per section, and the required states for every component.`)
         ], [
           h3('Looking back'),
@@ -1352,7 +1330,7 @@
       ],
       lede: `As lead UX researcher and product designer at Atlas, Rise!, I led the research and redesign of Budapest Pay&GO, the way to pay for public transport by tapping a bank card, across the ticket terminal, the website and the communication around it.`,
       blocks: [
-        image('images/bkk/01.png', 'The recommended terminal flow: choose, tap within ten seconds, payment, confirmation.'),
+        image('images/bkk/03.png', 'The redesigned terminal: choosing a ticket (left) and the confirmation riders see (right).'),
         cols([
           h2('Challenge'),
           p(`Pay&GO lets riders buy and validate a single ticket in one tap, with a bank card, phone or watch. Riders liked the idea, but many didn't understand what they were buying, when it became valid, or how to prove it at inspection.`),
@@ -1361,7 +1339,7 @@
           h2('Approach'),
           p(`I led the research and the design work, together with two mid-level designers and a lead strategist. Each step fed the next:`),
           list([
-            `A heuristic review of the website and customer portal: 296 checks in 13 categories, run independently by the two designers and validated with me.`,
+            `A heuristic review, an expert check against established usability principles, of the website and customer portal: 296 checks in 13 categories, run independently by the two designers and validated with me.`,
             `An analytics review of both language versions of the website.`,
             `Five days of observation and on-the-spot interviews at stops on the M1 metro line and the airport bus.`,
             `Sixteen usability tests, iterating the designs after each round.`
@@ -1374,36 +1352,47 @@
           { value: '3,200+', label: 'monthly website visits per language' }
         ]),
 
-        h2('What riders actually do', '01 / 04'),
+        h2('Five days at the terminal', '01 / 04'),
         cols([
-          p(`Both interfaces scored above average, and riders responded positively to the concept itself. The problems were specific, and most of them only showed up in the field, watching people at the terminal.`)
+          p(`The heuristic review and the analytics showed where the website struggled, but not why riders hesitated at the machine. So we went to where the service is used: five observation days at stops on the M1 metro line and the airport bus, at different times of day and on different days of the week.`),
+          p(`We watched riders use the terminal without stepping in, then stopped them for short interviews on the spot, while the experience was still fresh. We also talked to the passenger coordinators who help riders every day, who turned out to know the most common problems best.`)
         ], [
-          p(`What we saw again and again was a gap between how the service works and what riders expected from a ticket machine.`)
+          p(`Riders liked the concept itself. What we saw again and again was a gap between how the service works and what people expect from a ticket machine, and most of it would never have shown up in a lab.`)
         ]),
+        insight(`The field research changed the brief. The biggest problems weren't on the website at all, but at the terminal and in riders' heads.`),
         cards([
           ['More taps than intended', `The terminal screen is always on and inviting, so riders sometimes started a purchase without meaning to, and only noticed it on their bank statement.`],
           [`A tap that doesn't feel like a tap`, `Riders rubbed their card against the reader, or looked for a barcode or QR code to scan.`],
           ['No confirmation they trust', `The bank notification only arrives the next day, so the terminal's own feedback was the only proof, and it was inconsistent.`],
           ['Uneasy at inspection', `Riders didn't know how their ticket would be checked, or what an inspector sees when they tap their card.`],
           ['A ticket that starts right away', `Some bought several tickets for later trips, not realizing each one is valid immediately, for one trip in one direction.`],
-          ['Two products, one name in mind', `Many looked for their ticket in the BudapestGO app, assuming the two were the same service.`]
+          ['Two products, one name in mind', `Many looked for their ticket in BudapestGO, BKK's separate journey-planner and ticket app, assuming the two were the same service.`]
         ]),
 
-        h2('Three ways to start a purchase', '02 / 04'),
+        h2('A purchase that starts only when you ask', '02 / 04'),
         cols([
-          p(`The accidental purchases came down to one question: what should start a payment on a screen that is always on? I designed and compared three flows. In the always-on version, the reader is active from the start, which is fast but exactly what caused stray purchases.`)
+          p(`The terminal screen is always on, and its card reader was always ready. A rider who brushed their card past it, or simply hesitated with it in hand, could start a purchase without meaning to.`)
         ], [
-          p(`In touch to start, the rider taps first and then chooses, which feels backwards at a ticket machine. In the hybrid version, the rider chooses the quantity, presses Purchase, and only then has ten seconds to tap. I recommended the hybrid: it keeps the flow short, but nothing is charged until the rider has said what they want.`)
+          p(`The question was what should start a payment. I designed three versions of the flow from the same set of screens and compared them, each with a different answer.`)
         ]),
-        image('images/bkk/02.png', 'The key moment in each flow: always on (left), touch to start (middle), and the recommended hybrid with its ten-second window (right).'),
+        h3('Always on'),
+        p(`The reader is active from the first screen. Riders set the quantity and tap, so it takes the fewest steps. But it's exactly the behavior that caused accidental purchases: any tap near the reader counts as a purchase.`),
+        image('images/bkk/04.png', 'Always on: choose the quantity with the reader already active, payment, confirmation.'),
+        h3('Touch to start'),
+        p(`Riders tap their card first to wake the terminal, then choose the quantity and confirm with Purchase. An accidental tap only reads the card and charges nothing, but the order feels backwards at a ticket machine: riders are asked for their card before they've decided what to buy.`),
+        image('images/bkk/05.png', 'Touch to start: tap to begin, card reading, choose the quantity, payment, confirmation.'),
+        h3('Hybrid, the recommended flow'),
+        p(`Riders choose first and press Purchase. Only then does the reader wake up, with a ten-second countdown to tap. Choosing comes first, as at any ticket machine, and nothing is charged until the rider has confirmed what they want.`),
+        image('images/bkk/01.png', 'Hybrid: choose and press Purchase, tap within ten seconds, payment, confirmation with what to show at inspection.'),
+        insight(`The hybrid was the only version that stopped accidental purchases without adding friction. The order matches what riders expect from a ticket machine, the Purchase button makes their intent explicit, and the countdown tells them exactly when to tap.`, 'Why the hybrid'),
         cards([
           ['Check before buying', `The first screen opens with "Check my tickets," so riders can see what they already hold before they buy anything new.`],
           ['Quantity means people, not trips', `The selector counts persons, with a large total price, to counter the idea that extra tickets can be saved for later.`],
-          ['Tap, not rub', `One clear instruction with a contactless icon, and a visible countdown, so riders know exactly when and how to tap.`],
+          ['Tap, not rub', `One clear instruction with a contactless icon and a visible countdown, so riders know exactly when and how to tap.`],
           ['Feedback at every step', `A distinct payment-in-progress state, then a green success screen, the only real-time confirmation riders get.`],
           ['What to show at inspection', `The success screen ends with "Present your bank card on inspection," closing the trust gap at the moment it starts.`]
         ]),
-        reflect(`I would test even more, ideally with working prototypes on real terminals at a stop, where the accidental taps actually happen. Lab tests showed the direction, but the street is where the hybrid flow would really prove itself.`),
+        reflect(`I would test even more, ideally with working prototypes on real terminals at a stop, where the accidental taps actually happen. Lab tests showed the direction, but the street is where this flow would really prove itself.`),
 
         h2('A ticket, or a fare?', '03 / 04'),
         cols([
@@ -1417,7 +1406,7 @@
         cols([
           p(`On the website, menu items and page titles looked alike, so nothing signaled hierarchy, and riders bounced between pages to find one answer. The portal scored well on the checklist, but testing surfaced trust problems: the login looked like a payment form, and a masked card number looked like the rider's real one.`)
         ], [
-          p(`The fixes targeted the exact points where riders got stuck: a page built around the real steps of using Pay&GO, no CVC field where none is needed, a clear label for the masked card number, and one name for the reporting feature across the navigation, the FAQ and every sub-menu.`)
+          p(`The fixes targeted the exact points where riders got stuck: a page built around the real steps of using Pay&GO, no card security code (CVC) field, since the portal never needed one, a clear label for the masked card number, and one name for the reporting feature across the navigation, the FAQ and every sub-menu.`)
         ]),
 
         h2('What I took away'),
@@ -1577,7 +1566,8 @@
         image('images/nxlog/01.png', 'Log Flow, a konfigurációépítő, a log keresés és a template-ek hozzárendelése.'),
         cols([
           h2('Kihívás'),
-          p(`Az NXLog Platform több ezer eszközről gyűjt logokat, például szerverekről, tűzfalakról és hálózati eszközökről, hogy a biztonsági és IT csapatok egy helyen tárolhassák, kereshessék és elemezhessék őket. A termék szakértőknek készült eszközökből nőtt ki, és a felülete nagyrészt a mögöttes technikai felépítést tükrözte, nem azokat a feladatokat, amelyeket a felhasználóknak el kellett végezniük.`),
+          p(`Minden szerver, tűzfal és hálózati eszköz naplót, azaz logot vezet arról, mi történt rajta. A biztonsági és IT csapatok ezekben a logokban keresnek, ha egy incidenst vizsgálnak, vagy a rendszerek állapotát követik. Az NXLog Platform agenteken keresztül gyűjti őket: ezek minden gépre telepített kis programok, így több ezer eszköz kezelhető és kereshető egy helyen.`),
+          p(`A termék szakértőknek készült eszközökből nőtt ki, és a felülete nagyrészt a mögöttes technikai felépítést tükrözte, nem azokat a feladatokat, amelyeket a felhasználóknak el kellett végezniük.`),
           p(`Ahogy a termék egyre inkább a log management piac felé nyitott, ezeknek a kulcsfolyamatoknak az új felhasználók számára is érthetővé kellett válniuk, úgy, hogy közben megmaradjon a szakértők által igényelt mélység.`)
         ], [
           h2('Megközelítés'),
@@ -1603,7 +1593,7 @@
 
         h2('A log pipeline láthatóvá tétele', '02 / 05'),
         cols([
-          p(`A logok hosszú utat tesznek meg, mielőtt bárki elolvasná őket. Agentek gyűjtik össze, relay-eken haladnak át, és olyan célhelyekre jutnak, mint egy on-premise tárhely vagy egy SIEM. Az NXLog Platformban ez az útvonal csak konfigurációs szövegként létezett. Ha valahol megszűnt az adatok érkezése, a hiba helyét a konfigurációs fájlok átolvasásával lehetett megtalálni. A feladat egy teljes körű log flow nézet megtervezése volt, ami segít az ilyen problémák felderítésében.`)
+          p(`A logok hosszú utat tesznek meg, mielőtt bárki elolvasná őket. Agentek gyűjtik össze, relay-eken, vagyis továbbító állomásokon haladnak át, és olyan célhelyekre jutnak, mint egy on-premise tárhely vagy egy SIEM, egy biztonsági elemzőeszköz, amely fenyegetéseket keres a logokban. Az NXLog Platformban ez az útvonal csak konfigurációs szövegként létezett. Ha valahol megszűnt az adatok érkezése, a hiba helyét a konfigurációs fájlok átolvasásával lehetett megtalálni. A feladat egy teljes körű log flow nézet megtervezése volt, ami segít az ilyen problémák felderítésében.`)
         ], [
           p(`Az első kérdés az volt, hogy mi legyen a diagram egy építőköve. Ha minden agent külön jelenik meg, az gyorsan több ezer elemet jelentett volna. Ehelyett az agenteket az általuk futtatott konfiguráció szerint csoportosítottam, így minden kártya egy konfigurációt jelöl, a mögötte álló agentekkel és kapcsolatokkal együtt. Ez nagy méretben is olvashatóvá teszi a diagramot, és illeszkedik ahhoz, ahogy a felhasználók már most is kezelik a rendszerüket.`)
         ]),
@@ -1752,7 +1742,7 @@
 
         h2('A háttérben'),
         cols([
-          p(`A koncepció folyamatosan változott, ahogy új szereplőkkel találkozott, és a flow-k kézi újraépítése minden alkalommal nehézkessé vált. Hogy tartsam a tempót, a prototipizálást Figma Make-re vittem át, a design systemet pedig shadcn-re építettem.`),
+          p(`A koncepció folyamatosan változott, ahogy új szereplőkkel találkozott, és a flow-k kézi újraépítése minden alkalommal nehézkessé vált. Hogy tartsam a tempót, a prototipizálást a Figma Make-re vittem át, ami promptokból készít működő prototípusokat, a design systemet pedig shadcn-re építettem.`),
           p(`Hogy az AI által generált képernyők egységesek és akadálymentesek maradjanak, design szabályokat írtam az eszköznek: 4px-es grid, legalább 44px-es érintési célterület, kontrasztszabályok a márkaszínekre, szekciónként egy elsődleges művelet, és minden komponens kötelező állapotai.`)
         ], [
           h3('Visszatekintve'),
@@ -1774,7 +1764,7 @@
       ],
       lede: `Az Atlas, Rise! lead UX kutatójaként és product designereként én vezettem a Budapest Pay&GO kutatását és újratervezését. A szolgáltatással bankkártya érintésével lehet fizetni a tömegközlekedésért, a munka a jegyautomatára, a weboldalra és a kapcsolódó kommunikációra terjedt ki.`,
       blocks: [
-        image('images/bkk/01.png', 'A javasolt terminál-flow: választás, érintés tíz másodpercen belül, fizetés, visszaigazolás.'),
+        image('images/bkk/03.png', 'Az újratervezett terminál: jegyválasztás (balra) és a visszaigazolás, amit az utas lát (jobbra).'),
         cols([
           h2('Kihívás'),
           p(`A Pay&GO-val egyetlen érintéssel lehet vonaljegyet venni és érvényesíteni, bankkártyával, telefonnal vagy okosórával. Az utasoknak tetszett az ötlet, de sokan nem értették, mit vásárolnak, mikortól érvényes, és hogyan igazolják ellenőrzéskor.`),
@@ -1783,7 +1773,7 @@
           h2('Megközelítés'),
           p(`A kutatást és a tervezést én vezettem, két medior designerrel és egy lead stratégával. Minden lépés a következőre épült:`),
           list([
-            `A weboldal és az ügyfélportál heurisztikus vizsgálata: 296 szempont 13 kategóriában, amelyet a két designer egymástól függetlenül végzett el, én pedig validáltam.`,
+            `A weboldal és az ügyfélportál heurisztikus vizsgálata, vagyis szakértői ellenőrzése bevett használhatósági elvek alapján: 296 szempont 13 kategóriában, amelyet a két designer egymástól függetlenül végzett el, én pedig validáltam.`,
             `A weboldal mindkét nyelvi változatának analitikai áttekintése.`,
             `Öt nap megfigyelés és helyszíni interjúk az M1-es metró és a reptéri busz megállóiban.`,
             `Tizenhat használhatósági teszt, minden kör után a tervek finomításával.`
@@ -1796,28 +1786,39 @@
           { value: '3200+', label: 'havi látogatás a weboldalon nyelvenként' }
         ]),
 
-        h2('Amit az utasok valójában csinálnak', '01 / 04'),
+        h2('Öt nap az automatánál', '01 / 04'),
         cols([
-          p(`Mindkét felület átlag feletti pontszámot kapott, és az utasok pozitívan fogadták magát a koncepciót. A problémák konkrétak voltak, és többségük csak a terepen, az automatánál álló embereket figyelve derült ki.`)
+          p(`A heurisztikus vizsgálat és az analitika megmutatta, hol akad el a weboldal, de azt nem, miért bizonytalanodnak el az utasok a gépnél. Ezért oda mentünk, ahol a szolgáltatást használják: öt megfigyelési nap az M1-es metró és a reptéri busz megállóiban, a nap különböző szakaszaiban és a hét különböző napjain.`),
+          p(`Beavatkozás nélkül figyeltük, ahogy az utasok a terminált használják, majd rövid interjúkra kértük őket a helyszínen, amíg az élmény még friss volt. Beszéltünk az utaskoordinátorokkal is, akik nap mint nap segítik az utasokat, és ők ismerték a legjobban a leggyakoribb problémákat.`)
         ], [
-          p(`Újra és újra ugyanazt láttuk: rés volt aközött, ahogy a szolgáltatás működik, és amit az utasok egy jegyautomatától vártak.`)
+          p(`Magát a koncepciót az utasok szerették. Újra és újra ugyanazt láttuk: rés volt aközött, ahogy a szolgáltatás működik, és amit az emberek egy jegyautomatától várnak, és ennek nagy része laborban soha nem derült volna ki.`)
         ]),
+        insight(`A terepkutatás megváltoztatta a feladatot. A legnagyobb problémák nem a weboldalon voltak, hanem az automatánál és az utasok fejében.`, 'Fő tanulság'),
         cards([
           ['Több érintés a szándékoltnál', `A terminál képernyője mindig bekapcsolt és hívogató, így az utasok néha akaratlanul indítottak vásárlást, és csak a bankszámlakivonaton vették észre.`],
           ['Egy érintés, ami nem érintésnek hat', `Az utasok végighúzták a kártyát az olvasón, vagy vonalkódot, QR-kódot kerestek, amit beolvashatnak.`],
           ['Nincs visszaigazolás, amiben bíznának', `A banki értesítés csak másnap érkezik, így a terminál saját visszajelzése volt az egyetlen bizonyíték, és az sem volt következetes.`],
           ['Bizonytalanság ellenőrzéskor', `Az utasok nem tudták, hogyan ellenőrzik majd a jegyüket, és mit lát az ellenőr, amikor a kártyájukat érinti.`],
           ['Egy jegy, ami azonnal indul', `Volt, aki több jegyet vett későbbi utakra, mert nem tudta, hogy mindegyik azonnal érvényes, egy útra, egy irányba.`],
-          ['Két termék, egy név a fejekben', `Sokan a BudapestGO appban keresték a jegyüket, mert azt hitték, a kettő ugyanaz a szolgáltatás.`]
+          ['Két termék, egy név a fejekben', `Sokan a BudapestGO-ban, a BKK külön útvonaltervező és jegyvásárló appjában keresték a jegyüket, mert azt hitték, a kettő ugyanaz a szolgáltatás.`]
         ]),
 
-        h2('Három módja egy vásárlás elindításának', '02 / 04'),
+        h2('Vásárlás, ami csak akkor indul, ha kéred', '02 / 04'),
         cols([
-          p(`A véletlen vásárlások egyetlen kérdésen múltak: mi indítsa a fizetést egy mindig bekapcsolt képernyőn? Három flow-t terveztem és hasonlítottam össze. Az „always on” változatban az olvasó az első pillanattól aktív, ami gyors, de épp ez okozta a véletlen vásárlásokat.`)
+          p(`A terminál képernyője mindig bekapcsolt, a kártyaolvasója pedig mindig készenlétben volt. Ha valaki elhúzta előtte a kártyáját, vagy csak bizonytalanul a kezében tartotta, akaratlanul is elindíthatott egy vásárlást.`)
         ], [
-          p(`A „touch to start” változatban az utas előbb érint, és csak utána választ, ami egy jegyautomatánál fordítottnak hat. A hibrid változatban az utas kiválasztja a mennyiséget, megnyomja a Vásárlás gombot, és csak ezután van tíz másodperce érinteni. A hibridet javasoltam: rövid marad a folyamat, de semmit nem terhelünk, amíg az utas meg nem mondta, mit szeretne.`)
+          p(`A kérdés az volt, mi indítsa a fizetést. Ugyanazokból a képernyőkből a flow három változatát terveztem meg és hasonlítottam össze, mindegyik más választ adott erre.`)
         ]),
-        image('images/bkk/02.png', 'A kulcspillanat mindhárom flow-ban: always on (balra), touch to start (középen), és a javasolt hibrid a tíz másodperces ablakkal (jobbra).'),
+        h3('Always on'),
+        p(`Az olvasó az első képernyőtől aktív. Az utas beállítja a mennyiséget és érint, így ez a legkevesebb lépés. Csakhogy épp ez okozta a véletlen vásárlásokat: bármilyen érintés az olvasó közelében vásárlásnak számít.`),
+        image('images/bkk/04.png', 'Always on: mennyiségválasztás már aktív olvasóval, fizetés, visszaigazolás.'),
+        h3('Touch to start'),
+        p(`Az utas először érinti a kártyáját, hogy felébressze a terminált, utána választja ki a mennyiséget, és a Vásárlás gombbal erősít meg. Egy véletlen érintés csak beolvassa a kártyát, nem terhel semmit, de a sorrend egy jegyautomatánál fordítottnak hat: a gép előbb kéri a kártyát, mint hogy az utas eldöntötte volna, mit vesz.`),
+        image('images/bkk/05.png', 'Touch to start: érintés az induláshoz, kártyaolvasás, mennyiségválasztás, fizetés, visszaigazolás.'),
+        h3('Hibrid, a javasolt flow'),
+        p(`Az utas előbb választ, és megnyomja a Vásárlás gombot. Csak ekkor ébred fel az olvasó, tíz másodperces visszaszámlálással az érintéshez. A választás van elöl, mint bármelyik jegyautomatánál, és semmit nem terhelünk, amíg az utas meg nem erősítette, mit szeretne.`),
+        image('images/bkk/01.png', 'Hibrid: választás és Vásárlás gomb, érintés tíz másodpercen belül, fizetés, visszaigazolás azzal, mit kell felmutatni ellenőrzéskor.'),
+        insight(`A hibrid volt az egyetlen változat, amely megállította a véletlen vásárlásokat anélkül, hogy nehezebbé tette volna a használatot. A sorrend megfelel annak, amit az utasok egy jegyautomatától várnak, a Vásárlás gomb egyértelművé teszi a szándékukat, a visszaszámlálás pedig pontosan megmutatja, mikor érintsenek.`, 'Miért a hibrid'),
         cards([
           ['Ellenőrzés vásárlás előtt', `Az első képernyő a „Van érvényes jegyem?” kérdéssel indul, így az utas megnézheti, mi van már nála, mielőtt újat venne.`],
           ['A mennyiség személyt jelent, nem utat', `A választó személyeket számol, nagy, jól látható végösszeggel, hogy ellensúlyozza azt a hiedelmet, hogy a plusz jegyek félretehetők későbbre.`],
@@ -1825,7 +1826,7 @@
           ['Visszajelzés minden lépésnél', `Külön állapot jelzi, hogy a fizetés folyamatban van, utána jön a zöld sikerképernyő, az egyetlen valós idejű visszaigazolás.`],
           ['Mit mutass fel ellenőrzéskor', `A sikerképernyő azzal zárul: „Ellenőrzésnél mutasd fel a bankkártyád”, így a bizalmi rés ott záródik, ahol kezdődik.`]
         ]),
-        reflect(`Még többet tesztelnék, ideális esetben működő prototípusokkal, valódi terminálokon egy megállóban, ahol a véletlen érintések ténylegesen történnek. A laborteszt megmutatta az irányt, de a hibrid flow igazán az utcán bizonyíthatna.`, 'Visszatekintve'),
+        reflect(`Még többet tesztelnék, ideális esetben működő prototípusokkal, valódi terminálokon egy megállóban, ahol a véletlen érintések ténylegesen történnek. A laborteszt megmutatta az irányt, de ez a flow igazán az utcán bizonyíthatna.`, 'Visszatekintve'),
 
         h2('Jegy vagy viteldíj?', '03 / 04'),
         cols([
@@ -1839,7 +1840,7 @@
         cols([
           p(`A weboldalon a menüpontok és az oldalcímek hasonlóan néztek ki, így semmi nem jelezte a hierarchiát, és az utasok oldalról oldalra ugráltak, hogy megtaláljanak egy választ. A portál jól szerepelt a heurisztikus vizsgálaton, de a tesztek bizalmi problémákat hoztak felszínre: a belépés fizetési űrlapnak tűnt, a maszkolt kártyaszám pedig az utas valódi kártyaszámának.`)
         ], [
-          p(`A javítások pontosan azokra a pontokra irányultak, ahol az utasok elakadtak: a Pay&GO használatának valós lépéseire épülő oldal, CVC-mező nélküli belépés, ahol nincs rá szükség, egyértelmű címke a maszkolt kártyaszámhoz, és egyetlen név a bejelentés funkcióhoz a navigációban, a GYIK-ben és minden almenüben.`)
+          p(`A javítások pontosan azokra a pontokra irányultak, ahol az utasok elakadtak: a Pay&GO használatának valós lépéseire épülő oldal, kártya biztonsági kód (CVC) mező nélküli belépés, hiszen a portálnak soha nem volt rá szüksége, egyértelmű címke a maszkolt kártyaszámhoz, és egyetlen név a bejelentés funkcióhoz a navigációban, a GYIK-ben és minden almenüben.`)
         ]),
 
         h2('Amit magammal viszek'),
@@ -1855,11 +1856,10 @@
 
   var sections = {
     work: document.getElementById('view-work'),
-    project: document.getElementById('view-project'),
-    about: document.getElementById('view-about')
+    project: document.getElementById('view-project')
   };
   var navLinks = document.querySelectorAll('.nav-link');
-  var filmstrip = document.querySelector('.filmstrip');
+  var aboutEl = document.getElementById('about');
   var viewProjectEl = document.getElementById('view-project');
   var toc = { items: [], sections: [], activeIndex: -1 };
   var allowInternalCopy = false;
@@ -2150,21 +2150,59 @@
       el.setAttribute('aria-current', 'page');
     }
 
-    if (view === 'about') {
-      clearToc();
-      sections.about.classList.add('active');
-      sections.about.scrollTop = 0;
-      markCurrent('about');
-    } else if (view === 'work' && parts[1]) {
+    if (view === 'work' && parts[1]) {
       sections.project.classList.add('active');
       showProject(parts[1]);
       markCurrent('work');
     } else {
       clearToc();
       sections.work.classList.add('active');
-      markCurrent('work');
+      scrollWork(view === 'about');
     }
   }
+
+  // Work and About share one scrolling page; the nav follows whichever
+  // section is in view, and a click scrolls to it even if the hash
+  // didn't change.
+  function scrollWork(toAbout) {
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var behavior = reduceMotion ? 'auto' : 'smooth';
+    // On mobile the whole document scrolls instead of the section.
+    if (sections.work.scrollHeight > sections.work.clientHeight + 1) {
+      sections.work.scrollTo({ top: toAbout ? aboutEl.offsetTop - 48 : 0, behavior: behavior });
+    } else {
+      window.scrollTo({ top: toAbout ? aboutEl.getBoundingClientRect().top + window.scrollY - 24 : 0, behavior: behavior });
+    }
+    updateWorkNav(toAbout);
+  }
+
+  function updateWorkNav(forceAbout) {
+    var inAbout = forceAbout || aboutEl.getBoundingClientRect().top < window.innerHeight / 2;
+    navLinks.forEach(function (a) {
+      var on = a.dataset.view === (inAbout ? 'about' : 'work');
+      a.classList.toggle('current', on);
+      a.classList.toggle('other', !on);
+      if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+  }
+
+  var workScrollLock;
+  function onWorkScroll() {
+    if (!sections.work.classList.contains('active')) return;
+    clearTimeout(workScrollLock);
+    workScrollLock = setTimeout(function () { updateWorkNav(false); }, 80);
+  }
+  sections.work.addEventListener('scroll', onWorkScroll);
+  window.addEventListener('scroll', onWorkScroll);
+
+  navLinks.forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      if (location.hash === a.getAttribute('href') && sections.work.classList.contains('active')) {
+        e.preventDefault();
+        scrollWork(a.dataset.view === 'about');
+      }
+    });
+  });
 
   // English is the source text; Hungarian strings are looked up by it,
   // so untranslated content simply stays in English.
@@ -2207,14 +2245,6 @@
 
   viewProjectEl.addEventListener('scroll', updateTocHighlight);
 
-  sections.work.addEventListener('wheel', function (e) {
-    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
-    var atStart = filmstrip.scrollLeft <= 0 && e.deltaY < 0;
-    var atEnd = filmstrip.scrollLeft >= filmstrip.scrollWidth - filmstrip.clientWidth - 1 && e.deltaY > 0;
-    if (atStart || atEnd) return;
-    e.preventDefault();
-    filmstrip.scrollLeft += e.deltaY;
-  }, { passive: false });
 
   var cursorDot = document.getElementById('cursor-dot');
   var cursorLabel = document.getElementById('cursor-label');
