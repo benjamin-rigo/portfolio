@@ -297,7 +297,7 @@
 
   .filmstrip {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
     padding: 0 32px;
   }
@@ -945,6 +945,13 @@
               </div>
               <div class="tags" aria-hidden="true"><span>Public Transport</span><span>Service Design</span></div>
             </a>
+            <a class="col" href="#work/hangosveny" aria-label="Making Art Explorable by Sound for Blind Children. Tags: Accessibility, Education">
+              <div class="col-text" aria-hidden="true">
+                <div class="title">Making Art Explorable by Sound for Blind Children</div>
+                <p class="summary">From a world-winning children's design sprint to a tool teachers use to turn pictures into sound.</p>
+              </div>
+              <div class="tags" aria-hidden="true"><span>Accessibility</span><span>Education</span></div>
+            </a>
           </div>
         </div>
 
@@ -1418,6 +1425,87 @@
         ])
       ]
     },
+    'hangosveny': {
+      title: 'Making Art Explorable by Sound for Blind Children',
+      tags: ['Accessibility', 'Education'],
+      meta: [
+        { label: 'Years', value: '2025–2026' },
+        { label: 'Role', value: 'Product Designer' },
+        { label: 'Client', value: 'Csányi Foundation' },
+        { label: 'Scope', value: 'Concept, UX/UI, accessibility, AI-assisted development' }
+      ],
+      lede: `Hangösvény is a web app where teachers add sounds and spoken descriptions to parts of a picture, so blind, partially sighted and sighted children can explore it by touch or keyboard. It began as a design sprint with children and is now growing into a tool teachers can use on their own.`,
+      blocks: [
+        note(`The sample picture in the screenshots is used for illustration only.`),
+        image('images/hangosveny/01.png', 'A child exploring a picture (left), and the teacher\'s editor where the sounding areas are drawn (right).'),
+        cols([
+          h2('Background'),
+          p(`The Csányi Foundation runs a gallery that shows the work of local artists, and wanted to make it accessible to more people. With the design team, we supported the foundation's children's team in the innovation project of the FIRST LEGO League, running workshops and design sprints together with the children.`),
+          p(`Building on the foundation's collaboration with the institute for the blind, the sprint led to one idea: let children explore a painting through sound. The team won the world championship with it.`)
+        ], [
+          h2('Challenge'),
+          p(`A painting is almost entirely visual. The question was how a child who can't see it can still discover what's in it and where things are, without someone describing it next to them.`),
+          p(`For the idea to reach more children, teachers also had to be able to create these experiences on their own, without technical skills. We started version 2.0 together with the design team, and I'm now taking it further on my own, with the development done by AI.`)
+        ]),
+
+        h2('Exploring a picture by sound', '01 / 04'),
+        cols([
+          p(`Teachers mark the important parts of a picture as sound areas, such as a cat, a house or birds. Each has its own sound and a short spoken description. A background sound plays the whole time, so the child always hears something, even between areas.`)
+        ], [
+          p(`Every step of the experience was designed for a child who explores alone, often with a screen reader, the built-in tool that reads the screen aloud. Most decisions came from asking what a child without sight would expect at that moment.`)
+        ]),
+        image('images/hangosveny/02.png', 'The gallery (left), and a picture just opened, waiting for the first touch (right).'),
+        cards([
+          ['A welcome that explains the way out', `Opening a picture, the screen reader says its title once, how to explore it, and how to leave, with the gesture that fits the device: a two-finger Z on iPad, Escape on a computer.`],
+          ['Sound before any button', `The background sound doesn't start by itself. The child's first touch plays a short signal, then the sound fades in. No play button is needed, and the welcome is heard in silence.`],
+          ['Only the sounding areas are active', `Touching a sound area plays its sound and its full description right away. Empty parts of the picture stay silent and can't be focused, so the child isn't interrupted by meaningless announcements.`],
+          ['A reminder that knows when to stop', `If no area is found for about 15 seconds, a short hint says to keep searching with a finger. It repeats at most twice, and never after the first area is found.`]
+        ]),
+
+        h2('When the screen reader won\'t let go', '02 / 04'),
+        cols([
+          p(`The core idea depends on stroking the picture with a finger. On the web, though, the iPad's screen reader takes over touch: it jumps between interactive elements and announces them, instead of passing the finger's movement through to the page.`),
+          p(`I tried several ways around it. Marking the picture as an application, which normally passes touch through, doesn't work on iPadOS. A custom spoken guide with its own gestures fought against the screen reader the children already know.`)
+        ], [
+          p(`The final direction accepts the platform instead of fighting it. On touch devices, the welcome suggests turning the screen reader off while exploring. Without it, each area plays a description recorded by the teacher, so the child still hears what they touch. With a keyboard, the screen reader stays on and moves from area to area.`)
+        ]),
+        image('images/hangosveny/03.png', 'Exploring on a computer with a keyboard, with shortcuts shown below the picture (left), and on a tablet (right).'),
+        reflect(`Some constraints can't be designed away. Testing on real devices early would have shown the screen reader's limits sooner than reasoning about them did.`),
+
+        h2('Edges you can hear', '03 / 04'),
+        cols([
+          p(`With a hard edge, a sound simply switches on and off as the finger crosses a line, which says little about the shape of what's there. Each area has an adjustable soft edge instead: its sound grows stronger from the edge towards the middle.`)
+        ], [
+          p(`Moving a finger, the child can feel where an object begins and which way its centre lies. Overlapping areas sound together at their own strength, and the background sound steps back to make room for the strongest one.`)
+        ]),
+
+        h2('A tool teachers can use alone', '04 / 04'),
+        cols([
+          p(`For the idea to scale beyond one gallery, teachers have to build these pictures themselves. The editor keeps everything on one screen: the picture with drawing tools, and a panel with the background sound and the list of sound areas.`)
+        ], [
+          p(`Teachers draw an area with a brush and an eraser, give it a name and a description, record a spoken version, and choose a sound. A short required onboarding first shows a finished sample, then asks the teacher to rebuild one area on the same picture.`)
+        ]),
+        image('images/hangosveny/04.png', 'The editor with the sound areas listed on the right (left), and choosing a sound from the free library (right).'),
+        cards([
+          ['Sounds without searching the internet', `A built-in library offers only freely usable sounds. Searches are translated to English automatically, since the sounds are tagged in English, and the chosen sound is saved with its author.`],
+          ['Showing what\'s missing, not just that something is', `A picture can only go into the public gallery when it's complete. Until then the option stays visible but disabled, with a list of what's missing, and each item leads to where it can be fixed.`],
+          ['Learning by doing', `The onboarding uses the same picture twice: first a finished example to look at, then a practice copy where the teacher recreates one area and the background sound step by step.`]
+        ]),
+        image('images/hangosveny/05.png', 'Sharing, with the missing items listed (left), and the onboarding with a finished sample (right).'),
+
+        h2('Behind the scenes'),
+        cols([
+          p(`Every approved decision, and every one we reversed, goes into a decision log. It keeps the reasoning visible, and it's the single source that both the design and the code are checked against.`),
+          p(`An early custom visual system, with many overrides on top of a component library, started to fall apart and hid hover and pressed states. I replaced it with the library's default look, changed only where accessibility required it, and measured: the blue was darkened until white text on it reached a 5.99:1 contrast ratio. Every screen is checked against WCAG 2.2 AA.`)
+        ], [
+          h3('Looking back'),
+          p(`This is an AI-assisted project, and I'm learning the process through it. It isn't always simpler than drawing the screens myself, since describing a design precisely takes its own effort. In development, though, it's a big help: as a designer, I can get a working product built and test it on my own.`)
+        ]),
+
+        h2('What I took away'),
+        p(`The hardest problems here weren't visual. They were about what a child who can't see expects at each moment, and what the platform actually allows. Starting from those questions, rather than from screens, is what made a simple experience possible on top of a complex one.`)
+      ]
+    },
     'skytree': {
       hidden: true,
       title: 'Multi-Role CO2 Capture Monitoring System Design',
@@ -1492,6 +1580,10 @@
     'Multi-Role CO2 Capture Monitoring System Design': 'Többszerepkörű CO2-leválasztó monitorozó rendszer tervezése',
     'Making log search, pipelines and agent configuration approachable for new users, without losing the depth experts rely on.': 'A log keresés, a pipeline-ok és az agent-konfiguráció érthetővé tétele új felhasználóknak, a szakértők által igényelt mélység megtartásával.',
     'Defining a gamified financial-education module for banks, from a strategy workshop to a points system that means something.': 'Egy bankokba építhető, gamifikált pénzügyi edukációs modul definiálása, a stratégiai workshoptól egy értelmes pontrendszerig.',
+    'Making Art Explorable by Sound for Blind Children': 'Hanggal felfedezhető képek vak gyerekeknek',
+    "From a world-winning children's design sprint to a tool teachers use to turn pictures into sound.": 'Egy világbajnok gyerek design sprintből eszköz, amellyel a pedagógusok hanggá alakítják a képeket.',
+    'Accessibility': 'Akadálymentesség',
+    'Education': 'Oktatás',
     'Log Management': 'Log management',
     'Enterprise SaaS': 'Vállalati SaaS',
     'Gamification': 'Gamifikáció',
@@ -1850,6 +1942,87 @@
           h3('Visszatekintve'),
           p(`A munkánk a koncepciónál és a javaslatoknál zárult, és nem tudom, hogyan fejlődtek tovább. Legközelebb a fejlesztés alatt is bevonódnék, hogy kövessem a döntéseket a termékbe, és élesben is teszteljem őket.`)
         ])
+      ]
+    },
+    'hangosveny': {
+      title: 'Hanggal felfedezhető képek vak gyerekeknek',
+      tags: ['Akadálymentesség', 'Oktatás'],
+      meta: [
+        { label: 'Évek', value: '2025–2026' },
+        { label: 'Szerep', value: 'Product Designer' },
+        { label: 'Megrendelő', value: 'Csányi Alapítvány' },
+        { label: 'Fókusz', value: 'Koncepció, UX/UI, akadálymentesség, AI-támogatott fejlesztés' }
+      ],
+      lede: `A Hangösvény egy webes alkalmazás, amelyben a pedagógusok egy kép részeihez hangokat és hangos leírásokat rendelnek, így a vak, gyengénlátó és látó gyerekek érintéssel vagy billentyűzettel fedezhetik fel a képet. Egy gyerekekkel közös design sprintből indult, és most olyan eszközzé fejlődik, amelyet a pedagógusok önállóan is használhatnak.`,
+      blocks: [
+        note(`A képernyőképeken látható mintakép csak szemléltetésként szerepel.`),
+        image('images/hangosveny/01.png', 'Egy gyerek felfedez egy képet (balra), és a pedagógus szerkesztője, ahol a hangmezőket megrajzolja (jobbra).'),
+        cols([
+          h2('Háttér'),
+          p(`A Csányi Alapítványnak van egy galériája, ahol helyi művészek alkotásait állítják ki, és ezt szerették volna minél több ember számára elérhetővé tenni. A design csapattal az alapítvány gyerekcsapatát segítettük a FIRST LEGO League innovációs projektjében: a gyerekekkel együtt workshopoltunk és design sprinteltünk.`),
+          p(`Az alapítvány és a vakok intézete közötti együttműködésre építve a sprintből egy ötlet született: a gyerekek fedezzenek fel egy festményt hangokon keresztül. A csapat ezzel megnyerte a világbajnokságot.`)
+        ], [
+          h2('Kihívás'),
+          p(`Egy festmény szinte teljesen vizuális. A kérdés az volt, hogyan fedezheti fel egy gyerek, aki nem látja, mi van rajta és hol, anélkül, hogy valaki mellette állva elmesélné.`),
+          p(`Ahhoz, hogy az ötlet több gyerekhez eljusson, a pedagógusoknak is képesnek kellett lenniük ilyen élményeket önállóan, technikai tudás nélkül létrehozni. A 2.0-s verziót a design csapattal közösen kezdtük el, most egyedül viszem tovább, a fejlesztést AI végzi.`)
+        ]),
+
+        h2('Egy kép felfedezése hanggal', '01 / 04'),
+        cols([
+          p(`A pedagógusok a kép fontos részeit hangmezőként jelölik meg, például egy macskát, egy házat vagy madarakat. Mindegyiknek saját hangja és rövid hangos leírása van. Közben végig szól egy háttérhang, így a gyerek mindig hall valamit, a hangmezők között is.`)
+        ], [
+          p(`Az élmény minden lépését egy olyan gyereknek terveztem, aki egyedül fedez fel, gyakran felolvasóval, vagyis a képernyő tartalmát hangosan felolvasó beépített eszközzel. A legtöbb döntés abból a kérdésből született, hogy mit várna az adott pillanatban egy gyerek, aki nem lát.`)
+        ]),
+        image('images/hangosveny/02.png', 'A galéria (balra), és egy éppen megnyitott kép, amely az első érintésre vár (jobbra).'),
+        cards([
+          ['Üdvözlés, ami megmondja, hogyan lehet kilépni', `Egy kép megnyitásakor a felolvasó egyszer elmondja a címét, azt, hogyan lehet felfedezni, és hogyan lehet kilépni, az eszköznek megfelelő mozdulattal: iPaden két ujjal Z, számítógépen Escape.`],
+          ['Hang, gomb nélkül', `A háttérhang nem indul magától. A gyerek első érintésére egy rövid hangjel szól, majd lassan beúszik a hang. Nem kell lejátszás gomb, és az üdvözlés csendben hangzik el.`],
+          ['Csak a hangmezők aktívak', `Egy hangmező érintésére azonnal megszólal a hangja és a teljes leírása. A kép üres részei némák és nem fókuszálhatók, így a gyereket nem szakítják meg értelmetlen bemondások.`],
+          ['Emlékeztető, ami tudja, mikor kell abbahagyni', `Ha kb. 15 másodpercig nem talál hangmezőt, egy rövid tipp arra biztat, hogy keressen tovább az ujjával. Legfeljebb kétszer szól, és az első megtalált hangmező után soha.`]
+        ]),
+
+        h2('Amikor a felolvasó nem engedi el az érintést', '02 / 04'),
+        cols([
+          p(`Az ötlet lényege, hogy a gyerek az ujjával végigsimítja a képet. A weben azonban az iPad felolvasója átveszi az érintést: elemről elemre ugrik és bemondja őket, ahelyett, hogy az ujj mozgását továbbadná az oldalnak.`),
+          p(`Több megkerülést kipróbáltam. Ha a képet alkalmazásként jelöljük meg, az az érintést rendesen átengedi, iPadOS-en viszont nem működik. Egy saját hangos útmutató saját gesztusokkal pedig szembement azzal a felolvasóval, amelyet a gyerekek már ismernek.`)
+        ], [
+          p(`A végső irány elfogadja a platform korlátait, ahelyett, hogy harcolna velük. Érintőképernyőn az üdvözlés azt javasolja, hogy a felfedezés idejére kapcsolják ki a felolvasót. Felolvasó nélkül minden hangmező a pedagógus által felvett leírást játssza le, így a gyerek továbbra is hallja, mit érint. Billentyűzettel a felolvasó bekapcsolva marad, és hangmezőről hangmezőre lép.`)
+        ]),
+        image('images/hangosveny/03.png', 'Felfedezés számítógépen, billentyűzettel, a kép alatt a billentyűparancsokkal (balra), és táblagépen (jobbra).'),
+        reflect(`Vannak korlátok, amelyeket nem lehet eltervezni. Ha korábban teszteltem volna valódi eszközökön, a felolvasó korlátai hamarabb kiderültek volna, mint az elméleti végiggondolásból.`, 'Visszatekintve'),
+
+        h2('Hallható szélek', '03 / 04'),
+        cols([
+          p(`Éles szélnél a hang egyszerűen be- és kikapcsol, ahogy az ujj átlép egy vonalat, és ez keveset mond arról, milyen alakú az, ami ott van. Ehelyett minden hangmezőnek állítható lágy széle van: a hangja a széltől befelé fokozatosan erősödik.`)
+        ], [
+          p(`Az ujját mozgatva a gyerek érzi, hol kezdődik egy tárgy, és merre van a közepe. Az egymást fedő hangmezők egyszerre, a saját erősségükön szólnak, a háttérhang pedig a legerősebbnek ad teret.`)
+        ]),
+
+        h2('Eszköz, amit a pedagógusok egyedül is használhatnak', '04 / 04'),
+        cols([
+          p(`Ahhoz, hogy az ötlet egy galérián túl is működjön, a pedagógusoknak maguknak kell elkészíteniük ezeket a képeket. A szerkesztő mindent egy képernyőn tart: a képet a rajzeszközökkel, és egy panelt a háttérhanggal és a hangmezők listájával.`)
+        ], [
+          p(`A pedagógus ecsettel és radírral megrajzolja a hangmezőt, nevet és leírást ad neki, felveszi hangosan is, és hangot választ hozzá. Egy rövid, kötelező bevezetés előbb egy kész mintát mutat meg, aztán arra kéri, hogy ugyanazon a képen ő maga alkosson újra egy hangmezőt.`)
+        ]),
+        image('images/hangosveny/04.png', 'A szerkesztő, jobbra a hangmezők listájával (balra), és hang választása az ingyenes hangkönyvtárból (jobbra).'),
+        cards([
+          ['Hangok, internetes keresgélés nélkül', `A beépített hangkönyvtár csak szabadon felhasználható hangokat kínál. A keresőszót automatikusan angolra fordítja, mert a hangok címkéi angolok, a kiválasztott hangot pedig a szerzőjével együtt menti el.`],
+          ['Megmutatni, mi hiányzik, nem csak azt, hogy hiányzik valami', `Egy kép csak akkor kerülhet a nyilvános galériába, ha teljes. Addig a lehetőség látszik, de le van tiltva, alatta a hiányzó tételek listájával, és mindegyik oda visz, ahol pótolni lehet.`],
+          ['Tanulás csinálva', `A bevezetés kétszer használja ugyanazt a képet: előbb egy kész példát lehet megnézni, aztán egy gyakorló példányon a pedagógus lépésről lépésre újraalkot egy hangmezőt és a háttérhangot.`]
+        ]),
+        image('images/hangosveny/05.png', 'Megosztás a hiányzó tételek listájával (balra), és a bevezetés egy kész mintával (jobbra).'),
+
+        h2('A háttérben'),
+        cols([
+          p(`Minden jóváhagyott döntés, és minden, amit visszavontunk, egy döntésnaplóba kerül. Ez láthatóan tartja a gondolatmenetet, és ez az az egy forrás, amellyel a designt és a kódot is összevetjük.`),
+          p(`Egy korai, saját vizuális rendszer, rengeteg felülírással egy komponenskönyvtár tetején, elkezdett szétesni, és eltüntette a rámutatás és a lenyomás jelzését. Lecseréltem a könyvtár alapértelmezett megjelenésére, csak ott térve el, ahol az akadálymentesség megkívánta, mérve: a kéket addig sötétítettük, amíg a rajta lévő fehér szöveg el nem érte az 5,99:1 kontrasztarányt. Minden képernyőt a WCAG 2.2 AA szerint ellenőrzünk.`)
+        ], [
+          h3('Visszatekintve'),
+          p(`Ez egy AI-támogatott projekt, és rajta keresztül tanulom a folyamatot. Nem mindig egyszerűbb, mintha én rajzolnám meg a képernyőket, mert egy design pontos leírása is külön munka. A fejlesztésben viszont nagy segítség: designerként is el tudok készíttetni és ki tudok próbálni egy működő terméket.`)
+        ]),
+
+        h2('Amit magammal viszek'),
+        p(`A legnehezebb problémák itt nem vizuálisak voltak. Arról szóltak, mit vár egy gyerek, aki nem lát, az adott pillanatban, és mit enged meg valójában a platform. Az, hogy ezekből a kérdésekből indultam, nem a képernyőkből, tette lehetővé, hogy egy összetett rendszer tetején egyszerű élmény szülessen.`)
       ]
     }
   };
